@@ -2,56 +2,66 @@
 @section('main')
 <main class="h-full w[50%] bg-gray-50 flex flex-wrap items-center justify-center overflow-x-hidden transition-transform duration-300 ease-in-out">
 
-{{-- <div class="min-h-screen flex items-center justify-center"> --}}
-    {{-- @foreach($posts as $post)
-    <div class="relative group w-50">
-      <button id="dropdown-button-{{$loop->index}}" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-        <span class="mr-2">{{$post->titre}}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path fill-rule="evenodd" d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <div id="dropdown-menu-{{$loop->index}}" class="hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-1 space-y-1">
-        <!-- Search input -->
-        <input id="search-input-{{$loop->index}}" class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none" type="text" placeholder="Search items" autocomplete="off">
-        <!-- Dropdown content goes here -->
-        @foreach ($post->comments as $comment)
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">{{$comment->description}}</a>
-        @endforeach
-      </div>
-    </div>
-    @endforeach --}}
-  {{-- </div> --}}
-
-@foreach($posts as $post)
-<div class="border max-w-screen-md bg-white mt-6 rounded-2xl p-4">
-    <div class="flex items-center	justify-between">
-        <div class="gap-3.5	flex items-center ">
+@foreach($posts as $index => $post)
+<div class="border max-w-screen-md w-full bg-white mt-6 rounded-2xl p-4 mb-5">
+    <div class="flex items-center justify-between relative">
+        <div class="gap-3.5	flex items-center">
             <img src="https://images.unsplash.com/photo-1617077644557-64be144aa306?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" class="object-cover bg-yellow-500 rounded-full w-10 h-10" />
             <div class="flex flex-col">
-                <b class="mb-2 capitalize">sofia müller</b>
+                <b class="mb-2 capitalize">{{$post->users->name}}</b>
                 <time datetime="06-08-21" class="text-gray-400 text-xs">{{$post->created_at}}
                 </time>
             </div>
         </div>
-        <div class="bg-gray-100	rounded-full h-3.5 flex	items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="34px" fill="#92929D">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path
-                    d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-            </svg>
+        <div x-data="{ openSettings{{$index}}: false }">
+            <button @click="openSettings{{$index}} = !openSettings{{$index}}" class="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20" title="Settings">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                </svg>
+            </button>
+            <div x-show="openSettings{{$index}}" @click.away="openSettings{{$index}} = false" class="bg-white absolute right-0 top-10 w-40 py-2 mt-1 border border-gray-200 shadow-2xl">
+                <div class="py-2 border-b">
+                    <p class="text-gray-400 text-xs px-6 uppercase mb-1">Settings</p>
+                    <button class="w-full flex items-center px-6 py-1.5 space-x-2 hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                        </svg>
+                        <span class="text-sm text-gray-700">Share Profile</span>
+                    </button>
+                    <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                        </svg>
+                        <span class="text-sm text-gray-700">Block User</span>
+                    </button>
+                    <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-sm text-gray-700">More Info</span>
+                    </button>
+                </div>
+                <div class="py-2">
+                    <p class="text-gray-400 text-xs px-6 uppercase mb-1">Feedback</p>
+                    <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        <span class="text-sm text-gray-700">Report</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="whitespace-pre-wrap mt-7">{{$post->titre}}</div>
-    <div id="description_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($post->description, 10) }}</div>
+    <div id="description_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($post->description, 20) }}</div>
     <div id="fullDescription_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $post->description }}</div>
     <button onclick="toggleDescription({{ $post->id }})">Show More</button>
     <div class="mt-5 flex gap-2	 justify-center border-b pb-4 flex-wrap	">
-        <img src="https://images.unsplash.com/photo-1610147323479-a7fb11ffd5dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo">
-        <img src="https://images.unsplash.com/photo-1614914135224-925593607248?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo">
+        <img src="{{asset('' . $post->photo)}}" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo">
       </div>
-        <div class=" h-16 border-b  flex items-center justify-around	">
-            <div class="flex items-center	gap-3	">
+        <div class=" h-16 border-b  flex items-center justify-around">
+            <div class="flex items-center gap-3">
                 <button id="dropdown-button-{{$loop->index}}">
                 <svg width="20px" height="19px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -80,21 +90,31 @@
                     </g>
                 </svg>
             </button>
-                <div class="text-sm	">10 Comments</div>
-                {{-- <div id="dropdown-menu-{{$loop->index}}" class="hidden">
-                    hello world
-                </div> --}}
+                <div class="text-sm	">{{$post->comments->count()}}</div>
             </div>
             <div class="flex items-center	gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clip-rule="evenodd" />
-                </svg>
-                <div class="text-sm">5 Likes</div>
+                <form action="{{route('dislikePost', $post->id)}}" method="GET">
+                    @csrf
+                    <button type="submit">
+                        <span class="material-symbols-outlined">
+                            thumb_down
+                        </span>
+                    </button>
+                    <div class="text-sm">{{ $post->postVotes()->where('vote', 'dislike')->count() }}</div>
+                </form>
             </div>
-            <div class="flex items-center	gap-3">
+            <div class="flex items-center gap-3">
+                <form action="{{route('likePost', $post->id)}}" method="GET">
+                    @csrf
+                    <button type="submit">
+                        <span class="material-symbols-outlined">
+                            thumb_up
+                        </span>
+                    </button>
+                    <div class="text-sm">{{ $post->postVotes()->where('vote', 'like')->count() }}</div>
+                </form>
+            </div>
+            <div class="flex items-center gap-3">
                 <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="?-Social-Media" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -125,6 +145,9 @@
                 <div class="text-sm">Share</div>
             </div>
             <div class="flex items-center	gap-3">
+                <form action="{{route('favorite', $post->id)}}" method="GET">
+                @csrf
+                <button type="submit">
                 <svg width="17px" height="22px" viewBox="0 0 17 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="?-Social-Media" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -151,22 +174,158 @@
                         </g>
                     </g>
                 </svg>
-                <div class="text-sm">Saved</div>
+                </button>
+                </form>
+                {{-- <div class="text-sm">Saved</div> --}}
             </div>
         </div>
         <div class="flex items-center justify-between mt-4">
             <img src="https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"  class="bg-yellow-500 rounded-full w-10 h-10 object-cover border">
-            <div class="flex items-center	justify-between	 bg-gray-50 h-11 w-11/12 border rounded-2xl	 overflow-hidden px-4 "
-                <input type="text" class="h-full w-full bg-gray-50 outline-none " placeholder="Write your comment..." name="comment">
-            </div>
+            <form id="search-input-{{$loop->index}}" action="{{route('addComment', $post->id)}}" method="POST" class="w-full ml-5 flex flex-wrap">
+                @csrf
+                <div class="flex items-center justify-between bg-gray-50 h-11 w-11/12 border rounded-2xl overflow-hidden px-4 ">
+                    <input type="text" name="description" class="h-full w-full bg-gray-50 outline-none " placeholder="Write your comment..." required>
+                </div>
+                <button type="submit">Add</button>
+            </form>
         </div>
-        <div id="dropdown-menu-{{$loop->index}}" class="hidden flex flex-wrap items-center justify-between mt-4">
-            <!-- Search input -->
-            <input id="search-input-{{$loop->index}}" class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none" type="text" placeholder="Search items" autocomplete="off">
-            <!-- Dropdown content goes here -->
+        <div id="dropdown-menu-{{$loop->index}}" class="hidden flex flex-col items-start justify-between">
+            <div class="ml-3 mt-5">All Comments</div>
             @foreach ($post->comments as $comment)
-            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">{{$comment->description}}</a>
+            <div class="flex items-center justify-center space-x-2 mt-5">
+                <div x-data="{ open1: false, open2: false }">
+                        
+                        <div class="flex items-center space-x-2">
+                          <div class="group relative flex flex-shrink-0 self-start cursor-pointer">
+                            <img 
+                              x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false"
+                             src="https://images.unsplash.com/photo-1507965613665-5fbb4cbb8399?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDQzfHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" class="h-8 w-8 object-fill rounded-full">
+                            <div x-cloak x-show.transition.origin.bottom="open1" x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false" class="absolute mt-8 bg-white px-4 py-4 w-72 shadow rounded cursor-default z-10">
+                              <div class="flex space-x-3">
+                                <div class="flex flex-shrink-0">
+                                  <img src="https://images.unsplash.com/photo-1507965613665-5fbb4cbb8399?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDQzfHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" class="h-16 w-16 object-fill rounded-full">
+                                </div>
+                                <div class="flex flex-col space-y-2">
+                                  <div class="font-semibold">
+                                    <a href="#" class="hover:underline">
+                                      {{$comment->users->name}}
+                                    </a>
+                                  </div>
+                                  <div class="flex justify-start items-center space-x-2">
+                                    <div>
+                                      <svg class="w-4 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
+                                    </div>
+                                    <div class="w-auto text-sm leading-none">
+                                      <small>
+                                        1 mutual friends including: <a href="#" class="font-semibold hover:underline">Mulyadi</a>
+                                      </small>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-start items-center space-x-2">
+                                    <div>
+                                      <svg class="w-4 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                    </div>
+                                    <div class="w-auto text-sm leading-none">
+                                      <small>
+                                        From <a href="#" class="font-semibold">Bandung</a>
+                                      </small>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="flex space-x-1 mt-2">
+                                <div class="w-1/2">
+                                  <a href="#" class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                    <div class="mr-1">
+                                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
+                                    </div>
+                                    Add
+                                  </a>
+                                </div>
+                                <div class="w-auto">
+                                  <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
+                                    <div class="mr-1">
+                                      <svg viewBox="0 0 28 28" alt="" class="h-4 w-4" height="20" width="20"><path d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z"></path></svg>
+                                    </div>
+                                  </a>
+                                </div>
+                                <div class="w-auto">
+                                  <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
+                                    <div class="mr-1">
+                                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path></svg>
+                                    </div>
+                                  </a>
+                                </div>
+                                
+                                <div class="w-auto">
+                                  <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
+                                    <div class="mr-1">
+                                      <svg class="w-4 h-4 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                                    </div>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    
+                          <div class="flex items-center justify-center space-x-2">
+                            <div class="block">
+                                <div class="flex justify-center items-center space-x-2">
+                                  <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
+                                  <div class="font-medium">
+                                      <a href="#" class="hover:underline text-sm">
+                                      <small>{{$comment->users->name}}</small>
+                                      </a>
+                                  </div>
+                                  <div class="text-xs">
+                                      {{$comment->description}}
+                                  </div>
+                                  </div>
+                                  <div class="self-stretch flex justify-center items-center transform transition-opacity duration-200 opacity-0 hover:opacity-100">
+                                      <a href="#" class="">
+                                          <div class="text-xs cursor-pointer flex h-6 w-6 transform transition-colors duration-200 hover:bg-gray-100 rounded-full items-center justify-center">
+                                          <svg class="w-4 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+                                          </div>
+                                      </a>
+                                  </div>
+                                </div>
+                              <div class="flex justify-start items-center text-xs w-full">
+                                <div class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
+                                    <div class="flex items-center gap-3">
+                                        <form action="{{route('dislikeComment', $comment->id)}}" method="GET">
+                                            @csrf
+                                            <button type="submit">
+                                                <span class="material-symbols-outlined" style="font-size: 20px">
+                                                    thumb_down
+                                                </span>
+                                            </button>
+                                            <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'dislike')->count() }}</div>
+                                        </form>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <form action="{{route('likeComment', $comment->id)}}" method="GET">
+                                            @csrf
+                                            <button type="submit">
+                                                <span class="material-symbols-outlined" style="font-size: 20px">
+                                                    thumb_up
+                                                </span>
+                                            </button>
+                                            <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'like')->count() }}</div>
+                                        </form>
+                                    </div>                               
+                                 <small class="self-center">.</small>
+                                  <a href="#" class="hover:underline">
+                                    <small>{{$comment->created_at}}</small>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                </div>
+              </div>
             @endforeach
+            
         </div>
 </div>
 @endforeach
@@ -186,7 +345,7 @@
     }
     
     toggleDropdown{{$index}}();
-    
+
     dropdownButton{{$index}}.addEventListener('click', () => {
       toggleDropdown{{$index}}();
     });
@@ -219,5 +378,4 @@
     }
     @endforeach
 </script>
-
 @endsection

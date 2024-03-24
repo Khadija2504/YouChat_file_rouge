@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestPosts;
 use App\Models\Post;
+use App\Models\PostVote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     public function home(){
-        $posts = Post::with('comments', 'users')->orderBy('created_at', 'desc')->get();
-        // dd($posts);
+        $posts = Post::with('comments', 'users', 'postVotes')->orderBy('created_at', 'desc')->get();
+        // foreach($posts as $post){
+        //     foreach($post->comments as $comment){
+        //         dd($comment->commentVotes->where('vote', 'like')->count());
+        //     }
+        // }
         return view('home', compact('posts'));
     }
     public function addPostsForm(){

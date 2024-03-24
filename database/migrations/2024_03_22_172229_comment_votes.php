@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('comment_votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('coment_id')->constrained('comments');
+            $table->foreignId('comment_id')->constrained('comments');
             $table->enum('vote', ['like', 'dislike']);
             $table->timestamps();
         });

@@ -7,79 +7,54 @@ use Illuminate\Http\Request;
 
 class PostVoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function likePost($id){
+        $checkVote = PostVote::where('user_id', auth()->id())->where('vote', 'like')->where('post_id', $id)->first();
+        $checkDislikVote = PostVote::where('user_id', auth()->id())->where('vote', 'dislike')->where('post_id', $id)->first();
+        // foreach($checkVote as $check){
+            // dd($checkVote);
+        // }
+        
+        if(isset($checkVote)){
+            $checkVote->delete();
+        } elseif(isset($checkDislikVote)){
+            $checkDislikVote->delete();
+            PostVote::create([
+                'user_id' => auth()->id(),
+                'post_id' => $id,
+                'vote' => 'like',
+            ]);
+        } else{
+            PostVote::create([
+                'user_id' => auth()->id(),
+                'post_id' => $id,
+                'vote' => 'like',
+            ]);
+        }
+    // }
+        return redirect()->back();
     }
+    
+    // dislikes post
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PostVote  $postVote
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PostVote $postVote)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PostVote  $postVote
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PostVote $postVote)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PostVote  $postVote
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PostVote $postVote)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PostVote  $postVote
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PostVote $postVote)
-    {
-        //
+    public function dislikePost($id){
+        $checkVote = PostVote::where('user_id', auth()->id())->where('vote', 'dislike')->where('post_id', $id)->first();
+        $checkLikeVote = PostVote::where('user_id', auth()->id())->where('vote', 'like')->where('post_id', $id)->first();
+        if(isset($checkVote)){
+            $checkVote->delete();
+        } elseif(isset($checkLikeVote)){
+            $checkLikeVote->delete();
+            PostVote::create([
+                'user_id' => auth()->id(),
+                'post_id' => $id,
+                'vote' => 'dislike',
+            ]);
+        } else {
+            PostVote::create([
+                'user_id' => auth()->id(),
+                'post_id' => $id,
+                'vote' => 'dislike',
+            ]);
+        }
+        return redirect()->back();
     }
 }

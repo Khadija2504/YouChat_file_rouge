@@ -4,7 +4,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentVoteController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostVoteController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +21,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('welcome');
-    Route::get('/logout',[loginController::class, 'logout'])->name('logout');
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+Route::get('/logout',[loginController::class, 'logout'])->name('logout');
+});
+Route::middleware('auth', 'user')->group(function () {
     Route::get('/home', [PostController::class, 'home'])->name('home');
 
     Route::get('/addForm', [PostController::class, 'addPostsForm'])->name('addPostsForm');
     Route::post('/addPosts', [PostController::class, 'addPosts'])->name('addPosts');
+
+    Route::get('/vote/like/{id}', [PostVoteController::class, 'likePost'])->name('likePost');
+    Route::get('/vote/dislike/{id}', [PostVoteController::class, 'dislikePost'])->name('dislikePost');
+
+    Route::get('/vote/likeComment/{id}', [CommentVoteController::class, 'likeComment'])->name('likeComment');
+    Route::get('/vote/dislikeComment/{id}', [CommentVoteController::class, 'dislikeComment'])->name('dislikeComment');
+
+    Route::get('/favorites', [FavoriteController::class, 'favorites'])->name('favorites');
+    Route::get('/favorites_posts', [FavoriteController::class, 'savedPosts'])->name('savedPosts');
+    Route::get('/favorites_events', [FavoriteController::class, 'savedEvents'])->name('savedEvents');
+    Route::get('/favorite{id}', [FavoriteController::class, 'favorite'])->name('favorite');
+
+    Route::post('/addComment{id}', [CommentController::class, 'addComment'])->name('addComment');
 });
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');
