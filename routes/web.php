@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
+use App\Models\photos_post;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::middleware('auth', 'user')->group(function () {
 
     Route::get('/addForm', [PostController::class, 'addPostsForm'])->name('addPostsForm');
     Route::post('/addPosts', [PostController::class, 'addPosts'])->name('addPosts');
+    Route::get('/deletePost{id}', [PostController::class, 'deletePost'])->name('deletePost');
+    Route::post('/updatePost{id}', [PostController::class, 'updatePost'])->name('updatePost');
+    Route::delete('/deletePhoto{id}', [photos_post::class, 'deletePhoto'])->name('deletePhoto');
 
     Route::get('/vote/like/{id}', [PostVoteController::class, 'likePost'])->name('likePost');
     Route::get('/vote/dislike/{id}', [PostVoteController::class, 'dislikePost'])->name('dislikePost');
@@ -44,6 +48,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/favorite{id}', [FavoriteController::class, 'favorite'])->name('favorite');
 
     Route::post('/addComment{id}', [CommentController::class, 'addComment'])->name('addComment');
+    Route::get('/deleteComment{id}', [CommentController::class, 'deleteComment'])->name('deleteComment');
 });
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');

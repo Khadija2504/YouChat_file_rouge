@@ -8,7 +8,7 @@
                 @csrf
                 <input type="text" name="titre" placeholder="titre" required>
                 <input type="text" name="description" placeholder="description" required>
-                <input type="file" name="photo" required>
+                <input type="file" name="photo[]" multiple>
                 <input type="hidden" name="user_id" value="{{$user_id}}" required>
                 <button type="submit">add</button>
             </form>

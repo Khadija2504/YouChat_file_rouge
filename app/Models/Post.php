@@ -11,7 +11,6 @@ class Post extends Model
     protected $fillable = [
         'titre',
         'description',
-        'photo',
         'user_id',
     ];
     public function comments(){
@@ -22,5 +21,8 @@ class Post extends Model
     }
     public function postVotes(){
         return $this->hasMany(PostVote::class);
+    }
+    public function photos(){
+        return $this->hasMany(photos_post::class);
     }
 }

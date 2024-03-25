@@ -34,21 +34,31 @@
                         </svg>
                         <span class="text-sm text-gray-700">Block User</span>
                     </button>
-                    <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span class="text-sm text-gray-700">More Info</span>
+                    <div x-data="{ open : false }">
+                    <a href="#" @click="open = true" class="">
+                    <button type="submit" class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                        <span class="material-symbols-outlined h-3 w-3 text-gray-400 flex justify-center items-center">
+                          edit
+                        </span>
+                        <span class="text-sm text-gray-700">
+                          Edit post
+                        </span>
                     </button>
+                    </a>
+                    @include('components.updatePost')
+                  </div>
                 </div>
                 <div class="py-2">
                     <p class="text-gray-400 text-xs px-6 uppercase mb-1">Feedback</p>
-                    <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                    <form action="{{route('deletePost', $post->id)}}">
+                      @csrf
+                    <button type="submit" class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                         </svg>
-                        <span class="text-sm text-gray-700">Report</span>
-                    </button>
+                        <span class="text-sm text-gray-700">Delete</span>
+                      </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -57,8 +67,10 @@
     <div id="description_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($post->description, 20) }}</div>
     <div id="fullDescription_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $post->description }}</div>
     <button onclick="toggleDescription({{ $post->id }})">Show More</button>
-    <div class="mt-5 flex gap-2	 justify-center border-b pb-4 flex-wrap	">
-        <img src="{{asset('' . $post->photo)}}" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo">
+      <div class="mt-5 flex gap-2	 justify-center border-b pb-4 flex-wrap	">
+        @foreach($post->photos as $photo)
+          <img src="{{asset('' . $photo->images->photo)}}" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo">
+        @endforeach
       </div>
         <div class=" h-16 border-b  flex items-center justify-around">
             <div class="flex items-center gap-3">
@@ -288,6 +300,10 @@
                                           </div>
                                       </a>
                                   </div>
+                                  <form action="{{route('deleteComment', $comment->id)}}">
+                                    @csrf
+                                    <button type="submit">delete</button>
+                                  </form>
                                 </div>
                               <div class="flex justify-start items-center text-xs w-full">
                                 <div class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
