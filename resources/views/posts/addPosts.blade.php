@@ -6,9 +6,8 @@
         <div class="flex items-center justify-between">
             <form action="{{route('addPosts')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="text" name="titre" placeholder="titre" required>
                 <input type="text" name="description" placeholder="description" required>
-                <input type="file" name="photo[]" multiple>
+                <input type="file" name="photo[]" multiple >
                 <input type="hidden" name="user_id" value="{{$user_id}}" required>
                 <button type="submit">add</button>
             </form>

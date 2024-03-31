@@ -80,9 +80,9 @@
           </h1>
           <div id="profile" class="space-y-3">
             <img
-              src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+              src="{{asset('' . Auth::user()->avatar)}}"
               alt="Avatar user"
-              class="w-10 md:w-16 rounded-full mx-auto"
+              class="object-cover bg-yellow-500 rounded-full w-12 h-12 mx-auto"
             />
             <div>
               <h2
@@ -145,7 +145,7 @@
               <span class="ml-1">Favorites</span>
             </a>
             <a
-              href=""
+              href="{{route('notifications')}}"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
@@ -161,7 +161,7 @@
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="">Reports</span>
+              <span class="">Notifications</span>
             </a>
             <a
               href=""

@@ -4,16 +4,21 @@
   <meta charset="UTF-8">
   <title>CodePen - Panda Login Form</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap'>
+  {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
   <link rel="stylesheet" href="../../css/style.css">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <div class="container">
-  <form method="post" action="{{route('storeRegister')}}">
+  <form method="post" action="{{route('storeRegister')}}" enctype="multipart/form-data">
     @csrf
-    <label for="username">Username</label>
+    <label for="username">name</label>
     <input name="name" type="text" id="username" placeholder="Username" required>
+    <label for="uploadFile1" class="bg-gray-800 hover:bg-gray-700 text-white text-sm px-4 py-2.5 outline-none rounded w-max cursor-pointer mx-auto block font-[sans-serif]">
+      Add your avatar
+    </label>
+      <input type="file" name="avatar" id="uploadFile1" accept=".png, .jpg, .jpeg, .svg" class="" />
     <label for="email">Email</label>
     <input name="email" type="email" id="email" placeholder="email" required>
     <label for="password">Password</label>

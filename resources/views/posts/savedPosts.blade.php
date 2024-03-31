@@ -21,7 +21,6 @@
                 </svg>
             </div>
         </div>
-        <div class="whitespace-pre-wrap mt-7">{{$save->posts->titre}}</div>
         <div id="description_{{ $save->posts->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($save->posts->description, 20) }}</div>
         <div id="fullDescription_{{ $save->posts->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $save->posts->description }}</div>
         <button onclick="toggleDescription({{ $save->posts->id }})">Show More</button>

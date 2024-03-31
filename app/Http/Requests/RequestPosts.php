@@ -24,7 +24,6 @@ class RequestPosts extends FormRequest
     public function rules()
     {
         return [
-            'titre' => 'required',
             'description' => 'required',
             'user_id' => 'required',
         ];

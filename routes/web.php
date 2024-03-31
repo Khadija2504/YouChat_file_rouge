@@ -7,8 +7,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FriendsListController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\VoteVideoController;
 use App\Models\photos_post;
 use Illuminate\Support\Facades\Route;
 /*
@@ -31,16 +35,29 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/home', [PostController::class, 'home'])->name('home');
 
     Route::get('/addForm', [PostController::class, 'addPostsForm'])->name('addPostsForm');
-    Route::post('/addPosts', [PostController::class, 'addPosts'])->name('addPosts');
+    Route::post('/addPost', [PostController::class, 'addPosts'])->name('addPosts');
     Route::get('/deletePost{id}', [PostController::class, 'deletePost'])->name('deletePost');
     Route::post('/updatePost{id}', [PostController::class, 'updatePost'])->name('updatePost');
     Route::delete('/deletePhoto{id}', [photos_post::class, 'deletePhoto'])->name('deletePhoto');
 
-    Route::get('/vote/like/{id}', [PostVoteController::class, 'likePost'])->name('likePost');
-    Route::get('/vote/dislike/{id}', [PostVoteController::class, 'dislikePost'])->name('dislikePost');
+    Route::get('/addVideo/form', [VideoController::class, 'addVideoForm'])->name('addVideoForm');
+    Route::post('/addVideo', [VideoController::class, 'addVideo'])->name('addVideo');
+    Route::get('/display/Videos', [VideoController::class, 'displayReels'])->name('displayReels');
+    Route::post('/video/vote{id}', [VoteVideoController::class, 'voteVideo'])->name('voteVideo');
 
-    Route::get('/vote/likeComment/{id}', [CommentVoteController::class, 'likeComment'])->name('likeComment');
-    Route::get('/vote/dislikeComment/{id}', [CommentVoteController::class, 'dislikeComment'])->name('dislikeComment');
+    Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications');
+    Route::get('/notifications/readPost/{id}', [NotificationController::class,'readPost'])->name('readPost');
+    Route::get('/notifications/readVideo/{id}', [NotificationController::class, 'readVideo'])->name('readVideo');
+
+    Route::get('/post/vote/{id}', [PostVoteController::class, 'postVote'])->name('postVote');
+    // Route::get('/vote/dislike/{id}', [PostVoteController::class, 'dislikePost'])->name('dislikePost');
+
+    Route::get('/comment/vote/{id}', [CommentVoteController::class, 'commentVote'])->name('commentVote');
+    // Route::get('/vote/dislikeComment/{id}', [CommentVoteController::class, 'dislikeComment'])->name('dislikeComment');
+
+    Route::get('/follow{id}', [FriendsListController::class, 'follow'])->name('follow');
+    Route::get('/follow/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
+    Route::post('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
 
     Route::get('/favorites', [FavoriteController::class, 'favorites'])->name('favorites');
     Route::get('/favorites_posts', [FavoriteController::class, 'savedPosts'])->name('savedPosts');
