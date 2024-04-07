@@ -31,7 +31,7 @@ class FriendsListController extends Controller
             'type' => 'follower',
             'data_id' => 'no data',
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('message', 'the user has been followed successfully');
     }
 
     public function listFollowers(){
@@ -54,6 +54,13 @@ class FriendsListController extends Controller
             'type' => 'follower',
             'data_id' => $id,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('message', 'The user has been accepted successfully');
+    }
+    public function blocke($id){
+        $friendsList = FriendsList::where('user_id', Auth::user()->id)->where('friend_id', $id);
+        $friendsList->update([
+            'blocked' => 1,
+        ]);
+        return redirect()->back()->with('message', 'The user has been blocked successfully');
     }
 }

@@ -6,12 +6,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentVoteController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FriendsListController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\VoteEventController;
 use App\Http\Controllers\VoteVideoController;
 use App\Models\photos_post;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +61,8 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/follow/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
     Route::post('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
 
+    Route::get('/followers/blocke{id}', [FriendsListController::class, 'blocke'])->name('blicke');
+
     Route::get('/favorites', [FavoriteController::class, 'favorites'])->name('favorites');
     Route::get('/favorites_posts', [FavoriteController::class, 'savedPosts'])->name('savedPosts');
     Route::get('/favorites_events', [FavoriteController::class, 'savedEvents'])->name('savedEvents');
@@ -66,6 +70,13 @@ Route::middleware('auth', 'user')->group(function () {
 
     Route::post('/addComment{id}', [CommentController::class, 'addComment'])->name('addComment');
     Route::get('/deleteComment{id}', [CommentController::class, 'deleteComment'])->name('deleteComment');
+
+    Route::get('/event/createForm', [EventController::class, 'createForm'])->name('createForm');
+    Route::post('/event/create', [EventController::class, 'createEvent'])->name('createEvent');
+    Route::get('/event/display', [EventController::class, 'displayEvents'])->name('displayEvents');
+    Route::post('/event/reactions{id}', [VoteEventController::class, 'voteEvent'])->name('voteEvent');
+    Route::get('/event/delete/{id}', [EventController::class, 'deleteEvent'])->name('deleteEvent');
+    Route::post('/event/update{id}', [EventController::class, 'updateEvent'])->name('updateEvent');
 });
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');

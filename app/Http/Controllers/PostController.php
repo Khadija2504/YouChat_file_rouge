@@ -19,14 +19,24 @@ class PostController extends Controller
 {
     public function home(){
         $followings = FriendsList::where('user_id', auth()->user()->id)->get();
-        $posts = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
-        // foreach ($followings as $following){
-        //     foreach($posts as $post){
-        //         dd($following->friend_id && $following->status == 'valid' || $post->user_id == Auth::user()->id);
-        //     }
-        // }
-        return view('home', compact('posts', 'followings'));
+        // $followingsButton = FriendsList::where('status', 'valid')->get();
+        $follow = FriendsList::where('user_id', auth()->user()->id)->first();
+        // $postss = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+        if(isset($follow->id)){
+            // foreach ($followings as $following){
+                // if($following->status == 'valid' && $following->blocked == 0){
+                    $posts = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+                    // dd($posts);
+                // } else{
+                //     $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+                // }
+            // }
+        } else{
+            $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+        }
+        return view('home', compact('posts', 'follow', 'followings'));
     }
+
     public function addPostsForm(){
         $user_id = Auth::user()->id;
         return view('posts.addPosts', compact('user_id'));

@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('vote_events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('evenement_id')->constrained('evenements');
+            $table->foreignId('user_id')->constrained('users');
+            $table->enum('vote', ['happy', 'heart', 'celebration', 'sad']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('vote_events');
     }
 };

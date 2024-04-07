@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('friends_lists', function (Blueprint $table) {
+        Schema::create('evenements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('friend_id')->constrained('users');
-            $table->enum('status', ['valid', 'invalid']);
-            $table->enum('blocked', [0, 1])->default(0);
+            $table->string('title');
+            $table->string('description');
+            $table->date('date');
+            $table->string('image')->nullable();
+            $table->foreignId('category_id')->constrained('categories');
+            $table->enum('status', ['available', 'notAvailable'])->default('available');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends_lists');
+        Schema::dropIfExists('evenements');
     }
 };
