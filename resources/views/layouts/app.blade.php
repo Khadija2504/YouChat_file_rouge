@@ -15,6 +15,7 @@
         {{-- <link rel="stylesheet" href="../css/style.css"> --}}
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <style>
             .hidden {
                 display: none;
@@ -164,7 +165,7 @@
               <span class="">Notifications</span>
             </a>
             <a
-              href=""
+              href="{{route('chatRoom')}}"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
@@ -180,7 +181,7 @@
                   d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"
                 ></path>
               </svg>
-              <span class="">Messages</span>
+              <span class="">Chat</span>
             </a>
             <a
               href="{{route('displayEvents')}}"
@@ -235,7 +236,7 @@
               <span class="">UI Components</span>
             </a>
             <a
-              href=""
+              href="{{route('listFollowers')}}"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
@@ -248,20 +249,26 @@
                   d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
                 ></path>
               </svg>
-              <span class="">Users</span>
+              <span class="">followers</span>
             </a>
           </div>
         </div>
       </div>
-      <main class="bg-white h-screen md:block shadow-xl px-3 overflow-x-hidden transition-transform duration-300 ease-in-out" style="width: 300vh">
+      <main class="bg-white h-screen md:block shadow-xl px-3 overflow-x-hidden transition-transform duration-300 ease-in-out" id="main" style="width: 300vh">
         @yield('main')
-    </main>
+      </main>
     <div
         id="sidebar"
-        class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out" style="width: 50rem"
+        class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out rightSidebar" style="width: 50rem"
         x-show="sidenav"
         @click.away="sidenav = false"
       >
      
     </div>
-  </body>
+
+<script>
+  if(window.location.pathname == '/chatRoom'){
+    $(".rightSidebar").hide();
+    $("#main").css("width", "410vh");
+  }
+</script>

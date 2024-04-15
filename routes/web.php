@@ -4,11 +4,13 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ChatRoomController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FriendsListController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
@@ -74,9 +76,14 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/event/createForm', [EventController::class, 'createForm'])->name('createForm');
     Route::post('/event/create', [EventController::class, 'createEvent'])->name('createEvent');
     Route::get('/event/display', [EventController::class, 'displayEvents'])->name('displayEvents');
-    Route::post('/event/reactions{id}', [VoteEventController::class, 'voteEvent'])->name('voteEvent');
+    Route::post('/event/reactions/{id}', [VoteEventController::class, 'voteEvent'])->name('voteEvent');
     Route::get('/event/delete/{id}', [EventController::class, 'deleteEvent'])->name('deleteEvent');
     Route::post('/event/update{id}', [EventController::class, 'updateEvent'])->name('updateEvent');
+
+    Route::get('/chatRoom', [ChatRoomController::class, 'chatRoom'])->name('chatRoom');
+    Route::get('/chatRoom/conversations', [ChatRoomController::class, 'conversations'])->name('conversations');
+    Route::post('/chatRoom/createMessage', [MessageController::class, 'addMessage'])->name('createMessage');
+    Route::get('/chatRoom/displayMessages/{id}', [MessageController::class, 'displayMessages'])->name('displayMessages');
 });
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');

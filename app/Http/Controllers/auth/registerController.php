@@ -25,7 +25,7 @@ class registerController extends Controller
             $file = $request->file('avatar');
             $file_extension = $file->getClientOriginalExtension();
             $file_name = time() . '.' . $file_extension;
-            $path = 'avatars/';
+            $path = 'avatars';
             $file->move($path, $file_name);
             $validated['avatar'] = $path . '/' . $file_name;
         }

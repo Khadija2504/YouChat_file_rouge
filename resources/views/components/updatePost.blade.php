@@ -37,11 +37,7 @@
                 Add more photos
                 <input type="file" name="photo[]" multiple id="uploadFile1" accept=".png, .jpg, .jpeg, .svg" class="hidden" />
             </label>
-            <span class="material-symbols-outlined">
-                edit
-            </span>
             <input type="hidden" name="user_id" value="{{$post->user_id}}" required>
-            <input class="mt-4 text-gray-800 text-2xl font-bold cursor-pointer"type="text" name="titre" value="{{$post->titre}}" placeholder="titre" required>
             <div class="my-4">
             <div class="flex space-x-1">
                 <span class="material-symbols-outlined">

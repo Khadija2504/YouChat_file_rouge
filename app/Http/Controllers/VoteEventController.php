@@ -19,7 +19,7 @@ class VoteEventController extends Controller
             $checkVote->delete();
         } elseif(isset($checkAllVotes)){
             $checkAllVotes->delete();
-            VoteEvent::create([
+            $VoteEvent = VoteEvent::create([
                 'user_id' => $user_id,
                 'evenement_id' => $id,
                 'vote' => $request->vote,
@@ -32,7 +32,7 @@ class VoteEventController extends Controller
                 'data_id' => $id,
             ]);
         } else {
-            VoteEvent::create([
+            $VoteEvent = VoteEvent::create([
                 'user_id' => $user_id,
                 'evenement_id' => $id,
                 'vote' => $request->vote,
@@ -45,6 +45,11 @@ class VoteEventController extends Controller
                 'data_id' => $id,
             ]);
         }
+        // return response()->json([
+        //     'seccess' => true,
+        //     'msg' => 'vote created successfully',
+        //     'itineraire' => $VoteEvent,
+        // ]);
         return redirect()->back();
     }
 }
