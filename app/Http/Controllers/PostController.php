@@ -6,6 +6,7 @@ use App\Http\Requests\RequestPhotos;
 use App\Http\Requests\RequestPosts;
 use App\Models\Comment;
 use App\Models\CommentVote;
+use App\Models\favorite;
 use App\Models\FriendsList;
 use App\Models\Notification;
 use App\Models\photo;
@@ -25,15 +26,21 @@ class PostController extends Controller
         if(isset($follow->id)){
             // foreach ($followings as $following){
                 // if($following->status == 'valid' && $following->blocked == 0){
-                    $posts = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+                    $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
                     // dd($posts);
                 // } else{
                 //     $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
                 // }
             // }
         } else{
-            $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+            $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
         }
+        // foreach($posts as $post){
+        //     dd($post->favorites);
+        //     foreach($post->favorites as $fav){
+        //         dd(isset($fav->id));
+        //     }
+        // }
         return view('home', compact('posts', 'follow', 'followings'));
     }
 

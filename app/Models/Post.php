@@ -28,4 +28,8 @@ class Post extends Model
         return $this->hasMany(photos_post::class);
     }
 
+    public function favorites(){
+        return $this->hasMany(favorite::class, 'post_id');
+    }
+
 }

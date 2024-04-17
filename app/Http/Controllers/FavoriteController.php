@@ -17,13 +17,19 @@ class FavoriteController extends Controller
         $favorite = favorite::where('user_id', Auth::user()->id)->where('post_id', $id)->first();
         if(!isset($favorite)){
             favorite::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::user()->id,  
                 'post_id' => $id,
             ]);
-            return redirect()->back();
+            return response()->json([
+                'success' => true,
+                'favorite' => $favorite,
+            ]);
         } else{
             $favorite->delete();
-            return redirect()->back();
+            return response()->json([
+                'success' => false,
+                'msg' => 'deleted successfully',
+            ]);
         }
     }
 }

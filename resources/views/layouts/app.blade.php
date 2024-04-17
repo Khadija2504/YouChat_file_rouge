@@ -20,6 +20,13 @@
             .hidden {
                 display: none;
             }
+            .delete-icon {
+                visibility: hidden;
+            }
+
+            .message-container:hover .delete-icon {
+                visibility: visible;
+            }
           </style>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

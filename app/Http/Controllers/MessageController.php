@@ -26,4 +26,12 @@ class MessageController extends Controller
             'messages' => $messages,
         ]);
     }
+    public function deleteMessage($id){
+        $message = Message::where('id', $id);
+        $message->delete();
+        return response()->json([
+            'seccess' => true,
+            'msg' => 'Message deleted successfully',
+        ]);
+    }
 }

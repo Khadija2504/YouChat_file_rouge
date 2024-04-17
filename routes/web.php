@@ -14,6 +14,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
+use App\Http\Controllers\StoryController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\VoteEventController;
 use App\Http\Controllers\VoteVideoController;
@@ -68,7 +69,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'favorites'])->name('favorites');
     Route::get('/favorites_posts', [FavoriteController::class, 'savedPosts'])->name('savedPosts');
     Route::get('/favorites_events', [FavoriteController::class, 'savedEvents'])->name('savedEvents');
-    Route::get('/favorite{id}', [FavoriteController::class, 'favorite'])->name('favorite');
+    Route::get('/favorite/{id}', [FavoriteController::class, 'favorite'])->name('favorite');
 
     Route::post('/addComment{id}', [CommentController::class, 'addComment'])->name('addComment');
     Route::get('/deleteComment{id}', [CommentController::class, 'deleteComment'])->name('deleteComment');
@@ -84,6 +85,12 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/chatRoom/conversations', [ChatRoomController::class, 'conversations'])->name('conversations');
     Route::post('/chatRoom/createMessage', [MessageController::class, 'addMessage'])->name('createMessage');
     Route::get('/chatRoom/displayMessages/{id}', [MessageController::class, 'displayMessages'])->name('displayMessages');
+    Route::get('/chatRoom/DeleteMessage/{id}', [MessageController::class, 'deleteMessage'])->name('deleteMessage');
+
+    Route::post('/stories/addStory', [StoryController::class, 'addStory'])->name('addStory');
+    Route::get('/stories/displayFriendStories/{id}', [StoryController::class, 'displayFriendStories'])->name('displayFriendStories');
+    Route::get('/stories/displayStories/{id}', [StoryController::class, 'displayStories'])->name('displayStories');
+    Route::get('/stories/displayAvatarStories', [StoryController::class, 'displayAvatarStories'])->name('displayAvatarStories');
 });
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');

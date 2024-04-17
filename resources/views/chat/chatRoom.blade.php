@@ -111,7 +111,7 @@
                 required/>
                 <input type="hidden" name="chat_id" id="conversationId" required>
                 <input type="hidden" name="from_id" value="{{Auth::user()->id}}" required>
-                <input type="hidden" name="to_id" value="{{Auth::user()->id}}" required>
+                <input type="hidden" name="to_id" value="{{Auth::user()->id}}" id="user_id" required>
                 <div
                   class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
                 >
@@ -167,6 +167,7 @@
         let chatBox = document.getElementById('chatBox');
         chatBox.scrollTop = chatBox.scrollHeight;
 	}
+    var loggedInUserId = {{ Auth::user()->id }};
     
     $(document).ready(function(){
     $('#chatMessage_form').submit(function(event){
@@ -205,22 +206,30 @@
 
                    function displayAllMessages(item) {
                         var avatarUrl = item.from_user.avatar;
+                        var isFromLoggedInUser = item.from_user.id === loggedInUserId;
                         avatarUrl = 'http://127.0.0.1:8000/' + avatarUrl;
-                        var messages = `
-                            <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
-                                    
-                                    <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                                        <div>${item.message}</div>
-                                    </div>
+                        var messages = isFromLoggedInUser ? `
+                        <div class="col-start-6 col-end-13 rounded-lg">
+                            <div class="flex items-center justify-start flex-row-reverse">
+                                <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
+                                <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                                    <div>${item.message}</div>
                                 </div>
                             </div>
-                        `;
+                        </div>
+                    ` : `
+                        <div class="col-start-1 col-end-8 rounded-lg">
+                            <div class="flex flex-row items-center">
+                                <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
+                                <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                                    <div>${item.message}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
                         messagesContainer.append(messages);
                     } 
                     getMessages();
-                    // setInterval(getMessages, 10000);
                     } else {
                     printErrorMsg(data);
                 }
@@ -266,7 +275,7 @@ function printErrorMsg(data) {
         var conversation = `
             <button
                 class="conversation-button flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
-                data-conversation-id="${item.id}"
+                data-conversation-id="{{$post->id}}"
             >
                 <div class="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
                     H
@@ -280,46 +289,97 @@ function printErrorMsg(data) {
 
     fetchConversation();
     // setInterval(fetchConversation, 10000);
+});
 
-    const messagesContainer = $('#messagesContainer');
+$(document).ready(function() {
+    var messagesContainer = $("#messagesContainer");
+    var currentInterval = null;
+    var loggedInUserId = {{ Auth::user()->id }};
 
-$(document).on('click', '.conversation-button', function() {
-    var conversationId = $(this).data('conversation-id');
-    $("#conversationId").val(conversationId);
-    $.ajax({
-        url: `http://127.0.0.1:8000/chatRoom/displayMessages/${conversationId}`,
-        type: "GET",
-        success: function(data){
-            console.log(data);
-            messagesContainer.empty();
-            data.messages.forEach(displayMessages);
-            scrollDown();
-        },
-        error: function(error) {
-            console.log('Error fetching messages:', error);
+    $(document).on('click', '.conversation-button', function() {
+        var conversationId = $(this).data('conversation-id');
+        $("#conversationId").val(conversationId);
+
+        if (currentInterval) {
+            clearInterval(currentInterval);
         }
+        scrollDown();
+
+        fetchMessages(conversationId);
+
+        currentInterval = setInterval(function() {
+            fetchMessages(conversationId);
+        }, 1000);
+    });
+
+    function fetchMessages(conversationId) {
+        $.ajax({
+            url: `http://127.0.0.1:8000/chatRoom/displayMessages/${conversationId}`,
+            type: "GET",
+            success: function(data) {
+                console.log(data);
+                messagesContainer.empty();
+                data.messages.forEach(displayMessages);
+            },
+            error: function(error) {
+                console.log('Error fetching messages:', error);
+            }
+        });
+    }
+
+    function displayMessages(item) {
+        var avatarUrl = item.from_user.avatar;
+        avatarUrl = 'http://127.0.0.1:8000/' + avatarUrl;
+        var isFromLoggedInUser = item.from_user.id === loggedInUserId;
+
+        var messageHTML = isFromLoggedInUser ? `
+            <div class="col-start-6 col-end-13 rounded-lg message-container">
+                <div class="flex items-center justify-start flex-row-reverse">
+                    <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
+                    <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                        <div>${item.message}</div>
+                    </div>
+                    <button class="delete-icon" id="deleteMessage_button" data-message-id="${item.id}">
+                        <span class="material-symbols-outlined">
+                        delete_forever
+                        </span>
+                    </button>
+                </div>
+            </div>
+        ` : `
+            <div class="col-start-1 col-end-8 rounded-lg message-container">
+                <div class="flex flex-row items-center">
+                    <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
+                    <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                        <div>${item.message}</div>
+                    </div>
+                    <button class="delete-icon" id="deleteMessage_button" data-message-id="${item.id}">
+                        <span class="material-symbols-outlined">
+                        delete_forever
+                        </span>
+                    </button>
+                </div>
+            </div>
+            
+        `;
+
+        messagesContainer.append(messageHTML);
+    }
+
+    $(document).on('click', '#deleteMessage_button', function(){
+        var messageId = $(this).data('message-id');
+        console.log(messageId);
+        $.ajax({
+            url: `http://127.0.0.1:8000/chatRoom/DeleteMessage/${messageId}`,
+            type: "GET",
+            success: function(data) {
+                console.log(data);
+                // fetchMessages(conversationId);
+            }
+        });
     });
 });
 
-function displayMessages(item) {
-    var avatarUrl = item.from_user.avatar;
-    avatarUrl = 'http://127.0.0.1:8000/' + avatarUrl;
-    var messages = `
-        <div class="col-start-1 col-end-8 p-3 rounded-lg">
-            <div class="flex flex-row items-center">
-                <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
-                
-                <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                    <div>${item.message}</div>
-                </div>
-            </div>
-        </div>
-    `;
-    messagesContainer.append(messages);
-}
-
-
-    });
   </script>
 
 @endsection
