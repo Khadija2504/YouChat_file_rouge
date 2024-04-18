@@ -1,0 +1,23 @@
+.hidden {
+    display: none;
+}
+.delete-icon {
+    visibility: hidden;
+}
+
+.message-container:hover .delete-icon {
+    visibility: visible;
+}
+
+.reel-container {
+  scroll-snap-type: y mandatory;
+}
+
+.reel {
+    height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

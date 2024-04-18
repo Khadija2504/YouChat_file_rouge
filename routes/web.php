@@ -14,11 +14,14 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
+use App\Http\Controllers\ReelController;
+use App\Http\Controllers\ReelVoteController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\VoteEventController;
 use App\Http\Controllers\VoteVideoController;
 use App\Models\photos_post;
+use App\Models\Reel_vote;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +52,11 @@ Route::middleware('auth', 'user')->group(function () {
     Route::post('/addVideo', [VideoController::class, 'addVideo'])->name('addVideo');
     Route::get('/display/Videos', [VideoController::class, 'displayReels'])->name('displayReels');
     Route::post('/video/vote{id}', [VoteVideoController::class, 'voteVideo'])->name('voteVideo');
+
+    Route::get('/displayReels', [ReelController::class, 'displayReels'])->name('displayReels');
+    Route::get('/reels/addForm', [ReelController::class, 'addForm'])->name('addForm');
+    Route::post('/reels/addReel', [ReelController::class, 'addReel'])->name('addReel');
+    Route::get('/reels/vote/{id}', [ReelVoteController::class, 'voteReel'])->name('voteReel');
 
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications');
     Route::get('/notifications/readPost/{id}', [NotificationController::class,'readPost'])->name('readPost');
@@ -91,6 +99,8 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/stories/displayFriendStories/{id}', [StoryController::class, 'displayFriendStories'])->name('displayFriendStories');
     Route::get('/stories/displayStories/{id}', [StoryController::class, 'displayStories'])->name('displayStories');
     Route::get('/stories/displayAvatarStories', [StoryController::class, 'displayAvatarStories'])->name('displayAvatarStories');
+
+    Route::get('/redirect_back', [ReelController::class, 'redirectBack'])->name('redirectBack');
 });
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');

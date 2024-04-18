@@ -23,15 +23,16 @@ class PostController extends Controller
         // $followingsButton = FriendsList::where('status', 'valid')->get();
         $follow = FriendsList::where('user_id', auth()->user()->id)->first();
         // $postss = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+        $post = [];
         if(isset($follow->id)){
-            // foreach ($followings as $following){
-                // if($following->status == 'valid' && $following->blocked == 0){
+            foreach ($followings as $following){
+                if($following->status == 'valid' && $following->blocked == 0){
                     $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
                     // dd($posts);
-                // } else{
-                //     $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
-                // }
-            // }
+                } else{
+                    $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+                }
+            }
         } else{
             $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
         }

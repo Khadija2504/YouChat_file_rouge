@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('main')
 <main class="h-full w[50%] bg-gray-50 flex flex-wrap items-center justify-center overflow-x-hidden transition-transform duration-300 ease-in-out">
-        <h1 class="text-3xl font-bold mb-4">Reels</h1>
+        <h1 class="text-3xl font-bold mb-4">Videos</h1>
     @foreach($videos as $video)
 
     <div class="container mx-auto px-4 py-8">

@@ -16,18 +16,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <style>
-            .hidden {
-                display: none;
-            }
-            .delete-icon {
-                visibility: hidden;
-            }
 
-            .message-container:hover .delete-icon {
-                visibility: visible;
-            }
-          </style>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
