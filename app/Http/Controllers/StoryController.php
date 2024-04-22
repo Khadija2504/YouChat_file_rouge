@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoryRequest;
 use App\Models\FriendsList;
 use App\Models\Story;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,30 +27,21 @@ class StoryController extends Controller
     }
 
     public function displayStories($id){
-        return view('displayFriendStories', compact('id'));
+        $storiesUp = Story::where('user_id', $id)->where('created_at', '>=', Carbon::now()->subHours(24))->where('is_raed', 0)->update(['is_raed' => 1]);
+        $stories = Story::where('user_id', $id)->where('created_at', '>=', Carbon::now()->subHours(24))->with(['users', 'votesStories'])->latest()->limit(4)->get();
+        $videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'wmv'];
+        return view('displayFriendStories', compact('stories', 'videoExtensions'));
     }
-    public function displayFriendStories($id) {
-        $stories = Story::where('user_id', $id)->with('users')->latest()->limit(4)->get();
-        $stories->transform(function ($story) {
-            if ($story->users) {
-                $story->users->avatar_url = asset('' . $story->users->avatar);
-                $story->dataStory_url = asset('' . $story->data_Story);
-                $videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'wmv'];
-                $story->is_video = in_array(strtolower(pathinfo($story->data_Story, PATHINFO_EXTENSION)), $videoExtensions);                
-            }
-            return $story;
-        });
-        return response()->json([
-            'success' => true,
-            'stories' => $stories,
-        ]);
-        
-    }
+    
     public function displayAvatarStories() {
         $friendIds = FriendsList::where('user_id', Auth::user()->id)->pluck('friend_id');
-        $stories = Story::whereIn('user_id', $friendIds)->with(['users' => function($query){
-                            $query->select('id', 'avatar');
-                        }])->latest()->take(4)->get();
+        
+        $stories = Story::whereIn('user_id', $friendIds)
+                        ->where('created_at', '>=', Carbon::now()->subHours(24))
+                        ->with('users')
+                        ->latest()
+                        ->take(10)
+                        ->get();
     
         $stories->transform(function ($story) {
             if ($story->users) {
@@ -61,8 +54,10 @@ class StoryController extends Controller
         return response()->json([
             'success' => true,
             'stories' => $stories,
+            'storiesCount' =>$stories->where('is_raed', 0)->count(),
         ]);
     }
+    
     
     
 }

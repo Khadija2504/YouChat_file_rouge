@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('data_Story');
             $table->foreignId('user_id')->constrained('users');
             $table->string('comment');
-            $table->enum('statue', ['vailable', 'unavailable'])->default('vailable');
+            $table->enum('statue', ['available', 'unavailable'])->default('available');
+            $table->boolean('is_raed')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

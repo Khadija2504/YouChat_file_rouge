@@ -21,7 +21,12 @@ class loginController extends Controller
         if(Auth::attempt($validate)){
             $request->session()->regenerate();
             $user = User::where('id', Auth::id())->first();
-        return redirect()->route('welcome');
+            if($user->role === 'user'){
+                return redirect()->route('home');
+            } else{
+                return redirect()->route('dashboard');
+            }
+        // return redirect()->route('welcome');
         }
         return redirect()->back()->with('worning', 'wrong email or password');
     }

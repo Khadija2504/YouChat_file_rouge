@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminBoard;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\LoginController;
@@ -16,10 +17,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
 use App\Http\Controllers\ReelController;
 use App\Http\Controllers\ReelVoteController;
+use App\Http\Controllers\StoriesVoteController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\VoteEventController;
 use App\Http\Controllers\VoteVideoController;
+use App\Models\Notification;
 use App\Models\photos_post;
 use App\Models\Reel_vote;
 use Illuminate\Support\Facades\Route;
@@ -33,10 +36,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+Route::middleware('auth')->group(function () {
+
 Route::get('/logout',[loginController::class, 'logout'])->name('logout');
 });
 Route::middleware('auth', 'user')->group(function () {
@@ -68,7 +72,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/comment/vote/{id}', [CommentVoteController::class, 'commentVote'])->name('commentVote');
     // Route::get('/vote/dislikeComment/{id}', [CommentVoteController::class, 'dislikeComment'])->name('dislikeComment');
 
-    Route::get('/follow{id}', [FriendsListController::class, 'follow'])->name('follow');
+    Route::get('/follow/{id}', [FriendsListController::class, 'follow'])->name('follow');
     Route::get('/follow/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
     Route::post('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
 
@@ -99,9 +103,18 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/stories/displayFriendStories/{id}', [StoryController::class, 'displayFriendStories'])->name('displayFriendStories');
     Route::get('/stories/displayStories/{id}', [StoryController::class, 'displayStories'])->name('displayStories');
     Route::get('/stories/displayAvatarStories', [StoryController::class, 'displayAvatarStories'])->name('displayAvatarStories');
+    Route::get('/stories/votesStory/{id}', [StoriesVoteController::class, 'votesStory']);
 
     Route::get('/redirect_back', [ReelController::class, 'redirectBack'])->name('redirectBack');
+    
+    Route::get('/notifications/unread', [NotificationController::class, 'unreadNotifications']);
 });
+
+Route::middleware('auth', 'admin')->group(function () {
+    Route::get('/dashboard', [adminBoard::class, 'dashboard'])->name('dashboard');
+});
+
+Route::post('/search/post', [PostController::class, 'searchPost'])->name('searchPost');
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');
 Route::post('/requests', [ForgotPasswordLinkController::class, 'store']);

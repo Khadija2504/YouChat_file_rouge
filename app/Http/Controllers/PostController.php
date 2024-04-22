@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestPhotos;
 use App\Http\Requests\RequestPosts;
+use App\Http\Requests\SearchPost;
 use App\Models\Comment;
 use App\Models\CommentVote;
 use App\Models\favorite;
@@ -37,9 +38,8 @@ class PostController extends Controller
             $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
         }
         // foreach($posts as $post){
-        //     dd($post->favorites);
-        //     foreach($post->favorites as $fav){
-        //         dd(isset($fav->id));
+        //     foreach($post->comments as $comment){
+        //         dd($comment->user_id == Auth::user()->id);
         //     }
         // }
         return view('home', compact('posts', 'follow', 'followings'));
@@ -125,5 +125,23 @@ class PostController extends Controller
         }
         $post->delete();
         return redirect()->back();
+    }
+    public function searchPost(SearchPost $request){
+            $validator = $request->validated();
+            $search = $validator['search'];
+            $posts = Post::where('description', 'like', "%$search%")
+                        ->with('comments', 'users', 'postVotes', 'photos', 'favorites')
+                        ->orderBy('created_at', 'desc')->get();
+            $posts->transform(function($post){
+                if($post->users){
+                    $post->users->avatar_url = asset('' . $post->users->avatar);
+                    $post->post_url = route('readPost', $post->id);
+                }
+                return $post;
+            });
+            return response()->json([
+                'msg' => 'your result about' . ' ' . $search,
+                'post' => $posts,
+            ]);
     }
 }

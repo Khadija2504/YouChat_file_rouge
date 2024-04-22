@@ -12,13 +12,13 @@ class FriendsListController extends Controller
     public function follow($id){
         $message = 'New follower';
         if(Auth::user()->acceptation == 'auto'){
-            FriendsList::create([
+            $followed = FriendsList::create([
                 'user_id' => Auth::user()->id,
                 'friend_id' => $id,
                 'status' => 'valid',
             ]);
         } else{
-            FriendsList::create([
+            $followed = FriendsList::create([
                 'user_id' => Auth::user()->id,
                 'friend_id' => $id,
                 'status' => 'invalid',
@@ -31,7 +31,7 @@ class FriendsListController extends Controller
             'type' => 'follower',
             'data_id' => 'no data',
         ]);
-        return redirect()->back()->with('message', 'the user has been followed successfully');
+        return redirect()->back();
     }
 
     public function listFollowers(){

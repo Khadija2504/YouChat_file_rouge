@@ -17,4 +17,8 @@ class Story extends Model
     public function users(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function votesStories(){
+        return $this->hasMany(stories_vote::class, 'story_id');
+    }
 }

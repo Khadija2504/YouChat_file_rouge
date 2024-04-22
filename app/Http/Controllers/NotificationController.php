@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 class NotificationController extends Controller
 {
     public function notifications(){
+        $unraedNotification = Notification::where('user_id', auth()->user()->id);
         $notifications = Notification::where('user_id', auth()->user()->id)->with('sender')->orderBy('created_at', 'desc')->get();
+        $unraedNotification->update([
+            'is_read' => 1,
+        ]);
         return view('notifications.notifications',compact('notifications'));
     }
     public function readPost($id){
@@ -20,5 +24,12 @@ class NotificationController extends Controller
     public function readVideo($id){
         $videos = video::find(1);
         return view('notifications.readVideo', compact('videos'));
+    }
+    public function unreadNotifications(){
+        $notifications = Notification::where('user_id', auth()->user()->id)->where('is_read', 0)->count();
+        return response()->json([
+            'msg' => 'You have new notifications',
+            'notifications' => $notifications,
+        ]);
     }
 }

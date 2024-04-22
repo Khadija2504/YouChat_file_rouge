@@ -16,7 +16,18 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+          // Pusher.logToConsole = true;
 
+          // var pusher = new Pusher('e7abade77b4bc0ab8115', {
+          //   cluster: 'ap1'
+          // });
+
+          // var channel = pusher.subscribe('YouChat-app');
+          // channel.bind('vote-post', function(data) {
+          //   alert(JSON.stringify(data));
+          // });
+        </script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -90,31 +101,7 @@
               <p class="text-xs text-gray-500 text-center">{{Auth::user()->email}}</p>
             </div>
           </div>
-          <div
-            class="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-teal-500"
-          >
-            <input
-              type="text"
-              class="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
-              placeholder="Search"
-            />
-            <button
-              class="rounded-tr-md rounded-br-md px-2 py-3 hidden md:block"
-            >
-              <svg
-                class="w-4 h-4 fill-current"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-          </div>
+          
           <div id="menu" class="flex flex-col space-y-2">
             <a
               href="{{route('home')}}"
@@ -142,7 +129,7 @@
               <span class="ml-1">Favorites</span>
             </a>
             <a
-              href="{{route('notifications')}}"
+              href="{{route('displayReels')}}"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg

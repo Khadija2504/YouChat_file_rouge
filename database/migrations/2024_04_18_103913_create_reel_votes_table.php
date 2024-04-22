@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('reel_id')->constrained('reels');
-            $table->boolean('voted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1,9 +1,111 @@
 @extends('layouts.app')
 @section('main')
 <main class="h-full w[50%] bg-gray-50 flex flex-wrap items-center justify-center overflow-x-hidden transition-transform duration-300 ease-in-out">
+  <nav class=" bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20">
+      {{-- <div class="inline-flex">
+          <a class="_o6689fn" href="/"
+              ><div class="hidden md:block">
+                  <svg width="102" height="32" fill="currentcolor" style="display: block">
+                      <path d="M29.24 22.68c-.16-.39-.31-.8-.47-1.15l-.74-1.67-.03-.03c-2.2-4.8-4.55-9.68-7.04-14.48l-.1-.2c-.25-.47-.5-.99-.76-1.47-.32-.57-.63-1.18-1.14-1.76a5.3 5.3 0 00-8.2 0c-.47.58-.82 1.19-1.14 1.76-.25.52-.5 1.03-.76 1.5l-.1.2c-2.45 4.8-4.84 9.68-7.04 14.48l-.06.06c-.22.52-.48 1.06-.73 1.64-.16.35-.32.73-.48 1.15a6.8 6.8 0 007.2 9.23 8.38 8.38 0 003.18-1.1c1.3-.73 2.55-1.79 3.95-3.32 1.4 1.53 2.68 2.59 3.95 3.33A8.38 8.38 0 0022.75 32a6.79 6.79 0 006.75-5.83 5.94 5.94 0 00-.26-3.5zm-14.36 1.66c-1.72-2.2-2.84-4.22-3.22-5.95a5.2 5.2 0 01-.1-1.96c.07-.51.26-.96.52-1.34.6-.87 1.65-1.41 2.8-1.41a3.3 3.3 0 012.8 1.4c.26.4.45.84.51 1.35.1.58.06 1.25-.1 1.96-.38 1.7-1.5 3.74-3.21 5.95zm12.74 1.48a4.76 4.76 0 01-2.9 3.75c-.76.32-1.6.41-2.42.32-.8-.1-1.6-.36-2.42-.84a15.64 15.64 0 01-3.63-3.1c2.1-2.6 3.37-4.97 3.85-7.08.23-1 .26-1.9.16-2.73a5.53 5.53 0 00-.86-2.2 5.36 5.36 0 00-4.49-2.28c-1.85 0-3.5.86-4.5 2.27a5.18 5.18 0 00-.85 2.21c-.13.84-.1 1.77.16 2.73.48 2.11 1.78 4.51 3.85 7.1a14.33 14.33 0 01-3.63 3.12c-.83.48-1.62.73-2.42.83a4.76 4.76 0 01-5.32-4.07c-.1-.8-.03-1.6.29-2.5.1-.32.25-.64.41-1.02.22-.52.48-1.06.73-1.6l.04-.07c2.16-4.77 4.52-9.64 6.97-14.41l.1-.2c.25-.48.5-.99.76-1.47.26-.51.54-1 .9-1.4a3.32 3.32 0 015.09 0c.35.4.64.89.9 1.4.25.48.5 1 .76 1.47l.1.2c2.44 4.77 4.8 9.64 7 14.41l.03.03c.26.52.48 1.1.73 1.6.16.39.32.7.42 1.03.19.9.29 1.7.19 2.5zM41.54 24.12a5.02 5.02 0 01-3.95-1.83 6.55 6.55 0 01-1.6-4.48 6.96 6.96 0 011.66-4.58 5.3 5.3 0 014.08-1.86 4.3 4.3 0 013.7 1.92l.1-1.57h2.92V23.8h-2.93l-.1-1.76a4.52 4.52 0 01-3.88 2.08zm.76-2.88c.58 0 1.09-.16 1.57-.45.44-.32.8-.74 1.08-1.25.25-.51.38-1.12.38-1.8a3.42 3.42 0 00-1.47-3.04 2.95 2.95 0 00-3.12 0c-.44.32-.8.74-1.08 1.25a4.01 4.01 0 00-.38 1.8 3.42 3.42 0 001.47 3.04c.47.29.98.45 1.55.45zM53.45 8.46c0 .35-.06.67-.22.93-.16.25-.38.48-.67.64-.29.16-.6.22-.92.22-.32 0-.64-.06-.93-.22a1.84 1.84 0 01-.67-.64 1.82 1.82 0 01-.22-.93c0-.36.07-.68.22-.93.16-.3.39-.48.67-.64.29-.16.6-.23.93-.23a1.84 1.84 0 011.6.86 2 2 0 01.21.94zm-3.4 15.3V11.7h3.18v12.08h-3.19zm11.68-8.9v.04c-.15-.07-.35-.1-.5-.13-.2-.04-.36-.04-.55-.04-.89 0-1.56.26-2 .8-.48.55-.7 1.32-.7 2.31v5.93h-3.19V11.69h2.93l.1 1.83c.32-.64.7-1.12 1.24-1.48a3.1 3.1 0 011.81-.5c.23 0 .45.02.64.06.1.03.16.03.22.06v3.2zm1.28 8.9V6.74h3.18v6.5c.45-.58.96-1.03 1.6-1.38a5.02 5.02 0 016.08 1.31 6.55 6.55 0 011.6 4.49 6.96 6.96 0 01-1.66 4.58 5.3 5.3 0 01-4.08 1.86 4.3 4.3 0 01-3.7-1.92l-.1 1.57-2.92.03zm6.15-2.52c.57 0 1.08-.16 1.56-.45.44-.32.8-.74 1.08-1.25.26-.51.38-1.12.38-1.8 0-.67-.12-1.28-.38-1.79a3.75 3.75 0 00-1.08-1.25 2.95 2.95 0 00-3.12 0c-.45.32-.8.74-1.09 1.25a4.01 4.01 0 00-.38 1.8 3.42 3.42 0 001.47 3.04c.47.29.98.45 1.56.45zm7.51 2.53V11.69h2.93l.1 1.57a3.96 3.96 0 013.54-1.89 4.1 4.1 0 013.82 2.44c.35.76.54 1.7.54 2.75v7.24h-3.19v-6.82c0-.84-.19-1.5-.57-1.99-.38-.48-.9-.74-1.56-.74-.48 0-.9.1-1.27.32-.35.23-.64.52-.86.93a2.7 2.7 0 00-.32 1.35v6.92h-3.16zm12.52 0V6.73h3.19v6.5a4.67 4.67 0 013.73-1.89 5.02 5.02 0 013.95 1.83 6.57 6.57 0 011.59 4.48 6.95 6.95 0 01-1.66 4.58 5.3 5.3 0 01-4.08 1.86 4.3 4.3 0 01-3.7-1.92l-.09 1.57-2.93.03zm6.18-2.53c.58 0 1.09-.16 1.56-.45.45-.32.8-.74 1.09-1.25.25-.51.38-1.12.38-1.8a3.42 3.42 0 00-1.47-3.04 2.95 2.95 0 00-3.12 0c-.44.32-.8.74-1.08 1.25a3.63 3.63 0 00-.38 1.8 3.42 3.42 0 001.47 3.04c.47.29.95.45 1.55.45z" ></path>
+                  </svg>
+              </div>
+              <div class="block md:hidden">
+                  <svg width="30" height="32" fill="currentcolor" style="display: block">
+                      <path d="M29.24 22.68c-.16-.39-.31-.8-.47-1.15l-.74-1.67-.03-.03c-2.2-4.8-4.55-9.68-7.04-14.48l-.1-.2c-.25-.47-.5-.99-.76-1.47-.32-.57-.63-1.18-1.14-1.76a5.3 5.3 0 00-8.2 0c-.47.58-.82 1.19-1.14 1.76-.25.52-.5 1.03-.76 1.5l-.1.2c-2.45 4.8-4.84 9.68-7.04 14.48l-.06.06c-.22.52-.48 1.06-.73 1.64-.16.35-.32.73-.48 1.15a6.8 6.8 0 007.2 9.23 8.38 8.38 0 003.18-1.1c1.3-.73 2.55-1.79 3.95-3.32 1.4 1.53 2.68 2.59 3.95 3.33A8.38 8.38 0 0022.75 32a6.79 6.79 0 006.75-5.83 5.94 5.94 0 00-.26-3.5zm-14.36 1.66c-1.72-2.2-2.84-4.22-3.22-5.95a5.2 5.2 0 01-.1-1.96c.07-.51.26-.96.52-1.34.6-.87 1.65-1.41 2.8-1.41a3.3 3.3 0 012.8 1.4c.26.4.45.84.51 1.35.1.58.06 1.25-.1 1.96-.38 1.7-1.5 3.74-3.21 5.95zm12.74 1.48a4.76 4.76 0 01-2.9 3.75c-.76.32-1.6.41-2.42.32-.8-.1-1.6-.36-2.42-.84a15.64 15.64 0 01-3.63-3.1c2.1-2.6 3.37-4.97 3.85-7.08.23-1 .26-1.9.16-2.73a5.53 5.53 0 00-.86-2.2 5.36 5.36 0 00-4.49-2.28c-1.85 0-3.5.86-4.5 2.27a5.18 5.18 0 00-.85 2.21c-.13.84-.1 1.77.16 2.73.48 2.11 1.78 4.51 3.85 7.1a14.33 14.33 0 01-3.63 3.12c-.83.48-1.62.73-2.42.83a4.76 4.76 0 01-5.32-4.07c-.1-.8-.03-1.6.29-2.5.1-.32.25-.64.41-1.02.22-.52.48-1.06.73-1.6l.04-.07c2.16-4.77 4.52-9.64 6.97-14.41l.1-.2c.25-.48.5-.99.76-1.47.26-.51.54-1 .9-1.4a3.32 3.32 0 015.09 0c.35.4.64.89.9 1.4.25.48.5 1 .76 1.47l.1.2c2.44 4.77 4.8 9.64 7 14.41l.03.03c.26.52.48 1.1.73 1.6.16.39.32.7.42 1.03.19.9.29 1.7.19 2.5z"></path>
+                  </svg>
+              </div>
+          </a>
+      </div> --}}
+
+      <div class="block">
+        <div class="inline relative">
+            <button type="submit" class="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg">
+                <div class="pl-1">
+                    <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                        role="presentation"
+                        focusable="false"
+                        style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"
+                    >
+                        <g fill="none" fill-rule="nonzero">
+                            <path d="m2 16h28"></path>
+                            <path d="m2 24h28"></path>
+                            <path d="m2 8h28"></path>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="block h-10 w-12 pl-5 space-y-3 flex justify-center items-center">
+                  <img
+                  src="{{asset('' . Auth::user()->avatar)}}"
+                  alt="Avatar user"
+                  class="object-cover bg-yellow-500 rounded-full w-8 h-7 mx-auto"
+                />
+                </div>
+            </button>
+        </div>
+    </div>
+
+      <form id="searchForm">
+        <div x-data="{ search: '' }"
+          class="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-teal-500"
+        >
+          <input
+          name="search"
+          x-model="search"
+          id="searchInput"
+            type="search"
+            class="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
+            placeholder="Search" required
+          />
+          <div
+            class="rounded-tr-md rounded-br-md px-2 py-3 hidden md:block"
+          >
+            <svg
+              class="w-4 h-4 fill-current"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </form>
+
+      <div class="flex-initial">
+        <div class="flex justify-end items-center relative">
+        
+          <div class="flex mr-4 items-center">
+            
+            <div class="block relative" id="notification">
+              <a
+                href="{{route('notifications')}}"
+              >
+              <svg id="no_notifications" fill="#000000" style="display: block" width="28px" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10,21h4a2,2,0,0,1-4,0ZM3.076,18.383a1,1,0,0,1,.217-1.09L5,15.586V10a7.006,7.006,0,0,1,6-6.92V2a1,1,0,0,1,2,0V3.08A7.006,7.006,0,0,1,19,10v5.586l1.707,1.707A1,1,0,0,1,20,19H4A1,1,0,0,1,3.076,18.383ZM6.414,17H17.586l-.293-.293A1,1,0,0,1,17,16V10A5,5,0,0,0,7,10v6a1,1,0,0,1-.293.707Z"/></svg>
+              <svg id="unread_notifications" fill="#f88e48" width="28px" style="display: none" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,23a2,2,0,0,1-2-2h4A2,2,0,0,1,12,23ZM20,6a2,2,0,1,0-2,2A2,2,0,0,0,20,6Zm.707,11.293L19,15.586V10H17v6a1,1,0,0,0,.293.707l.293.293H6.414l.293-.293A1,1,0,0,0,7,16V10a4.98,4.98,0,0,1,5.912-4.912L14.5,3.5a.913.913,0,0,0-.168-.1A7,7,0,0,0,13,3.084V2a1,1,0,0,0-2,0V3.08A7,7,0,0,0,5,10v5.586L3.293,17.293A1,1,0,0,0,4,19H20a1,1,0,0,0,.707-1.707Z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="{{ url('/logout') }}">
+      <span class="material-symbols-outlined">
+        logout
+      </span>
+      </a>
+  </nav>
+
+  <div id="search-result"></div>
+
   <div class="w-full flex justify-center items-center relative mt-10">
     <div class="flex flex-wrap flex py-2 justify-between px-4">
-          
 
           <div class="text-center py-2" x-data="{ open : false }">
             <a href="#" @click="open = true" class="">
@@ -62,21 +164,6 @@
               <img src="{{asset('' . $post->users->avatar)}}" class="object-cover bg-yellow-500 rounded-full w-10 h-10" />
               <div class="flex flex-col">
                   <b class="mb-2 capitalize">{{$post->users->user_name}}</b>
-                  @if(isset($follow->id))
-                    @foreach ($followings as $following)
-                      @if ($post->user_id != Auth::user()->id && $post->user_id != $following->friend_id)
-                          <form action="{{route('follow', $post->user_id)}}" method="GET">
-                            @csrf
-                            <button type="submit">Follow</button>
-                          </form>
-                      @endif 
-                    @endforeach
-                  @else
-                    <form action="{{route('follow', $post->user_id)}}" method="GET">
-                      @csrf
-                      <button type="submit">Follow</button>
-                    </form>
-                  @endif
                   <time datetime="06-08-21" class="text-gray-400 text-xs">{{$post->created_at}}
                   </time>
               </div>
@@ -132,7 +219,16 @@
       </div>
       <div id="description_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($post->description, 20) }}</div>
       <div id="fullDescription_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $post->description }}</div>
-      <button onclick="toggleDescription({{ $post->id }})">Show More</button>
+      <button onclick="toggleDescription({{ $post->id }})" id="showMore_{{ $post->id }}" style="display: block">
+        <span class="material-symbols-outlined">
+          visibility
+        </span>
+      </button>
+      <button onclick="toggleDescription({{ $post->id }})" id="showLess_{{ $post->id }}" style="display: none">
+        <span class="material-symbols-outlined">
+          visibility_off
+        </span>
+      </button>
         <div class="mt-5 flex gap-2	 justify-center border-b pb-4 flex-wrap	">
           @foreach($post->photos as $photo)
             <img src="{{asset('' . $photo->images->photo)}}" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="post">
@@ -362,33 +458,49 @@
                                 </div>
                                 <div class="flex space-x-1 mt-2">
                                   <div class="w-1/2">
-                                      @foreach($followings as $following)
-                                        @if($comment->user_id != Auth::user()->id && $following->friend_id !== $comment->user_id)
-                                            <form action="{{route('follow', $comment->user_id)}}" method="GET">
-                                              @csrf
-                                              <button type="submit">
-                                                <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
-                                                  <div class="mr-1">
-                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
-                                                  </div>
-                                                  follow
+                                    @if($post->users->followers->where('user_id', Auth::user()->id)->first() !== null)
+                                    @foreach ($post->users->followers as $follower)
+                                        @if($comment->user_id !== Auth::user()->id && $follower->friend_id != $comment->user_id)
+                                            <button id="follower_user" data-follow-user="{{$comment->user_id}}">
+                                              <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                                <div class="mr-1">
+                                                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
                                                 </div>
-                                              </button>
-                                            </form>
-                                          @else
+                                                follow
+                                              </div>
+                                            </button>
+                                        @elseif($comment->user_id !== Auth::user()->id)
                                           <form action="{{route('follow', $comment->user_id)}}" method="GET">
                                             @csrf
                                             <button type="submit">
                                               <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
                                                 <div class="mr-1">
-                                                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
+                                                  <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="12" cy="6" r="4" fill="#1C274C"/>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 15.75C16.7574 15.75 15.75 16.7574 15.75 18C15.75 18.3473 15.8287 18.6763 15.9693 18.97L18.9701 15.9693C18.6763 15.8287 18.3474 15.75 18 15.75ZM20.0307 17.0299L17.0299 20.0307C17.3236 20.1713 17.6526 20.25 18 20.25C19.2426 20.25 20.25 19.2426 20.25 18C20.25 17.6526 20.1713 17.3237 20.0307 17.0299ZM14.25 18C14.25 15.9289 15.9289 14.25 18 14.25C20.0711 14.25 21.75 15.9289 21.75 18C21.75 20.0711 20.0711 21.75 18 21.75C15.9289 21.75 14.25 20.0711 14.25 18Z" fill="#1C274C"/>
+                                                    <path opacity="0.5" d="M17.2157 14.3321C15.5211 14.6927 14.25 16.1979 14.25 18C14.25 18.9823 14.6277 19.8764 15.2457 20.5449C14.2756 20.8356 13.1714 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C14.0722 13 15.934 13.5145 17.2157 14.3321Z" fill="#1C274C"/>
+                                                  </svg>
                                                 </div>
-                                                add
+                                                Block
                                               </div>
                                             </button>
                                           </form>
-                                        @endif
-                                      @endforeach                                    
+                                        @endif                                      
+                                    @endforeach
+                                    @else
+                                    <form action="{{route('follow', $comment->user_id)}}" method="GET">
+                                      @csrf
+                                      <button type="submit">
+                                        <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                          <div class="mr-1">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
+                                          </div>
+                                          follow
+                                        </div>
+                                      </button>
+                                    </form>
+                                    @endif
+
                                   </div>
                                   <div class="w-auto">
                                     <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
@@ -466,7 +578,7 @@
                                               </button>
                                               <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'like')->count() }}</div>
                                           </form>
-                                      </div>                               
+                                      </div>
                                   <small class="self-center">.</small>
                                     <a href="#" class="hover:underline">
                                       <small>{{$comment->created_at}}</small>
@@ -520,13 +632,19 @@
       function toggleDescription(postId) {
           var fullDescriptionElement = document.getElementById("fullDescription_" + postId);
           var descriptionElement = document.getElementById("description_" + postId);
+          var showMore = document.getElementById("showMore_" + postId);
+          var ShowLess = document.getElementById("showLess_" + postId);
           
           if (fullDescriptionElement.style.display === "none") {
               fullDescriptionElement.style.display = "block";
               descriptionElement.style.display = "none";
+              showMore.style.display = 'none';
+              ShowLess.style.display = 'block';
           } else {
               fullDescriptionElement.style.display = "none";
               descriptionElement.style.display = "block";
+              showMore.style.display = 'block';
+              ShowLess.style.display = 'none';
           }
       }
       @endforeach
@@ -540,6 +658,11 @@
           console.log(data);
           storiesContainer.empty();
           data.stories.forEach(storyDisplay);
+          var pElement = $('<p></p>');
+
+          pElement.text(data.storiesCount);
+          $('#unreadStoriesCount').empty();
+          $('#unreadStoriesCount').append(pElement);
         },
         error: function (error) {
             console.log('Error fetching stories:', error);
@@ -564,7 +687,7 @@
                 <img class="w-full h-full object-contain" src="${item.users.avatar_url}" alt="avatar">
               </div>
             </div>
-            <p class="text-white text-xs pb-2 pt-1">${firstFourWords}</p>
+            <div class="text-black text-xs pb-2 pt-1" id="unreadStoriesCount"></div>
           </div>
         </a>
         `;
@@ -600,6 +723,112 @@
           });
         });
       });
+
+      $(document).ready(function(){
+        $('#searchInput').on('keyup', function(event){
+            event.preventDefault();
+            searchValue = $(this).val();
+            var searchResult = $('#search-result');
+            if(searchValue.trim() === '') {
+            searchResult.empty();
+        } else {
+
+            var formData = new FormData($('#searchForm')[0]);
+            formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+            $.ajax({
+                url: "http://127.0.0.1:8000/search/post",
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    console.log(data);
+                    searchResult.empty();
+                    data.post.forEach(function(item) {
+                        var result = `
+                            <div class="max-w-3xl w-full mx-auto z-10">
+                                <div class="flex flex-col">
+                                    <div class="bg-white border border-white shadow-lg rounded-3xl p-4 m-4">
+                                        <div class="flex-none sm:flex">
+                                            <div class=" relative h-32 w-32">
+                                                <img src="${item.users.avatar_url}" class=" w-32 h-32 object-cover rounded-2xl">
+                                            </div>
+                                            <div class="flex-auto sm:ml-5 justify-evenly">
+                                                <div class="flex items-center justify-between sm:mt-2">
+                                                    <div class="flex items-center">
+                                                        <div class="flex flex-col">
+                                                            <div class="w-full flex-none text-lg text-gray-800 font-bold leading-none">${item.users.name}</div>
+                                                            <div class="flex-auto text-gray-500 my-1">
+                                                                <span class="mr-3 ">${item.description}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex pt-2 text-sm text-gray-500">
+                                                    <div class="flex-1 inline-flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
+                                                        </svg>
+                                                        <a href="${item.post_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the post </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        searchResult.append(result);
+                    });
+                },
+            });
+          }
+        });
+    });
+
+    $(document).ready(function () {
+      const noNotifications = $('#no_notifications');
+      const unreadNotifications = $('#unread_notifications');
+
+      function fetchNotifications() {
+          $.ajax({
+              url: "http://127.0.0.1:8000/notifications/unread",
+              method: "GET",
+              success: function (data) {
+                  console.log(data);
+                  if(data.notifications > 0){
+                    noNotifications.css('display', 'none');
+                    unreadNotifications.css('display', 'block');
+                  } else{
+                    noNotifications.css('display', 'block');
+                    unreadNotifications.css('display', 'none');
+                  }
+              },
+              error: function (error) {
+                  console.log('Error fetching unread notifications:', error);
+              }
+          });
+      }
+      fetchNotifications();
+      setInterval(fetchNotifications, 10000);
+  });
+
+  $(document).ready(function(){
+        $(document).on('click', '#follower_user', function(){
+          var follow_id = $(this).data('follow-user');
+        $.ajax({
+            url: `http://127.0.0.1:8000/follow/${follow_id}`,
+            type: "GET",
+            success: function(data){
+                console.log(data);
+            },
+            error: function (error) {
+                console.log('Error fetching stories:', error);
+            }
+        });
+    });
+    });
 
   </script>
   @endsection

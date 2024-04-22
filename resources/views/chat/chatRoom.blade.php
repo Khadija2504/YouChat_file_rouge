@@ -29,9 +29,6 @@
           class="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg"
         >
         
-        
-        {{-- add some thing --}}
-
 
         </div>
         <div class="flex flex-col mt-8">
@@ -275,7 +272,7 @@ function printErrorMsg(data) {
         var conversation = `
             <button
                 class="conversation-button flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
-                data-conversation-id="{{$post->id}}"
+                data-conversation-id="${item.id}"
             >
                 <div class="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
                     H

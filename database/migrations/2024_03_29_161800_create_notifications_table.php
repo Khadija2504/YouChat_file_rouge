@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('message');
             $table->string('data_id');
             $table->enum('type', ['post', 'video', 'follower']);
+            $table->boolean('is_read')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
