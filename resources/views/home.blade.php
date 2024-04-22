@@ -83,8 +83,15 @@
         <div class="flex justify-end items-center relative">
         
           <div class="flex mr-4 items-center">
+
+            <div class="block relative m-5" id="notification">
+              <a href="{{route('chatRoom')}}">
+                <svg fill="#000000" id="no_messages" style="display: block" width="28px" height="28px" viewBox="0 0 24 24" id="chat-alt-3" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M12,11h.1M7.9,11H8m8,0h.1" style="fill: none; stroke: rgb(44, 169, 188); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M18.81,16.23,20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-5,0-9-3.58-9-8s4-8,9-8,9,3.58,9,8A7.49,7.49,0,0,1,18.81,16.23Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
+                <svg fill="#000000" id="unread_messages" width="28px" style="display: none" height="28px" viewBox="0 0 24 24" id="chat-alt-3" xmlns="http://www.w3.org/2000/svg" class="icon multi-color"><title style="stroke-width: 2;">chat alt 3</title><path id="secondary-fill" d="M18.81,16.23,20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-4.94,0-8.95-3.54-9-7.92A10.17,10.17,0,0,1,12,6a10.17,10.17,0,0,1,9,5.08A7.49,7.49,0,0,1,18.81,16.23Z" style="fill: rgb(44, 169, 188); stroke-width: 2;"></path><path id="primary-stroke" d="M21,11.08a7.49,7.49,0,0,1-2.19,5.15L20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-4.94,0-8.95-3.54-9-7.92V11c0-4.42,4-8,9-8s9,3.58,9,8Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-upstroke" d="M16,11Zm-4,0ZM8,11Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.5;"></path></svg>
+              </a>
+            </div>
             
-            <div class="block relative" id="notification">
+            <div class="block relative m-5" id="notification">
               <a
                 href="{{route('notifications')}}"
               >
@@ -92,14 +99,18 @@
               <svg id="unread_notifications" fill="#f88e48" width="28px" style="display: none" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,23a2,2,0,0,1-2-2h4A2,2,0,0,1,12,23ZM20,6a2,2,0,1,0-2,2A2,2,0,0,0,20,6Zm.707,11.293L19,15.586V10H17v6a1,1,0,0,0,.293.707l.293.293H6.414l.293-.293A1,1,0,0,0,7,16V10a4.98,4.98,0,0,1,5.912-4.912L14.5,3.5a.913.913,0,0,0-.168-.1A7,7,0,0,0,13,3.084V2a1,1,0,0,0-2,0V3.08A7,7,0,0,0,5,10v5.586L3.293,17.293A1,1,0,0,0,4,19H20a1,1,0,0,0,.707-1.707Z"/></svg>
               </a>
             </div>
+          
+            
+            <div class="block relative m-5" id="notification">
+              <a href="{{ url('/logout') }}">
+                <span class="material-symbols-outlined" style="font-size: 28px">
+                  logout
+                </span>
+                </a>
+            </div>
           </div>
         </div>
       </div>
-      <a href="{{ url('/logout') }}">
-      <span class="material-symbols-outlined">
-        logout
-      </span>
-      </a>
   </nav>
 
   <div id="search-result"></div>
@@ -168,6 +179,7 @@
                   </time>
               </div>
           </div>
+          @if($post->user_id == Auth::user()->id)
           <div x-data="{ openSettings{{$index}}: false }">
               <button @click="openSettings{{$index}} = !openSettings{{$index}}" class="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20" title="Settings">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
@@ -216,6 +228,7 @@
                   </div>
               </div>
           </div>
+          @endif
       </div>
       <div id="description_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($post->description, 20) }}</div>
       <div id="fullDescription_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $post->description }}</div>
@@ -459,8 +472,7 @@
                                 <div class="flex space-x-1 mt-2">
                                   <div class="w-1/2">
                                     @if($post->users->followers->where('user_id', Auth::user()->id)->first() !== null)
-                                    @foreach ($post->users->followers as $follower)
-                                        @if($comment->user_id !== Auth::user()->id && $follower->friend_id != $comment->user_id)
+                                        @if($comment->user_id !== Auth::user()->id && $post->users->followers->where('user_id', Auth::user()->id)->where('friend_id', $comment->user_id)->first() ==null)
                                             <button id="follower_user" data-follow-user="{{$comment->user_id}}">
                                               <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
                                                 <div class="mr-1">
@@ -486,7 +498,6 @@
                                             </button>
                                           </form>
                                         @endif                                      
-                                    @endforeach
                                     @else
                                     <form action="{{route('follow', $comment->user_id)}}" method="GET">
                                       @csrf
@@ -503,11 +514,11 @@
 
                                   </div>
                                   <div class="w-auto">
-                                    <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
+                                    <button data-friend-id="{{$comment->user_id}}" id="friend_id" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
                                       <div class="mr-1">
                                         <svg viewBox="0 0 28 28" alt="" class="h-4 w-4" height="20" width="20"><path d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z"></path></svg>
                                       </div>
-                                    </a>
+                                    </button>
                                   </div>
                                   <div class="w-auto">
                                     <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
@@ -520,7 +531,7 @@
                                   <div class="w-auto">
                                     <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
                                       <div class="mr-1">
-                                        <svg class="w-4 h-4 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
                                       </div>
                                     </a>
                                   </div>
@@ -814,6 +825,33 @@
       setInterval(fetchNotifications, 10000);
   });
 
+  $(document).ready(function () {
+      const noMessages = $('#no_messages');
+      const unreadMessages = $('#unread_messages');
+
+      function fetchMessages() {
+          $.ajax({
+              url: "http://127.0.0.1:8000/conversations/unreadMessages",
+              method: "GET",
+              success: function (data) {
+                  console.log(data);
+                  if(data.messages > 0){
+                    noMessages.css('display', 'none');
+                    unreadMessages.css('display', 'block');
+                  } else{
+                    noMessages.css('display', 'block');
+                    unreadMessages.css('display', 'none');
+                  }
+              },
+              error: function (error) {
+                  console.log('Error fetching unread messages:', error);
+              }
+          });
+      }
+      fetchMessages();
+      setInterval(fetchMessages, 10000);
+  });
+
   $(document).ready(function(){
         $(document).on('click', '#follower_user', function(){
           var follow_id = $(this).data('follow-user');
@@ -828,6 +866,19 @@
             }
         });
     });
+    });
+
+    $(document).ready(function(){
+        $("#friend_id").on("click", function(){
+            var friend_id = $(this).data("friend-id");
+            $.ajax({
+                url: `createConversation/${friend_id}`,
+                method: "GET",
+                success: function(data){
+                  console.log(data);
+                }
+            });
+        });
     });
 
   </script>

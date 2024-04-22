@@ -12,16 +12,18 @@
         <form action="{{route('updatePost', $post->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="relative">
-            <div class="mt-5 flex gap-2	 justify-center border-b pb-4 flex-wrap	">
-                @foreach($post->photos as $photo)
-                    <img src="{{asset('' . $photo->images->photo)}}" class="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo">
-                @endforeach
-            </div>
-            <div class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg flex-auto">
-                <span class="material-symbols-outlined">
-                    delete
-                </span>
-            </div>
+                <div class="mt-5 flex gap-2 justify-center border-b pb-4 flex-wrap">
+                    @foreach($post->photos as $photo)
+                    <div class="relative w-1/3">
+                        <img src="{{ asset($photo->images->photo) }}" class="bg-red-500 rounded-2xl w-full object-cover h-96 flex-auto" alt="photo">
+                        <button id="photo_id" data-photo-id="{{$photo->id}}" class="absolute absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg flex-auto">
+                            <span class="material-symbols-outlined cursor-pointer" onclick="deletePhoto({{ $photo->id }})">
+                                delete
+                            </span>
+                        </button>
+                    </div>
+                    @endforeach
+                </div>
             </div>
             
             <label for="uploadFile1"
@@ -51,3 +53,18 @@
     </div>
     
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#photo_id").on("click", function(){
+            var photo_id = $(this).data("photo-id");
+            $.ajax({
+                url: `deletePhoto/${photo_id}`,
+                method: "GET",
+                success: function(data){
+                    console.log(data);
+                }
+            })
+        })
+    });
+</script>

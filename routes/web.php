@@ -13,6 +13,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FriendsListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PhotosPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostVoteController;
 use App\Http\Controllers\ReelController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\StoryController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\VoteEventController;
 use App\Http\Controllers\VoteVideoController;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\photos_post;
 use App\Models\Reel_vote;
@@ -50,11 +52,11 @@ Route::middleware('auth', 'user')->group(function () {
     Route::post('/addPost', [PostController::class, 'addPosts'])->name('addPosts');
     Route::get('/deletePost{id}', [PostController::class, 'deletePost'])->name('deletePost');
     Route::post('/updatePost{id}', [PostController::class, 'updatePost'])->name('updatePost');
-    Route::delete('/deletePhoto{id}', [photos_post::class, 'deletePhoto'])->name('deletePhoto');
+    Route::get('/deletePhoto/{id}', [PhotosPostController::class, 'deletePhoto'])->name('deletePhoto');
 
     Route::get('/addVideo/form', [VideoController::class, 'addVideoForm'])->name('addVideoForm');
     Route::post('/addVideo', [VideoController::class, 'addVideo'])->name('addVideo');
-    Route::get('/display/Videos', [VideoController::class, 'displayReels'])->name('displayReels');
+    Route::get('/display/Videos', [VideoController::class, 'displayVideos'])->name('displayVideos');
     Route::post('/video/vote{id}', [VoteVideoController::class, 'voteVideo'])->name('voteVideo');
 
     Route::get('/displayReels', [ReelController::class, 'displayReels'])->name('displayReels');
@@ -98,6 +100,9 @@ Route::middleware('auth', 'user')->group(function () {
     Route::post('/chatRoom/createMessage', [MessageController::class, 'addMessage'])->name('createMessage');
     Route::get('/chatRoom/displayMessages/{id}', [MessageController::class, 'displayMessages'])->name('displayMessages');
     Route::get('/chatRoom/DeleteMessage/{id}', [MessageController::class, 'deleteMessage'])->name('deleteMessage');
+    Route::get('/createConversation/{id}', [ChatRoomController::class, 'createconversation'])->name('createconversation');
+    Route::get('/conversations/unreadMessages', [ChatRoomController::class, 'unreadMessages']);
+    Route::get('/messages/unreadConversations', [MessageController::class, 'unreadConversations']);
 
     Route::post('/stories/addStory', [StoryController::class, 'addStory'])->name('addStory');
     Route::get('/stories/displayFriendStories/{id}', [StoryController::class, 'displayFriendStories'])->name('displayFriendStories');
@@ -124,6 +129,11 @@ Route::post('/reset', [ForgotPasswordController::class, 'reset'])->name('reset')
 Route::middleware('guest')->group(function () {
     Route::get('/register', [registerController::class, 'create'])->name('reister');
     Route::post('/storeRegister', [registerController::class,'store'])->name('storeRegister');
+
+    Route::get('/Forget-password', [ForgotPasswordController::class, 'Forget'])->name('forget.password');
+    Route::post('/Forget-password', [ForgotPasswordController::class, 'ForgetPassword'])->name('forget');
+    Route::get('/reset-password/{token}' , [ForgotPasswordController::class, 'resetPassword'])->name('reset.password');
+    Route::post('/reset-password' , [ForgotPasswordController::class, 'ResetPasswordPost'])->name('reset.password.post');
 
     Route::get('/login', [loginController::class, 'create'])->name('login');
     Route::post('/storeLogin', [loginController::class,'store'])->name('storeLogin');

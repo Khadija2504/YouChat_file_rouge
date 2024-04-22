@@ -38,7 +38,7 @@ class VideoController extends Controller
 
         return redirect()->back();
     }
-    public function displayReels(){
+    public function displayVideos(){
         $videos = video::with('videoVotes')->get();
         return view('video.videos', compact('videos'));
     }

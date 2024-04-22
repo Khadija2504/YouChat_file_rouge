@@ -29,39 +29,15 @@
           class="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg"
         >
         
-
         </div>
         <div class="flex flex-col mt-8">
           <div class="flex flex-row items-center justify-between text-xs">
             <span class="font-bold">Active Conversations</span>
-            <span
-              class="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
-              >4</span
-            >
           </div>
           <div class="flex flex-col space-y-1 mt-4 -mx-2 h-[60%] overflow-x-auto" id="conversationContainer">
             
-            
           </div>
-          <div class="flex flex-row items-center justify-between text-xs mt-6">
-            <span class="font-bold">Archivied</span>
-            <span
-              class="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
-              >7</span
-            >
-          </div>
-          <div class="flex flex-col space-y-1 mt-4 -mx-2">
-            <button
-              class="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
-            >
-              <div
-                class="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full"
-              >
-                H
-              </div>
-              <div class="ml-2 text-sm font-semibold">Henry Boyd</div>
-            </button>
-          </div>
+
         </div>
       </div>
       <div class="flex flex-col flex-auto h-full p-6">
@@ -242,7 +218,7 @@ function printErrorMsg(data) {
     $(".error").text(data.error);
 }
 
-    $(document).ready(function () {
+$(document).ready(function () {
     const conversationContainer = $('#conversationContainer');
 
     function fetchConversation() {
@@ -252,7 +228,9 @@ function printErrorMsg(data) {
             success: function (data) {
                 console.log(data);
                 conversationContainer.empty();
-                data.conversations.forEach(conversationDisplay);
+                data.conversations.forEach(function (conversation) {
+                    conversationDisplay(conversation, data.unreadMessages[conversation.id]);
+                });
             },
             error: function (error) {
                 console.log('Error fetching conversations:', error);
@@ -260,33 +238,42 @@ function printErrorMsg(data) {
         });
     }
 
-    function conversationDisplay(item) {
-        if(item.friend_id == {{Auth::user()->id}}){
-            var avatarUrl = item.users.avatar;
-            var conversationName = item.users.name
-        } else{
-            var avatarUrl = item.friends.avatar;
-            var conversationName = item.friends.name
+    function conversationDisplay(item, unreadMessages) {
+        let avatarUrl, conversationName;
+
+        if (item.friend_id == {{ Auth::user()->id }}) {
+            avatarUrl = item.users.avatar;
+            conversationName = item.users.name;
+        } else {
+            avatarUrl = item.friends.avatar;
+            conversationName = item.friends.name;
         }
+
         avatarUrl = 'http://127.0.0.1:8000/' + avatarUrl;
-        var conversation = `
+
+        const unreadMessagesIndicator = unreadMessages > 0 ? `<span class="flex items-center justify-center bg-gray-300 h-4 w-4 ml-28 rounded-full">${unreadMessages}</span>` : '';
+
+        const conversation = `
             <button
-                class="conversation-button flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
+                class="conversation-button relative flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"
                 data-conversation-id="${item.id}"
             >
-                <div class="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
-                    H
+                <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
+                <div id="unreadMessages" class="absolute bg-green-500 rounded-full bottom-0 ml-5 mb-1 w-3 h-3"></div>
+                <div class="flex flex-row items-center justify-between text-xs">
+                    <div class="ml-2 text-sm font-semibold">${conversationName}</div>
+                    ${unreadMessagesIndicator}
                 </div>
-                <div class="ml-2 text-sm font-semibold">${conversationName}</div>
             </button>
-
         `;
+
         conversationContainer.append(conversation);
     }
 
     fetchConversation();
     // setInterval(fetchConversation, 10000);
 });
+
 
 $(document).ready(function() {
     var messagesContainer = $("#messagesContainer");
@@ -328,6 +315,11 @@ $(document).ready(function() {
         var avatarUrl = item.from_user.avatar;
         avatarUrl = 'http://127.0.0.1:8000/' + avatarUrl;
         var isFromLoggedInUser = item.from_user.id === loggedInUserId;
+        const deleteMessage_button = item.from_user.id === {{Auth::user()->id}} ? `<button class="delete-icon" id="deleteMessage_button" data-message-id="${item.id}">
+                        <span class="material-symbols-outlined">
+                        delete_forever
+                        </span>
+                    </button>` : '';
 
         var messageHTML = isFromLoggedInUser ? `
             <div class="col-start-6 col-end-13 rounded-lg message-container">
@@ -350,11 +342,7 @@ $(document).ready(function() {
                     <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
                         <div>${item.message}</div>
                     </div>
-                    <button class="delete-icon" id="deleteMessage_button" data-message-id="${item.id}">
-                        <span class="material-symbols-outlined">
-                        delete_forever
-                        </span>
-                    </button>
+                    ${deleteMessage_button}
                 </div>
             </div>
             
