@@ -12,6 +12,7 @@ class FriendsList extends Model
         'user_id',
         'friend_id',
         'status',
+        'blocked',
     ];
     public function users(){
         return $this->belongsTo(User::class, 'friend_id');

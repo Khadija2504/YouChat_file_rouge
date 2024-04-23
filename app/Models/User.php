@@ -28,6 +28,18 @@ class User extends Authenticatable
     public function followers(){
         return $this->hasMany(FriendsList::class, 'user_id');
     }
+    public function posts(){
+        return $this->hasMany(Post::class, 'user_id');
+    }
+    public function videos(){
+        return $this->hasMany(video::class, 'user_id');
+    }
+    public function reels(){
+        return $this->hasMany(Reel::class, 'user_id');
+    }
+    public function events(){
+        return $this->hasMany(Evenement::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

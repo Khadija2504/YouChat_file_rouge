@@ -67,6 +67,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications');
     Route::get('/notifications/readPost/{id}', [NotificationController::class,'readPost'])->name('readPost');
     Route::get('/notifications/readVideo/{id}', [NotificationController::class, 'readVideo'])->name('readVideo');
+    Route::get('/notifications/readReel/{id}', [NotificationController::class, 'readreel'])->name('readReel');
 
     Route::get('/post/vote/{id}', [PostVoteController::class, 'postVote'])->name('postVote');
     // Route::get('/vote/dislike/{id}', [PostVoteController::class, 'dislikePost'])->name('dislikePost');
@@ -75,10 +76,12 @@ Route::middleware('auth', 'user')->group(function () {
     // Route::get('/vote/dislikeComment/{id}', [CommentVoteController::class, 'dislikeComment'])->name('dislikeComment');
 
     Route::get('/follow/{id}', [FriendsListController::class, 'follow'])->name('follow');
-    Route::get('/follow/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
+    Route::get('/followers/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
     Route::post('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
 
-    Route::get('/followers/blocke{id}', [FriendsListController::class, 'blocke'])->name('blicke');
+    Route::get('/followers/blocke/{id}', [FriendsListController::class, 'blocke'])->name('blocke');
+
+    Route::get('/profile/{id}', [FriendsListController::class, 'profile'])->name('profile');
 
     Route::get('/favorites', [FavoriteController::class, 'favorites'])->name('favorites');
     Route::get('/favorites_posts', [FavoriteController::class, 'savedPosts'])->name('savedPosts');

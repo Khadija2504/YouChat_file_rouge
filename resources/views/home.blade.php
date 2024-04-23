@@ -433,7 +433,7 @@
                           
                           <div class="flex items-center space-x-2">
                             <div class="group relative flex flex-shrink-0 self-start cursor-pointer">
-                              <img 
+                              <img
                                 x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false"
                               src="{{asset('' . $comment->users->avatar)}}" alt="" class="h-8 w-8 object-fill rounded-full">
                               <div x-cloak x-show.transition.origin.bottom="open1" x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false" class="absolute mt-8 bg-white px-4 py-4 w-72 shadow rounded cursor-default z-10">
@@ -471,8 +471,8 @@
                                 </div>
                                 <div class="flex space-x-1 mt-2">
                                   <div class="w-1/2">
-                                    @if($post->users->followers->where('user_id', Auth::user()->id)->first() !== null)
-                                        @if($comment->user_id !== Auth::user()->id && $post->users->followers->where('user_id', Auth::user()->id)->where('friend_id', $comment->user_id)->first() ==null)
+                                    @if($comment->user_id != Auth::user()->id)
+                                        @if(isset($comment->users->followers->where('user_id', Auth::user()->id)->where('friend_id', $comment->user_id)->first()->id))
                                             <button id="follower_user" data-follow-user="{{$comment->user_id}}">
                                               <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
                                                 <div class="mr-1">
@@ -481,8 +481,8 @@
                                                 follow
                                               </div>
                                             </button>
-                                        @elseif($comment->user_id !== Auth::user()->id)
-                                          <form action="{{route('follow', $comment->user_id)}}" method="GET">
+                                        @else
+                                          <form action="{{route('blicke', $comment->user_id)}}" method="GET">
                                             @csrf
                                             <button type="submit">
                                               <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
@@ -497,21 +497,9 @@
                                               </div>
                                             </button>
                                           </form>
-                                        @endif                                      
-                                    @else
-                                    <form action="{{route('follow', $comment->user_id)}}" method="GET">
-                                      @csrf
-                                      <button type="submit">
-                                        <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
-                                          <div class="mr-1">
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
-                                          </div>
-                                          follow
-                                        </div>
-                                      </button>
-                                    </form>
+                                        @endif
+                                    
                                     @endif
-
                                   </div>
                                   <div class="w-auto">
                                     <button data-friend-id="{{$comment->user_id}}" id="friend_id" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">

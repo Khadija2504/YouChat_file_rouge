@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Post;
+use App\Models\Reel;
 use App\Models\video;
 use Illuminate\Http\Request;
 
@@ -31,5 +32,9 @@ class NotificationController extends Controller
             'msg' => 'You have new notifications',
             'notifications' => $notifications,
         ]);
+    }
+    public function readreel($id){
+        $reels = Reel::find($id);
+        return view('notifications.readReel', compact('reels'));
     }
 }
