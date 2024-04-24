@@ -35,6 +35,14 @@
                         <div class="text-sm" id="NewVotesCount">
                     </div>
                 </div>
+                <form action="{{ route('home') }}" method="GET" class="absolute top-3 left-3">
+                    @csrf
+                    <button type="submit">
+                        <span class="material-symbols-outlined ">
+                            close
+                        </span>
+                    </button>
+                </form>
                 </div>
             @else
                 <div class="slide">
@@ -67,15 +75,16 @@
                 </div>
             @endif
         @endforeach
+        <form action="{{ route('home') }}" method="GET" class="absolute top-3 left-3">
+            @csrf
+            <button type="submit">
+                <span class="material-symbols-outlined ">
+                    close
+                </span>
+            </button>
+        </form>
     </div>
-    <form action="{{ route('home') }}" method="GET" class="absolute">
-        @csrf
-        <button type="submit">
-            <span class="material-symbols-outlined absolute left-0 top-0">
-                close
-            </span>
-        </button>
-    </form>
+    
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -54,7 +54,7 @@
                 </div>
             </div>
         @else
-            <div>No notifications for this time.</div>
+            <div>No notifications for this moment.</div>
         @endif
     @endforeach
 </main>

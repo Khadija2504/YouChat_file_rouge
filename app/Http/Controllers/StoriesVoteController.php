@@ -32,4 +32,9 @@ class StoriesVoteController extends Controller
             ]);
         }
     }
+    public function deleteStory($id){
+        $story = Story::where('id', $id);
+        $story->delete();
+        return redirect()->back();
+    }
 }

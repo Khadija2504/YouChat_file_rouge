@@ -73,7 +73,7 @@ class FriendsListController extends Controller
             return response()->json(['error' => 'An unexpected error occurred: ' . $exception->getMessage()], 500);
         }
     }
-    
+
     public function listFollowers(){
         $followers = FriendsList::where('user_id', Auth::user()->id)->get();
         return view('users/list_followers', compact('followers'));
@@ -96,7 +96,7 @@ class FriendsListController extends Controller
         ]);
         return redirect()->back()->with('message', 'The user has been accepted successfully');
     }
-    public function blocke($id){
+    public function block($id){
         $friendsList = FriendsList::where('user_id', Auth::user()->id)->where('friend_id', $id)->first();
         if(isset($friendsList)){
         $friendsList->blocked = "1";
@@ -111,9 +111,15 @@ class FriendsListController extends Controller
     public function profile($id) {
         $users = User::where('id', $id)->with('followers', 'posts', 'videos', 'reels', 'events')->get();
         $user = User::findOrFail($id);
-                $isFollowed = FriendsList::where('user_id', Auth::id())
+        $isFollowed = FriendsList::where('user_id', Auth::id())
             ->where('friend_id', $id)
             ->exists();
-        return view('users.profile', compact('users', 'id','user','isFollowed'));
-        }
+        $followers = FriendsList::where('friend_id', Auth::user()->id)->get()->count();
+        return view('users.profile', compact('users', 'id','user','isFollowed', 'followers'));
+    }
+    public function unfollow($id){
+        $friendList = FriendsList::where('user_id', Auth::user()->id)->where('friend_id', $id)->first();
+        $friendList->delete();
+        return redirect()->back();
+    }
 }

@@ -79,7 +79,8 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/followers/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
     Route::post('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
 
-    Route::get('/followers/blocke/{id}', [FriendsListController::class, 'blocke'])->name('blocke');
+    Route::get('/unfollow/{id}', [FriendsListController::class, 'unfollow'])->name('unfollow');
+    Route::get('/followers/block/{id}', [FriendsListController::class, 'block'])->name('block');
 
     Route::get('/profile/{id}', [FriendsListController::class, 'profile'])->name('profile');
 
@@ -112,6 +113,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/stories/displayStories/{id}', [StoryController::class, 'displayStories'])->name('displayStories');
     Route::get('/stories/displayAvatarStories', [StoryController::class, 'displayAvatarStories'])->name('displayAvatarStories');
     Route::get('/stories/votesStory/{id}', [StoriesVoteController::class, 'votesStory']);
+    Route::get('/stories/deleteStory/{id}', [StoriesVoteController::class, 'deleteStory'])->name('deleteStory');
 
     Route::get('/redirect_back', [ReelController::class, 'redirectBack'])->name('redirectBack');
     
@@ -131,7 +133,7 @@ Route::post('/reset', [ForgotPasswordController::class, 'reset'])->name('reset')
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [registerController::class, 'create'])->name('reister');
-    Route::post('/storeRegister', [registerController::class,'store'])->name('storeRegister');
+    Route::post('/storeRegister', [registerController::class,'storeRegister'])->name('storeRegister');
 
     Route::get('/Forget-password', [ForgotPasswordController::class, 'Forget'])->name('forget.password');
     Route::post('/Forget-password', [ForgotPasswordController::class, 'ForgetPassword'])->name('forget');

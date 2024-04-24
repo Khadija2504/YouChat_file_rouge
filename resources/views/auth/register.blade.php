@@ -21,6 +21,8 @@
       <input type="file" name="avatar" id="uploadFile1" accept=".png, .jpg, .jpeg, .svg" class="" />
     <label for="email">Email</label>
     <input name="email" type="email" id="email" placeholder="email" required>
+    <label for="about">Tell us about you</label>
+    <textarea name="about" id="about" cols="30" rows="5" required></textarea>
     <label for="password">Password</label>
     <input name="password" type="password" id="password" placeholder="Password" required>
     <button type="submit">Register</button>

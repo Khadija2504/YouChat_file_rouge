@@ -14,6 +14,8 @@ use App\Models\photo;
 use App\Models\photos_post;
 use App\Models\Post;
 use App\Models\PostVote;
+use App\Models\Story;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,13 +25,16 @@ class PostController extends Controller
         $followings = FriendsList::where('user_id', auth()->user()->id)->get();
         // $followingsButton = FriendsList::where('status', 'valid')->get();
         $follow = FriendsList::where('user_id', auth()->user()->id)->first();
+        $isFollowed = FriendsList::where('user_id', Auth::id())->first();
+        $setStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))->exists();
+        $myStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))->with(['users', 'votesStories'])->latest()->limit(4)->get();
         // $postss = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
         $post = [];
+        $videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'wmv'];
         if(isset($follow->id)){
             foreach ($followings as $following){
                 if($following->status == 'valid' && $following->blocked == 0){
                     $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
-                    // dd($posts);
                 } else{
                     $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
                 }
@@ -42,7 +47,7 @@ class PostController extends Controller
         //         dd($comment->user_id == Auth::user()->id);
         //     }
         // }
-        return view('home', compact('posts', 'follow', 'followings'));
+        return view('home', compact('posts', 'follow', 'followings', 'isFollowed', 'setStories', 'myStories', 'videoExtensions'));
     }
 
     public function addPostsForm(){

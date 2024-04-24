@@ -10,7 +10,6 @@
             </video>
             <div class="p-4">
                 <p class="text-sm text-gray-600">{{$reels->description}}</p>
-                
             </div>
         </div>
     </div>

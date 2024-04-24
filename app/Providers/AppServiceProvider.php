@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Interface\InterfaceAuth;
+use App\Repositories\AuthRepositories;
+use App\Services\AuthService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->bind(InterfaceAuth::class, AuthRepositories::class);
+        app()->bind(AuthService::class, function ($app) {
+            return new AuthService($app->make(InterfaceAuth::class));
+        });
     }
 
     /**

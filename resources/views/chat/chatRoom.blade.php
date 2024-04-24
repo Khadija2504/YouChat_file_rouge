@@ -274,7 +274,6 @@ $(document).ready(function () {
     // setInterval(fetchConversation, 10000);
 });
 
-
 $(document).ready(function() {
     var messagesContainer = $("#messagesContainer");
     var currentInterval = null;

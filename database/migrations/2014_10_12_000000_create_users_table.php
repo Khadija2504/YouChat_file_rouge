@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('user_name');
             $table->string('avatar');
             $table->string('email')->unique();
+            $table->text('about');
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->enum('acceptation', ['auto', 'manuelle'])->default('auto');

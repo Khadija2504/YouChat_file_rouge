@@ -100,7 +100,6 @@
               </a>
             </div>
           
-            
             <div class="block relative m-5" id="notification">
               <a href="{{ url('/logout') }}">
                 <span class="material-symbols-outlined" style="font-size: 28px">
@@ -117,21 +116,37 @@
 
   <div class="w-full flex justify-center items-center relative mt-10">
     <div class="flex flex-wrap flex py-2 justify-between px-4">
-
-          <div class="text-center py-2" x-data="{ open : false }">
+      @if($setStories)
+        <div class="text-center py-2 px-4" x-data="{ open : false }">
+          <a href="#" @click="open = true" class="">
+            <div class="rounded-full p-0.5 bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500">
+              <div class="h-14 w-14 rounded-full bg-white relative wrapper overflow-hidden border-2 border-black">
+                <button type="submit" class="absolute" style="top: -5%; right: 0%">
+                  <span class="material-symbols-outlined border-solid" style="font-size: 45px">
+                    edit
+                  </span>
+                </button>
+              </div>
+            </div>
+          </a>
+          <p class="text-black text-xs pb-2 pt-1">Edit stories</p>
+          @include('components.deleteStories')
+        </div>
+      @endif
+          <div class="text-center py-2 px-4" x-data="{ open : false }">
             <a href="#" @click="open = true" class="">
               <div class="rounded-full p-0.5 bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500">
-                <div class="h-14 w-14 rounded-full bg-white relative wrapper overflow-hidden border-2 border-black" style="background-image: url('{{asset('' . Auth::user()->avatar)}}')">
+                <div class="h-14 w-14 rounded-full bg-white relative wrapper overflow-hidden border-2 border-black">
                 <button type="submit" class="absolute" style="top: -5%; right: -5%">
                   <span class="material-symbols-outlined border-solid" style="font-size: 60px">
                     add
                   </span>
-              </button>
+                </button>
                 </div>
 
               </div>
             </a>
-            <p class="text-white text-xs pb-2 pt-1">New story</p>
+            <p class="text-black text-xs pb-2 pt-1">New story</p>
             @include('components.createStatus')
           </div>
           <div class="flex py-2 justify-between px-4" id="storiesContainer"></div>
@@ -471,18 +486,15 @@
                                 </div>
                                 <div class="flex space-x-1 mt-2">
                                   <div class="w-1/2">
-                                    @if($comment->user_id != Auth::user()->id)
-                                        @if(isset($comment->users->followers->where('user_id', Auth::user()->id)->where('friend_id', $comment->user_id)->first()->id))
-                                            <button id="follower_user" data-follow-user="{{$comment->user_id}}">
-                                              <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
-                                                <div class="mr-1">
-                                                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
-                                                </div>
-                                                follow
-                                              </div>
-                                            </button>
-                                        @else
-                                          <form action="{{route('blicke', $comment->user_id)}}" method="GET">
+                                    
+                                  @if($comment->user_id !== Auth::user()->id)
+                                    @php
+                                    if($isFollowed !== null){
+                                        $isFollowed = $isFollowed->where('friend_id', $comment->user_id)->first();
+                                    }
+                                    @endphp
+                                      @if($isFollowed)
+                                          <form action="{{ route('unfollow', $comment->user_id) }}" method="GET">
                                             @csrf
                                             <button type="submit">
                                               <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
@@ -493,13 +505,22 @@
                                                     <path opacity="0.5" d="M17.2157 14.3321C15.5211 14.6927 14.25 16.1979 14.25 18C14.25 18.9823 14.6277 19.8764 15.2457 20.5449C14.2756 20.8356 13.1714 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C14.0722 13 15.934 13.5145 17.2157 14.3321Z" fill="#1C274C"/>
                                                   </svg>
                                                 </div>
-                                                Block
+                                                unfollow
                                               </div>
                                             </button>
                                           </form>
-                                        @endif
-                                    
+                                      @else
+                                        <button id="follower_user" data-follow-user="{{ $comment->user_id }}">
+                                            <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                                <div class="mr-1">
+                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
+                                                </div>
+                                                follow
+                                            </div>
+                                        </button>
+                                      @endif
                                     @endif
+
                                   </div>
                                   <div class="w-auto">
                                     <button data-friend-id="{{$comment->user_id}}" id="friend_id" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
