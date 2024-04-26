@@ -17,37 +17,11 @@
           </a>
       </div> --}}
 
-      <div class="block">
-        <div class="inline relative">
-            <button type="submit" class="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg">
-                <div class="pl-1">
-                    <svg
-                        viewBox="0 0 32 32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        role="presentation"
-                        focusable="false"
-                        style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"
-                    >
-                        <g fill="none" fill-rule="nonzero">
-                            <path d="m2 16h28"></path>
-                            <path d="m2 24h28"></path>
-                            <path d="m2 8h28"></path>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="block h-10 w-12 pl-5 space-y-3 flex justify-center items-center">
-                  <img
-                  src="{{asset('' . Auth::user()->avatar)}}"
-                  alt="Avatar user"
-                  class="object-cover bg-yellow-500 rounded-full w-8 h-7 mx-auto"
-                />
-                </div>
-            </button>
-        </div>
-    </div>
-
+      <button @click="sidenav = !sidenav" class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
+        <svg class="w-5 h-5 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
       <form id="searchForm">
         <div x-data="{ search: '' }"
           class="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-teal-500"
@@ -86,8 +60,16 @@
 
             <div class="block relative m-5" id="notification">
               <a href="{{route('chatRoom')}}">
-                <svg fill="#000000" id="no_messages" style="display: block" width="28px" height="28px" viewBox="0 0 24 24" id="chat-alt-3" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M12,11h.1M7.9,11H8m8,0h.1" style="fill: none; stroke: rgb(44, 169, 188); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M18.81,16.23,20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-5,0-9-3.58-9-8s4-8,9-8,9,3.58,9,8A7.49,7.49,0,0,1,18.81,16.23Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
-                <svg fill="#000000" id="unread_messages" width="28px" style="display: none" height="28px" viewBox="0 0 24 24" id="chat-alt-3" xmlns="http://www.w3.org/2000/svg" class="icon multi-color"><title style="stroke-width: 2;">chat alt 3</title><path id="secondary-fill" d="M18.81,16.23,20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-4.94,0-8.95-3.54-9-7.92A10.17,10.17,0,0,1,12,6a10.17,10.17,0,0,1,9,5.08A7.49,7.49,0,0,1,18.81,16.23Z" style="fill: rgb(44, 169, 188); stroke-width: 2;"></path><path id="primary-stroke" d="M21,11.08a7.49,7.49,0,0,1-2.19,5.15L20,21l-4.95-2.48A9.84,9.84,0,0,1,12,19c-4.94,0-8.95-3.54-9-7.92V11c0-4.42,4-8,9-8s9,3.58,9,8Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-upstroke" d="M16,11Zm-4,0ZM8,11Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.5;"></path></svg>
+                <svg width="28px" height="28px" id="no_messages" style="display: block" viewBox="0 0 24 24" id="_24x24_On_Light_Messages" data-name="24x24/On Light/Messages" xmlns="http://www.w3.org/2000/svg">
+                  <rect id="view-box" width="24" height="24" fill="none"/>
+                  <path id="Shape" d="M6.485,18.519a9.891,9.891,0,0,1-4.876.981c-.285,0-.584-.006-.887-.018a.739.739,0,0,1-.65-.432.738.738,0,0,1,.085-.775,11.192,11.192,0,0,0,2.072-3.787A9.751,9.751,0,1,1,10.751,19.5,9.661,9.661,0,0,1,6.485,18.519ZM6.808,17a8.247,8.247,0,1,0-3.139-3.015.75.75,0,0,1,.092.535A10.189,10.189,0,0,1,2.2,17.99a7.2,7.2,0,0,0,3.816-.947.745.745,0,0,1,.431-.136A.756.756,0,0,1,6.808,17Zm-.057-4.5a.75.75,0,0,1,0-1.5h7a.75.75,0,0,1,0,1.5Zm0-4a.75.75,0,0,1,0-1.5h5a.75.75,0,1,1,0,1.5Z" transform="translate(1.249 2.25)" fill="#141124"/>
+                </svg>
+
+                <svg width="28px" id="unread_messages" style="display: none" height="28px" viewBox="0 0 24 24" id="_24x24_On_Light_Messages-Alert" data-name="24x24/On Light/Messages-Alert" xmlns="http://www.w3.org/2000/svg">
+                  <rect id="view-box" width="24" height="24" fill="none"/>
+                  <path id="Shape" d="M10.751,19.5a9.66,9.66,0,0,1-4.266-.981,9.889,9.889,0,0,1-4.876.981c-.279,0-.578-.006-.887-.018a.74.74,0,0,1-.65-.432.738.738,0,0,1,.085-.775,11.191,11.191,0,0,0,2.072-3.787A9.754,9.754,0,0,1,12.682.192a5.478,5.478,0,0,0-.676,1.4A8.252,8.252,0,0,0,3.668,13.983a.75.75,0,0,1,.092.535A10.189,10.189,0,0,1,2.2,17.99a7.2,7.2,0,0,0,3.816-.947.746.746,0,0,1,.431-.136A.755.755,0,0,1,6.808,17a8.254,8.254,0,0,0,12.1-8.5,5.477,5.477,0,0,0,1.4-.676A9.755,9.755,0,0,1,10.751,19.5Zm3-7h-7a.75.75,0,0,1,0-1.5h7a.75.75,0,0,1,0,1.5Zm-2-4h-5a.75.75,0,1,1,0-1.5h5a.75.75,0,0,1,0,1.5Zm6.612-1.931h0a8.34,8.34,0,0,0-4.43-4.43,3.527,3.527,0,0,1,.781-1.3,9.773,9.773,0,0,1,4.946,4.946,3.527,3.527,0,0,1-1.3.781Z" transform="translate(1.249 2.25)" fill="#141124"/>
+                  <path id="Shape-2" data-name="Shape" d="M3.5,7A3.5,3.5,0,1,1,7,3.5,3.5,3.5,0,0,1,3.5,7Z" transform="translate(15 2)" fill="#ff6359"/>
+                </svg>
               </a>
             </div>
             
@@ -95,8 +77,8 @@
               <a
                 href="{{route('notifications')}}"
               >
-              <svg id="no_notifications" fill="#000000" style="display: block" width="28px" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10,21h4a2,2,0,0,1-4,0ZM3.076,18.383a1,1,0,0,1,.217-1.09L5,15.586V10a7.006,7.006,0,0,1,6-6.92V2a1,1,0,0,1,2,0V3.08A7.006,7.006,0,0,1,19,10v5.586l1.707,1.707A1,1,0,0,1,20,19H4A1,1,0,0,1,3.076,18.383ZM6.414,17H17.586l-.293-.293A1,1,0,0,1,17,16V10A5,5,0,0,0,7,10v6a1,1,0,0,1-.293.707Z"/></svg>
-              <svg id="unread_notifications" fill="#f88e48" width="28px" style="display: none" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,23a2,2,0,0,1-2-2h4A2,2,0,0,1,12,23ZM20,6a2,2,0,1,0-2,2A2,2,0,0,0,20,6Zm.707,11.293L19,15.586V10H17v6a1,1,0,0,0,.293.707l.293.293H6.414l.293-.293A1,1,0,0,0,7,16V10a4.98,4.98,0,0,1,5.912-4.912L14.5,3.5a.913.913,0,0,0-.168-.1A7,7,0,0,0,13,3.084V2a1,1,0,0,0-2,0V3.08A7,7,0,0,0,5,10v5.586L3.293,17.293A1,1,0,0,0,4,19H20a1,1,0,0,0,.707-1.707Z"/></svg>
+              <svg fill="#000000" width="28px" id="no_notifications" style="display: block" height="28px" viewBox="0 0 24 24" id="notification-bell" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path></svg>
+              <svg fill="#000000" width="28px" style="display: none" id="unread_notifications"  height="28px" viewBox="0 0 24 24" id="notification-circle" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path><circle id="secondary-2" data-name="secondary" cx="17" cy="6" r="4" style="fill: rgb(44, 169, 188);"></circle></svg>
               </a>
             </div>
           
@@ -112,7 +94,10 @@
       </div>
   </nav>
 
-  <div id="search-result"></div>
+  <div id="search-result-posts"></div>
+  <div id="search-result-users"></div>
+  <div id="search-result-reels"></div>
+  <div id="search-result-videos"></div>
 
   <div class="w-full flex justify-center items-center relative mt-10">
     <div class="flex flex-wrap flex py-2 justify-between px-4">
@@ -153,7 +138,7 @@
     </div>
   </div>
 
-    <div class="bg-white h-32 rounded-md shadow-md" style="width: 70%">
+    <div class="bg-white h-32 rounded-md shadow-md" style="width: 90%">
       <form action="{{route('addPosts')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="w-full h-16 flex items-center flex justify-between px-5">
@@ -189,7 +174,9 @@
           <div class="gap-3.5	flex items-center">
               <img src="{{asset('' . $post->users->avatar)}}" class="object-cover bg-yellow-500 rounded-full w-10 h-10" />
               <div class="flex flex-col">
+                <a href="{{route('profile', $post->users->id)}}">
                   <b class="mb-2 capitalize">{{$post->users->user_name}}</b>
+                </a>
                   <time datetime="06-08-21" class="text-gray-400 text-xs">{{$post->created_at}}
                   </time>
               </div>
@@ -364,7 +351,8 @@
                       <div class="text-sm">{{ $post->postVotes()->where('vote', 'like')->count() }}</div>
                   </form>
               </div>
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-3" x-data="{ open : false }">
+                <a href="#" @click="open = true" class="">
                   <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g id="?-Social-Media" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -393,6 +381,8 @@
                       </g>
                   </svg>
                   <div class="text-sm">Share</div>
+                </a>
+                    @include('components.displayConversations')
               </div>
               <div class="flex items-center	gap-3">
                   <button id="postId_button"  data-post-id="{{$post->id}}">
@@ -458,7 +448,7 @@
                                   </div>
                                   <div class="flex flex-col space-y-2">
                                     <div class="font-semibold">
-                                      <a href="#" class="hover:underline">
+                                      <a href="{{route('profile', $comment->users->id)}}" class="hover:underline">
                                         {{$comment->users->name}}
                                       </a>
                                     </div>
@@ -553,7 +543,7 @@
                                   <div class="flex justify-center items-center space-x-2">
                                     <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
                                     <div class="font-medium">
-                                        <a href="#" class="hover:underline text-sm">
+                                        <a href="{{route('profile', $comment->users->id)}}" class="hover:underline text-sm">
                                         <small>{{$comment->users->name}}</small>
                                         </a>
                                     </div>
@@ -748,7 +738,10 @@
         $('#searchInput').on('keyup', function(event){
             event.preventDefault();
             searchValue = $(this).val();
-            var searchResult = $('#search-result');
+            var searchResultPosts = $('#search-result-posts');
+            var searchResultUsers = $('#search-result-users');
+            var searchResultReels = $('#search-result-reels');
+            var searchResultVideos = $('#search-result-videos');
             if(searchValue.trim() === '') {
             searchResult.empty();
         } else {
@@ -757,14 +750,14 @@
             formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
 
             $.ajax({
-                url: "http://127.0.0.1:8000/search/post",
+                url: "http://127.0.0.1:8000/search",
                 method: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function(data){
                     console.log(data);
-                    searchResult.empty();
+                    searchResultPosts.empty();
                     data.post.forEach(function(item) {
                         var result = `
                             <div class="max-w-3xl w-full mx-auto z-10">
@@ -787,9 +780,6 @@
                                                 </div>
                                                 <div class="flex pt-2 text-sm text-gray-500">
                                                     <div class="flex-1 inline-flex items-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
-                                                        </svg>
                                                         <a href="${item.post_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the post </a>
                                                     </div>
                                                 </div>
@@ -798,8 +788,114 @@
                                     </div>
                                 </div>
                             </div>
+                          </div>
                         `;
-                        searchResult.append(result);
+                        searchResultPosts.append(result);
+                    });
+                    searchResultUsers.empty();
+                    data.users.forEach(function(item) {
+                      var user = `
+                      <div class="max-w-3xl w-full mx-auto z-10">
+                          <div class="flex flex-col">
+                              <div class="bg-white border border-white shadow-lg rounded-3xl p-4 m-4">
+                                  <div class="flex-none sm:flex">
+                                      <div class=" relative h-32 w-32">
+                                          <img src="${item.avatar_url}" class=" w-32 h-32 object-cover rounded-2xl">
+                                      </div>
+                                      <div class="flex-auto sm:ml-5 justify-evenly">
+                                          <div class="flex items-center justify-between sm:mt-2">
+                                              <div class="flex items-center">
+                                                  <div class="flex flex-col">
+                                                      <div class="w-full flex-none text-lg text-gray-800 font-bold leading-none">${item.name}</div>
+                                                      <div class="flex-auto text-gray-500 my-1">
+                                                          <span class="mr-3 ">${item.about}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="flex pt-2 text-sm text-gray-500">
+                                              <div class="flex-1 inline-flex items-center">
+                                                  <a href="${item.user_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the profile </a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div> `;
+                    searchResultUsers.append(user);
+                    });
+                    searchResultVideos.empty();
+                    data.videos.forEach(function(item){
+                      var video = `
+                        <div class="max-w-3xl w-full mx-auto z-10">
+                          <div class="flex flex-col">
+                            <div class="bg-white border border-white shadow-lg  rounded-3xl p-4 m-4">
+                              <div class="flex-none sm:flex">
+                                <div class=" relative h-32 w-32">
+                                  <video class="slide absolute inset-0 w-full h-full object-cover" autoplay loop muted>
+                                    <source src="${item.video_path}" type="video/${item.video_type}">
+                                  </video>
+                                </div>
+                                <div class="flex-auto sm:ml-5 justify-evenly">
+                                  <div class="flex items-center justify-between sm:mt-2">
+                                    <div class="flex items-center">
+                                      <div class="flex flex-col">
+                                        <div class="flex-auto text-gray-500 my-1">
+                                          <span class="mr-3 ">${item.titre}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="flex pt-2 text-sm text-gray-500">
+                                    <div class="flex-1 inline-flex items-center">
+                                      <a href="${item.video_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the video </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      `;
+                    searchResultVideos.append(video);
+                    });
+
+                    searchResultReels.empty();
+                    data.reels.forEach(function(item){
+                      var reel = `
+                        <div class="max-w-3xl w-full mx-auto z-10">
+                          <div class="flex flex-col">
+                            <div class="bg-white border border-white shadow-lg  rounded-3xl p-4 m-4">
+                              <div class="flex-none sm:flex">
+                                <div class=" relative h-32 w-32">
+                                  <video class="slide absolute inset-0 w-full h-full object-cover" autoplay loop muted>
+                                    <source src="${item.reel_path}" type="video/${item.reel_type}">
+                                  </video>
+                                </div>
+                                <div class="flex-auto sm:ml-5 justify-evenly">
+                                  <div class="flex items-center justify-between sm:mt-2">
+                                    <div class="flex items-center">
+                                      <div class="flex flex-col">
+                                        <div class="flex-auto text-gray-500 my-1">
+                                          <span class="mr-3 ">${item.description}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="flex pt-2 text-sm text-gray-500">
+                                    <div class="flex-1 inline-flex items-center">
+                                      <a href="${item.reel_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the reel </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      `;
+                    searchResultReels.append(reel);
                     });
                 },
             });
@@ -875,7 +971,7 @@
             }
         });
     });
-    });
+  });
 
     $(document).ready(function(){
         $("#friend_id").on("click", function(){
@@ -891,4 +987,6 @@
     });
 
   </script>
+      <script src="{{asset('js/dashboard.js')}}"></script>
+
   @endsection

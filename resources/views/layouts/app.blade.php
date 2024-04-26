@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
         {{-- <link rel="stylesheet" href="../css/style.css"> --}}
+        {{-- <link rel="stylesheet" href="{{asset('css/dashboard.css')}}"> --}}
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -23,57 +24,56 @@
           .message-container:hover .delete-icon{
             display: block;
           }
+          .toggle {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+          }
+          .navigation.active {
+            width: 80px;
+          }
+          .main.active {
+            width: calc(100% - 80px);
+            left: 80px;
+          }
         </style>
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    {{-- <body class="font-sans antialiased">
-        <div class="min-h-screen bg-white dark:bg-gray-900">
-            @include('layouts.nav') --}}
-            <!-- Page Heading -->
-            {{-- @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif --}}
-            <!-- Page Content -->
-            {{-- <main>
-                @yield('main')
-            </main>
-        </div>
-    </body>
-</html> --}}
+
 
 <body class="font-poppins antialiased">
     <div
       id="view"
-      class="h-full w-screen flex flex-row"
-      {{-- x-data="{ sidenav: true }" --}}
+      class="h-full w-screen flex flex-row container"
+      x-data="{ sidenav: false }"
     >
-      {{-- <button
-        @click="sidenav = true"
-        class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
+    <button
+      @click="sidenav = !sidenav"
+      class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
+    >
+      <svg
+        class="w-5 h-5 fill-current"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          class="w-5 h-5 fill-current"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </button> --}}
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
       <div
         id="sidebar"
-        class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out" style="width: 50rem"
-        x-show="sidenav"
-        {{-- @click.away="sidenav = false" --}}
+        class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out"
+        :class="{ 'hidden': !sidenav, 'block': sidenav }"  style="width: 50rem"
+        {{-- x-show="sidenav" --}}
       >
         <div class="space-y-6 md:space-y-10 mt-10">
           <h1 class="font-bold text-4xl text-center md:hidden">
@@ -178,7 +178,7 @@
               href="{{route('displayVideos')}}"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
-            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <?xml version="1.0" encoding="utf-8"?>
             <svg width="22px"  class="w-6 h-6 fill-current inline-block" height="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="m11 14 7-4-7-4z"/><path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8z"/><path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 12V6l7 4-7 4z"/></svg>
               <span class="">videos</span>
             </a>
@@ -196,7 +196,7 @@
                   d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
                 ></path>
               </svg>
-              <span class="">UI Components</span>
+              <span class="">  </span>
             </a>
             <a
               href="{{route('listFollowers')}}"
@@ -217,21 +217,22 @@
           </div>
         </div>
       </div>
-      <main class="bg-white h-screen md:block shadow-xl px-3 overflow-x-hidden transition-transform duration-300 ease-in-out" id="main" style="width: 300vh">
+      <main class="main bg-white h-screen md:block shadow-xl px-3 overflow-x-hidden transition-transform duration-300 ease-in-out" id="main" style="width: 300vh">
         @yield('main')
       </main>
-    <div
-        id="sidebar"
-        class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out rightSidebar" style="width: 50rem"
-        x-show="sidenav"
-        @click.away="sidenav = false"
-      >
-     
+      <div
+          id="sidebar"
+          class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out rightSidebar" :class="{ 'hidden': !sidenav, 'block': sidenav }" style="width: 50rem;"
+          
+          @click.away="sidenav = false"
+        >
+      </div>
     </div>
 
-<script>
-  if(window.location.pathname == '/chatRoom'){
-    $(".rightSidebar").hide();
-    $("#main").css("width", "410vh");
-  }
-</script>
+  <script src="{{asset('js/dashboard.js')}}"></script>
+  <script>
+    if(window.location.pathname == '/chatRoom'){
+      $(".rightSidebar").hide();
+      $("#main").css("width", "410vh");
+    }
+  </script>

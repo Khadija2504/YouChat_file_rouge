@@ -55,6 +55,9 @@
                     </form>
                     <div class="text-sm">{{ $video->videoVotes()->where('vote', 'celebration')->count() }}</div>
                 </div>
+                @if($video->user_id == Auth::user()->id)
+                    <a href="{{route('deleteVideo', $video->id)}}">delete</a>
+                @endif
             </div>
         </div>
     </div>

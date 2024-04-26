@@ -24,7 +24,7 @@ class RequestPhotos extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'max:1000',
+            'photo' => 'max:2000',
         ];
     }
 }

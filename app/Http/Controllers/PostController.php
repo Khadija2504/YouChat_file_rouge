@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RequestPhotos;
 use App\Http\Requests\RequestPosts;
 use App\Http\Requests\SearchPost;
+use App\Models\ChatRoom;
 use App\Models\Comment;
 use App\Models\CommentVote;
 use App\Models\favorite;
 use App\Models\FriendsList;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\photo;
 use App\Models\photos_post;
 use App\Models\Post;
 use App\Models\PostVote;
+use App\Models\Reel;
 use App\Models\Story;
+use App\Models\User;
+use App\Models\video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,18 +27,20 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     public function home(){
-        $followings = FriendsList::where('user_id', auth()->user()->id)->get();
+        $followings = FriendsList::where('user_id', auth()->user()->id)->with('users')->get();
         // $followingsButton = FriendsList::where('status', 'valid')->get();
         $follow = FriendsList::where('user_id', auth()->user()->id)->first();
         $isFollowed = FriendsList::where('user_id', Auth::id())->first();
         $setStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))->exists();
-        $myStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))->with(['users', 'votesStories'])->latest()->limit(4)->get();
-        // $postss = Post::with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+        $myStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))
+                            ->with(['users', 'votesStories'])->latest()->limit(4)->get();
+        $conversations = ChatRoom::where('user_id', Auth::user()->id)->orWhere('friend_id', Auth::user()->id)
+                                    ->with('friends', 'users', 'messages')->orderBy('created_at', 'desc')->get();
         $post = [];
         $videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'wmv'];
         if(isset($follow->id)){
             foreach ($followings as $following){
-                if($following->status == 'valid' && $following->blocked == 0){
+                if($following->status == 'valid' && $following->blocked == 0 && $following->users->ban == 0){
                     $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
                 } else{
                     $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
@@ -47,7 +54,7 @@ class PostController extends Controller
         //         dd($comment->user_id == Auth::user()->id);
         //     }
         // }
-        return view('home', compact('posts', 'follow', 'followings', 'isFollowed', 'setStories', 'myStories', 'videoExtensions'));
+        return view('home', compact('posts', 'follow', 'followings', 'isFollowed', 'setStories', 'myStories', 'videoExtensions', 'conversations'));
     }
 
     public function addPostsForm(){
@@ -90,6 +97,7 @@ class PostController extends Controller
                 $file_name = time() . '_' . $file->getClientOriginalName();
                 $path = 'imgs/';
                 $file->move(public_path($path), $file_name);
+                dd($file_name);
                 $photo = photo::create([
                     'photo' => $path . $file_name,
                 ]);
@@ -131,12 +139,15 @@ class PostController extends Controller
         $post->delete();
         return redirect()->back();
     }
-    public function searchPost(SearchPost $request){
+    public function search(SearchPost $request){
             $validator = $request->validated();
             $search = $validator['search'];
             $posts = Post::where('description', 'like', "%$search%")
                         ->with('comments', 'users', 'postVotes', 'photos', 'favorites')
-                        ->orderBy('created_at', 'desc')->get();
+                        ->orderBy('created_at', 'desc')->limit(4)->get();
+            $users = User::where('name', 'like', "%$search%")->orderBy('created_at', 'desc')->limit(4)->get();
+            $videos = video::where('titre', 'like', "%$search%")->orWhere('description', 'like', "%$search%")->orderBy('created_at', 'desc')->limit(4)->get();
+            $reels = Reel::where('description', 'like', "%$search%")->orderBy('created_at', 'desc')->limit(4)->get();
             $posts->transform(function($post){
                 if($post->users){
                     $post->users->avatar_url = asset('' . $post->users->avatar);
@@ -144,9 +155,51 @@ class PostController extends Controller
                 }
                 return $post;
             });
+            $users->transform(function($user){
+                if($user->avatar){
+                    $user->avatar_url = asset('' . $user->avatar);
+                    $user->user_url = route('profile', $user->id);
+                }
+                return $user;
+            });
+            $videos->transform(function ($video) {
+                if ($video->video) {
+                    $video->video_path = asset('' . $video->video);
+                    $video->video_type = strtolower(pathinfo($video->video, PATHINFO_EXTENSION));
+                    $video->video_url = route('readVideo', ['id' => $video->id]);
+                }
+                return $video;
+            });
+            $reels->transform(function ($reel) {
+                if ($reel->reel) {
+                    $reel->reel_path = asset('' . $reel->reel);
+                    $reel->reel_type = strtolower(pathinfo($reel->reel, PATHINFO_EXTENSION));
+                    $reel->reel_url = route('readReel', ['id' => $reel->id]);
+                }
+                return $reel;
+            });
+            
             return response()->json([
                 'msg' => 'your result about' . ' ' . $search,
                 'post' => $posts,
+                'users' => $users,
+                'videos' => $videos,
+                'reels' => $reels,
             ]);
+    }
+    public function sharePost($postId, $conversationId){
+        $post = Post::where('id', $postId)->first();
+        $message = "<a href='http://127.0.0.1:8000/notifications/readPost/$postId'> $post->description </a>";
+        $sendMessage = Message::create([
+            'chat_id' => $conversationId,
+            'from_id' => Auth::user()->id,
+            'to_id' => Auth::user()->id,
+            'message' => $message,
+        ]);
+        return response()->json([
+            'msg' => 'post share successful',
+            'success' => true,
+            'sendMessage' => $sendMessage,
+        ]);
     }
 }

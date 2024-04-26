@@ -15,7 +15,7 @@
                         Your browser does not support the video tag.
                     </video>
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-75 p-4">
+                    <div class="bottom-0 left-0 right-0 bg-white bg-opacity-75 p-4">
                         <h2 class="text-lg font-semibold">Reel's Description</h2>
                         <p class="text-sm text-gray-600">{{ $reelPlay->description }}</p>
                         <div class="flex items-center gap-3">

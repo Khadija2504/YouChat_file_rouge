@@ -11,6 +11,7 @@ use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FriendsListController;
+use App\Http\Controllers\googleAuthController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotosPostController;
@@ -53,11 +54,13 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/deletePost{id}', [PostController::class, 'deletePost'])->name('deletePost');
     Route::post('/updatePost{id}', [PostController::class, 'updatePost'])->name('updatePost');
     Route::get('/deletePhoto/{id}', [PhotosPostController::class, 'deletePhoto'])->name('deletePhoto');
+    Route::get('/share/post/{postId}/{conversationId}', [PostController::class, 'sharePost'])->name('sharePost');
 
     Route::get('/addVideo/form', [VideoController::class, 'addVideoForm'])->name('addVideoForm');
     Route::post('/addVideo', [VideoController::class, 'addVideo'])->name('addVideo');
     Route::get('/display/Videos', [VideoController::class, 'displayVideos'])->name('displayVideos');
-    Route::post('/video/vote{id}', [VoteVideoController::class, 'voteVideo'])->name('voteVideo');
+    Route::post('/video/vote/{id}', [VoteVideoController::class, 'voteVideo'])->name('voteVideo');
+    Route::get('/video/delete/{id}', [VoteVideoController::class, 'deleteVideo'])->name('deleteVideo');
 
     Route::get('/displayReels', [ReelController::class, 'displayReels'])->name('displayReels');
     Route::get('/reels/addForm', [ReelController::class, 'addForm'])->name('addForm');
@@ -122,9 +125,13 @@ Route::middleware('auth', 'user')->group(function () {
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('/dashboard', [adminBoard::class, 'dashboard'])->name('dashboard');
+    Route::get('/banner/{id}', [adminBoard::class, 'banner'])->name('banner');
+    Route::get('/admin/usersList', [adminBoard::class, 'usersList'])->name('usersList');
+    Route::get('/admin/users/profile/{id}', [adminBoard::class, 'profileUser'])->name('profileUser');
 });
+    Route::post('/searchUsers', [adminBoard::class, 'searchUsers'])->name('searchUsers');
 
-Route::post('/search/post', [PostController::class, 'searchPost'])->name('searchPost');
+Route::post('/search', [PostController::class, 'search'])->name('search');
 
 Route::get('/request', [ForgotPasswordLinkController::class, 'create'])->name('request');
 Route::post('/requests', [ForgotPasswordLinkController::class, 'store']);
@@ -142,6 +149,9 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/login', [loginController::class, 'create'])->name('login');
     Route::post('/storeLogin', [loginController::class,'store'])->name('storeLogin');
+
+    Route::get('/auth/google/utilisateur', [googleAuthController::class, 'redirect'])->name('googleAuthentication');
+    Route::get('/auth/google/call-back', [googleAuthController::class, 'handleGoogleCallback'])->name('googleAuthenticationCallback');
 });
 
 // Route::get('/posts', [postsController::class, 'create'])->name('posts');

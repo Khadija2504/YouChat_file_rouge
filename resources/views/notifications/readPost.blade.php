@@ -259,7 +259,7 @@
                                                 </div>
                                               </button>
                                           @elseif($comment->user_id !== Auth::user()->id)
-                                            <form action="{{route('blicke', $comment->user_id)}}" method="GET">
+                                            <form action="{{route('block', $comment->user_id)}}" method="GET">
                                               @csrf
                                               <button type="submit">
                                                 <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">

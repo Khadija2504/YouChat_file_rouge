@@ -41,6 +41,9 @@ class User extends Authenticatable
     public function events(){
         return $this->hasMany(Evenement::class, 'user_id');
     }
+    public function comments(){
+        return $this->hasMany(Comment::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
