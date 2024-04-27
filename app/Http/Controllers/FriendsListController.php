@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FriendsList;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
@@ -121,5 +122,21 @@ class FriendsListController extends Controller
         $friendList = FriendsList::where('user_id', Auth::user()->id)->where('friend_id', $id)->first();
         $friendList->delete();
         return redirect()->back();
+    }
+
+    public function shareProfile($userId, $conversationId){
+        $user = User::where('id', $userId)->first();
+        $message = "<a href='http://127.0.0.1:8000/profile/$userId'> $user->about </a>";
+        $sendMessage = Message::create([
+            'chat_id' => $conversationId,
+            'from_id' => Auth::user()->id,
+            'to_id' => Auth::user()->id,
+            'message' => $message,
+        ]);
+        return response()->json([
+            'msg' => 'user share successful',
+            'success' => true,
+            'sendMessage' => $sendMessage,
+        ]);
     }
 }

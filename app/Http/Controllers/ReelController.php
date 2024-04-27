@@ -34,4 +34,9 @@ class ReelController extends Controller
     public function redirectBack(){
         return redirect()->back();
     }
+    public function deleteReel($id){
+        $reel = Reel::find($id);
+        $reel->delete();
+        return redirect()->route('home');
+    }
 }

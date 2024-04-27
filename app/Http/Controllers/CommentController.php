@@ -38,6 +38,8 @@ class CommentController extends Controller
             $comment_votes->delete();
         }
         $comment->delete();
-        return redirect()->back();
+        return response()->json([
+            'mag' => 'comment deleted successfully',
+        ]);
      }
 }

@@ -34,7 +34,7 @@
           <div class="flex flex-row items-center justify-between text-xs">
             <span class="font-bold">Active Conversations</span>
           </div>
-          <div class="flex flex-col space-y-1 mt-4 -mx-2 h-[60%] overflow-x-auto" id="conversationContainer">
+          <div class="flex flex-col space-y-1 mt-4 -mx-2 h-[100%] overflow-x-auto" id="conversationContainer">
             
           </div>
 
@@ -259,8 +259,7 @@ $(document).ready(function () {
                 data-conversation-id="${item.id}"
             >
                 <img src="${avatarUrl}" class="object-cover bg-yellow-500 rounded-full w-8 h-8">
-                <div id="unreadMessages" class="absolute bg-green-500 rounded-full bottom-0 ml-5 mb-1 w-3 h-3"></div>
-                <div class="flex flex-row items-center justify-between text-xs">
+                  <div class="flex flex-row items-center justify-between text-xs">
                     <div class="ml-2 text-sm font-semibold">${conversationName}</div>
                     ${unreadMessagesIndicator}
                 </div>
@@ -344,7 +343,6 @@ $(document).ready(function() {
                     ${deleteMessage_button}
                 </div>
             </div>
-            
         `;
 
         messagesContainer.append(messageHTML);

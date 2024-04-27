@@ -18,6 +18,12 @@
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <style>
+          .deleteCommentButton{
+            display: none;
+          }
+          .commentContainer:hover .deleteCommentButton{
+             display: block;
+          }
           .delete-icon{
             display: none;
           }
@@ -223,9 +229,9 @@
       <div
           id="sidebar"
           class="bg-white h-screen md:block shadow-xl px-3 md:w-90 lg:w-90 overflow-x-hidden transition-transform duration-300 ease-in-out rightSidebar" :class="{ 'hidden': !sidenav, 'block': sidenav }" style="width: 50rem;"
-          
           @click.away="sidenav = false"
         >
+        @yield('rightSidebar')
       </div>
     </div>
 

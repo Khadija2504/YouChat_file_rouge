@@ -40,9 +40,7 @@ class ChatRoomController extends Controller
     public function createconversation($id){
         $conversation = ChatRoom::where('user_id', Auth::user()->id)->where('friend_id', $id)->first();
         if(isset($conversation->id)){
-            return response()->json([
-                'conversation' => $conversation,
-            ]);
+            return redirect()->route('chatRoom');
         } else{
             $conversation = ChatRoom::create([
                 'user_id' => Auth::user()->id,

@@ -55,6 +55,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::post('/updatePost{id}', [PostController::class, 'updatePost'])->name('updatePost');
     Route::get('/deletePhoto/{id}', [PhotosPostController::class, 'deletePhoto'])->name('deletePhoto');
     Route::get('/share/post/{postId}/{conversationId}', [PostController::class, 'sharePost'])->name('sharePost');
+    Route::post('/searchConversations', [PostController::class, 'searchConversations'])->name('searchConversations');
 
     Route::get('/addVideo/form', [VideoController::class, 'addVideoForm'])->name('addVideoForm');
     Route::post('/addVideo', [VideoController::class, 'addVideo'])->name('addVideo');
@@ -66,6 +67,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/reels/addForm', [ReelController::class, 'addForm'])->name('addForm');
     Route::post('/reels/addReel', [ReelController::class, 'addReel'])->name('addReel');
     Route::get('/reels/vote/{id}', [ReelVoteController::class, 'voteReel'])->name('voteReel');
+    Route::get('/reels/delete/{id}', [ReelController::class, 'deleteReel'])->name('deleteReel');
 
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications');
     Route::get('/notifications/readPost/{id}', [NotificationController::class,'readPost'])->name('readPost');
@@ -86,6 +88,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/followers/block/{id}', [FriendsListController::class, 'block'])->name('block');
 
     Route::get('/profile/{id}', [FriendsListController::class, 'profile'])->name('profile');
+    Route::get('/profile/share/{userId}/{conversationId}', [FriendsListController::class, 'shareProfile'])->name('share.profile');
 
     Route::get('/favorites', [FavoriteController::class, 'favorites'])->name('favorites');
     Route::get('/favorites_posts', [FavoriteController::class, 'savedPosts'])->name('savedPosts');
@@ -93,7 +96,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/favorite/{id}', [FavoriteController::class, 'favorite'])->name('favorite');
 
     Route::post('/addComment{id}', [CommentController::class, 'addComment'])->name('addComment');
-    Route::get('/deleteComment{id}', [CommentController::class, 'deleteComment'])->name('deleteComment');
+    Route::get('/deleteComment/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment');
 
     Route::get('/event/createForm', [EventController::class, 'createForm'])->name('createForm');
     Route::post('/event/create', [EventController::class, 'createEvent'])->name('createEvent');

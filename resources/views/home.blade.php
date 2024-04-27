@@ -99,7 +99,7 @@
   <div id="search-result-reels"></div>
   <div id="search-result-videos"></div>
 
-  <div class="w-full flex justify-center items-center relative mt-10">
+  <div id="old_data" style="display: block" class="w-full flex justify-center items-center relative mt-10">
     <div class="flex flex-wrap flex py-2 justify-between px-4">
       @if($setStories)
         <div class="text-center py-2 px-4" x-data="{ open : false }">
@@ -169,7 +169,7 @@
       </form>
     </div>
   @foreach($posts as $index => $post)
-  <div class="border max-w-screen-md w-full bg-white mt-6 rounded-2xl p-4 mb-5">
+  <div style="display: block" class="border max-w-screen-md w-full bg-white mt-6 rounded-2xl p-4 mb-5">
       <div class="flex items-center justify-between relative">
           <div class="gap-3.5	flex items-center">
               <img src="{{asset('' . $post->users->avatar)}}" class="object-cover bg-yellow-500 rounded-full w-10 h-10" />
@@ -181,7 +181,6 @@
                   </time>
               </div>
           </div>
-          @if($post->user_id == Auth::user()->id)
           <div x-data="{ openSettings{{$index}}: false }">
               <button @click="openSettings{{$index}} = !openSettings{{$index}}" class="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20" title="Settings">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
@@ -191,32 +190,40 @@
               <div x-show="openSettings{{$index}}" @click.away="openSettings{{$index}} = false" class="bg-white absolute right-0 top-10 w-40 py-2 mt-1 border border-gray-200 shadow-2xl">
                   <div class="py-2 border-b">
                       <p class="text-gray-400 text-xs px-6 uppercase mb-1">Settings</p>
-                      <button class="w-full flex items-center px-6 py-1.5 space-x-2 hover:bg-gray-200">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-                          </svg>
-                          <span class="text-sm text-gray-700">Share Profile</span>
-                      </button>
+                      <div class="flex items-center gap-3" x-data="{ open : false }">
+                        <a href="#" @click="open = true">
+                          <button class="w-full flex items-center px-6 py-1.5 space-x-2 hover:bg-gray-200">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                              </svg>
+                              <span class="text-sm text-gray-700">Share Profile</span>
+                          </button>
+                        </a>
+                        @include('components.shareProfile')
+                      </div>
                       <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
                           </svg>
                           <span class="text-sm text-gray-700">Block User</span>
                       </button>
+                      @if($post->user_id == Auth::user()->id)
                       <div x-data="{ open : false }">
-                      <a href="#" @click="open = true" class="">
-                      <button type="submit" class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
-                          <span class="material-symbols-outlined h-3 w-3 text-gray-400 flex justify-center items-center">
-                            edit
-                          </span>
-                          <span class="text-sm text-gray-70f0">
-                            Edit post
-                          </span>
-                      </button>
-                      </a>
+                        <a href="#" @click="open = true" class="">
+                        <button type="submit" class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                            <span class="material-symbols-outlined h-3 w-3 text-gray-400 flex justify-center items-center">
+                              edit
+                            </span>
+                            <span class="text-sm text-gray-70f0">
+                              Edit post
+                            </span>
+                        </button>
+                        </a>
                       @include('components.updatePost')
                     </div>
+                    @endif
                   </div>
+                  @if($post->user_id == Auth::user()->id)
                   <div class="py-2">
                       <form action="{{route('deletePost', $post->id)}}">
                         @csrf
@@ -228,9 +235,9 @@
                         </button>
                       </form>
                   </div>
+                  @endif
               </div>
           </div>
-          @endif
       </div>
       <div id="description_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($post->description, 20) }}</div>
       <div id="fullDescription_{{ $post->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $post->description }}</div>
@@ -282,7 +289,7 @@
                   <div class="text-sm	">{{$post->comments->count()}}</div>
               </div>
               <div class="flex items-center	gap-3">
-                  <form action="{{route('postVote', $post->id)}}" method="GET">
+                  <form action="{{route('postVote', $post->id)}}" method="GET" class="flex flex-row justify-center items-center">
                       @csrf
                       <input type="hidden" name="vote" value="dislike" required>
                       <button type="submit">
@@ -312,11 +319,11 @@
                         </svg>
                         @endif
                       </button>
-                      <div class="text-sm">{{ $post->postVotes()->where('vote', 'dislike')->count() }}</div>
+                      <div class="text-sm ml-2">{{ $post->postVotes()->where('vote', 'dislike')->count() }}</div>
                   </form>
               </div>
               <div class="flex items-center gap-3">
-                  <form action="{{route('postVote', $post->id)}}" method="GET">
+                  <form action="{{route('postVote', $post->id)}}" method="GET" class="flex flex-row justify-center items-center">
                       @csrf
                       <input type="hidden" name="vote" value="like" required>
                       <button type="submit">
@@ -348,11 +355,11 @@
 
                         @endif
                       </button>
-                      <div class="text-sm">{{ $post->postVotes()->where('vote', 'like')->count() }}</div>
+                      <div class="text-sm ml-2">{{ $post->postVotes()->where('vote', 'like')->count() }}</div>
                   </form>
               </div>
               <div class="flex items-center gap-3" x-data="{ open : false }">
-                <a href="#" @click="open = true" class="">
+                <a href="#" @click="open = true">
                   <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g id="?-Social-Media" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -368,8 +375,8 @@
                                                           transform="translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) translate(1.000000, 1.000000)"
                                                           fill="#92929D">
                                                           <path
-                                                              d="M4,0 C6.209139,0 8,1.790861 8,4 C8,4.1291298 7.99388117,4.25683047 7.98191762,4.38282788 L15.371607,7.98470389 C16.0745405,7.37145444 16.9938914,7 18,7 C20.209139,7 22,8.790861 22,11 C22,13.209139 20.209139,15 18,15 C16.9572434,15 16.0076801,14.6009919 15.2956607,13.9473263 L7.98384745,17.6380767 C7.99453877,17.7572882 8,17.8780063 8,18 C8,20.209139 6.209139,22 4,22 C1.790861,22 0,20.209139 0,18 C0,15.790861 1.790861,14 4,14 C5.37147453,14 6.58173814,14.690226 7.30236849,15.7422555 L14.2017356,12.2577203 C14.0708451,11.8622268 14,11.4393868 14,11 C14,10.5276126 14.0818865,10.0743509 14.2322392,9.65363512 L7.29274641,6.27172794 C6.57099412,7.31588608 5.36538874,8 4,8 C1.790861,8 0,6.209139 0,4 C0,1.790861 1.790861,0 4,0 Z M4,16 C2.8954305,16 2,16.8954305 2,18 C2,19.1045695 2.8954305,20 4,20 C5.1045695,20 6,19.1045695 6,18 C6,16.8954305 5.1045695,16 4,16 Z M18,9 C16.8954305,9 16,9.8954305 16,11 C16,12.1045695 16.8954305,13 18,13 C19.1045695,13 20,12.1045695 20,11 C20,9.8954305 19.1045695,9 18,9 Z M4,2 C2.8954305,2 2,2.8954305 2,4 C2,5.1045695 2.8954305,6 4,6 C5.1045695,6 6,5.1045695 6,4 C6,2.8954305 5.1045695,2 4,2 Z"
-                                                              id="Combined-Shape"></path>
+                                                            d="M4,0 C6.209139,0 8,1.790861 8,4 C8,4.1291298 7.99388117,4.25683047 7.98191762,4.38282788 L15.371607,7.98470389 C16.0745405,7.37145444 16.9938914,7 18,7 C20.209139,7 22,8.790861 22,11 C22,13.209139 20.209139,15 18,15 C16.9572434,15 16.0076801,14.6009919 15.2956607,13.9473263 L7.98384745,17.6380767 C7.99453877,17.7572882 8,17.8780063 8,18 C8,20.209139 6.209139,22 4,22 C1.790861,22 0,20.209139 0,18 C0,15.790861 1.790861,14 4,14 C5.37147453,14 6.58173814,14.690226 7.30236849,15.7422555 L14.2017356,12.2577203 C14.0708451,11.8622268 14,11.4393868 14,11 C14,10.5276126 14.0818865,10.0743509 14.2322392,9.65363512 L7.29274641,6.27172794 C6.57099412,7.31588608 5.36538874,8 4,8 C1.790861,8 0,6.209139 0,4 C0,1.790861 1.790861,0 4,0 Z M4,16 C2.8954305,16 2,16.8954305 2,18 C2,19.1045695 2.8954305,20 4,20 C5.1045695,20 6,19.1045695 6,18 C6,16.8954305 5.1045695,16 4,16 Z M18,9 C16.8954305,9 16,9.8954305 16,11 C16,12.1045695 16.8954305,13 18,13 C19.1045695,13 20,12.1045695 20,11 C20,9.8954305 19.1045695,9 18,9 Z M4,2 C2.8954305,2 2,2.8954305 2,4 C2,5.1045695 2.8954305,6 4,6 C5.1045695,6 6,5.1045695 6,4 C6,2.8954305 5.1045695,2 4,2 Z"
+                                                            id="Combined-Shape"></path>
                                                       </g>
                                                   </g>
                                               </g>
@@ -380,9 +387,8 @@
                           </g>
                       </g>
                   </svg>
-                  <div class="text-sm">Share</div>
                 </a>
-                    @include('components.displayConversations')
+                    @include('components.conversations')
               </div>
               <div class="flex items-center	gap-3">
                   <button id="postId_button"  data-post-id="{{$post->id}}">
@@ -433,7 +439,7 @@
           <div id="dropdown-menu-{{$loop->index}}" class="hidden flex flex-col items-start justify-between">
               <div class="ml-3 mt-5">All Comments</div>
               @foreach ($post->comments as $comment)
-              <div class="flex items-center justify-center space-x-2 mt-5">
+              <div id="commentDeleted-{{$comment->id}}" style="display: block" class="flex items-center justify-center space-x-2 mt-5">
                   <div x-data="{ open1: false, open2: false }">
                           
                           <div class="flex items-center space-x-2">
@@ -539,7 +545,7 @@
                             </div>
                       
                             <div class="flex items-center justify-center space-x-2">
-                              <div class="block">
+                              <div class="block commentContainer">
                                   <div class="flex justify-center items-center space-x-2">
                                     <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
                                     <div class="font-medium">
@@ -551,17 +557,13 @@
                                         {{$comment->description}}
                                     </div>
                                     </div>
-                                    <div class="self-stretch flex justify-center items-center transform transition-opacity duration-200 opacity-0 hover:opacity-100">
-                                        <a href="#" class="">
-                                            <div class="text-xs cursor-pointer flex h-6 w-6 transform transition-colors duration-200 hover:bg-gray-100 rounded-full items-center justify-center">
-                                            <svg class="w-4 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <form action="{{route('deleteComment', $comment->id)}}">
-                                      @csrf
-                                      <button type="submit">delete</button>
-                                    </form>
+                                      @if($comment->user_id == Auth::user()->id)
+                                        <button id="deleteCommentButtonId" data-delete-comment-id="{{$comment->id}}">
+                                          <span class="material-symbols-outlined deleteCommentButton">
+                                            delete
+                                          </span>
+                                        </button>
+                                      @endif
                                   </div>
                                 <div class="flex justify-start items-center text-xs w-full">
                                   <div class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
@@ -742,8 +744,10 @@
             var searchResultUsers = $('#search-result-users');
             var searchResultReels = $('#search-result-reels');
             var searchResultVideos = $('#search-result-videos');
+            var old_data = document.getElementById('old_data');
             if(searchValue.trim() === '') {
             searchResult.empty();
+            old_data.style.display = 'block';
         } else {
 
             var formData = new FormData($('#searchForm')[0]);
@@ -757,6 +761,7 @@
                 processData: false,
                 success: function(data){
                     console.log(data);
+                    old_data.style.display = 'none';
                     searchResultPosts.empty();
                     data.post.forEach(function(item) {
                         var result = `
@@ -986,7 +991,26 @@
         });
     });
 
+    $(document).ready(function(){
+      $('#deleteCommentButtonId').on('click', function(){
+        var comment_id = $(this).data("delete-comment-id");
+        var comment_deleted = document.getElementById(`commentDeleted-${comment_id}`);
+        console.log(comment_id);
+        $.ajax({
+          url: `http://127.0.0.1:8000/deleteComment/${comment_id}`,
+          method: "GET",
+          success: function(data){
+            console.log(data);
+            comment_deleted.style.display = "none";
+          }
+        });
+      });
+    });
+
   </script>
       <script src="{{asset('js/dashboard.js')}}"></script>
 
+  @endsection
+  @section('rightSidebar')
+  <div>hello world</div>
   @endsection

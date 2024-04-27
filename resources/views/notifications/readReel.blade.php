@@ -11,6 +11,13 @@
             <div class="p-4">
                 <p class="text-sm text-gray-600">{{$reels->description}}</p>
             </div>
+            @if($reels->user_id == Auth::user()->id)
+            <a href="{{route('deleteReel', $reels->id)}}">
+                <button>
+                    delete
+                </button>
+            </a>
+            @endif
         </div>
     </div>
 </main>

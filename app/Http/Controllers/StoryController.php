@@ -38,7 +38,7 @@ class StoryController extends Controller
         
         $stories = Story::whereIn('user_id', $friendIds)
                         ->where('created_at', '>=', Carbon::now()->subHours(24))
-                        ->with('users')
+                        ->with('users', 'votesStories')
                         ->latest()
                         ->take(10)
                         ->get();

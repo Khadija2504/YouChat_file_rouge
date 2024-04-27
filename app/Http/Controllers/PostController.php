@@ -202,4 +202,40 @@ class PostController extends Controller
             'sendMessage' => $sendMessage,
         ]);
     }
+
+    public function searchConversations(Request $request)
+{
+    $search = $request->search;
+    $user_id = Auth::user()->id;
+
+    $chat_rooms = ChatRoom::where('user_id', $user_id)
+        ->orWhere('friend_id', $user_id)
+        ->with(['friends', 'users', 'messages'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    $conversations = collect();
+
+    foreach ($chat_rooms as $chat) {
+        $other_user_id = ($chat->user_id == $user_id) ? $chat->friend_id : $chat->user_id;
+        $other_user = User::find($other_user_id);
+
+        if ($other_user->name == $search || strpos($other_user->email, $search) !== false) {
+            $conversations->push([
+                'chat_room_id' => $chat->id,
+                'user' => $other_user
+            ]);
+        }
+    }
+
+    $conversations->transform(function ($conversation) {
+        $conversation['user']->avatar_url = asset($conversation['user']->avatar);
+        return $conversation;
+    });
+
+    return response()->json([
+        'msg' => 'Conversations displayed successfully',
+        'conversations' => $conversations,
+    ]);
+}
 }

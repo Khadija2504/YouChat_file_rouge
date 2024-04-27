@@ -44,6 +44,12 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class, 'user_id');
     }
+    public function friendChat(){
+        return $this->hasMany(ChatRoom::class, 'friend_id');
+    }
+    public function usersChat(){
+        return $this->hasMany(ChatRoom::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -13,50 +13,62 @@
             <div class="p-4">
                 <h2 class="text-lg font-semibold mb-2">Video Title</h2>
                 <p class="text-sm text-gray-600">{{$video->video}}</p>
-                <div>
-                    <form action="{{route('voteVideo', $video->id)}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="vote" value="happy" required>
-                        <button type="submit">
-                            <span class="material-symbols-outlined">
-                                sentiment_very_satisfied
-                            </span>
-                        </button>
-                    </form>
-                    <div class="text-sm">{{ $video->videoVotes()->where('vote', 'happy')->count() }}</div>
-                    <form action="{{route('voteVideo', $video->id)}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="vote" value="sad" required>
-                        <button type="submit">
-                            <span class="material-symbols-outlined">
-                                sentiment_sad
-                            </span>
-                        </button>
-                    </form>
-                    <div class="text-sm">{{ $video->videoVotes()->where('vote', 'sad')->count() }}</div>
-                    <form action="{{route('voteVideo', $video->id)}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="vote" value="heart" required>
-                        <button type="submit">
-                            <span class="material-symbols-outlined">
-                                favorite
-                            </span>
-                        </button>
-                    </form>
-                    <div class="text-sm">{{ $video->videoVotes()->where('vote', 'heart')->count() }}</div>
-                    <form action="{{route('voteVideo', $video->id)}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="vote" value="celebration" required>
-                        <button type="submit">
-                            <span class="material-symbols-outlined">
-                                celebration
-                            </span>
-                        </button>
-                    </form>
-                    <div class="text-sm">{{ $video->videoVotes()->where('vote', 'celebration')->count() }}</div>
+                <div class="flex flex-row justify-between items-center">
+                    <div class="flex flex-row justify-center items-center">
+                        <form action="{{route('voteVideo', $video->id)}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="vote" value="happy" required>
+                            <button type="submit">
+                                <span class="material-symbols-outlined">
+                                    sentiment_very_satisfied
+                                </span>
+                            </button>
+                        </form>
+                        <div class="text-sm">{{ $video->videoVotes()->where('vote', 'happy')->count() }}</div>
+                    </div>
+                    <div class="flex flex-row justify-center items-center">
+                        <form action="{{route('voteVideo', $video->id)}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="vote" value="sad" required>
+                            <button type="submit">
+                                <span class="material-symbols-outlined">
+                                    sentiment_sad
+                                </span>
+                            </button>
+                        </form>
+                        <div class="text-sm">{{ $video->videoVotes()->where('vote', 'sad')->count() }}</div>
+                    </div>
+                    <div class="flex flex-row justify-center items-center">
+                        <form action="{{route('voteVideo', $video->id)}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="vote" value="heart" required>
+                            <button type="submit">
+                                <span class="material-symbols-outlined">
+                                    favorite
+                                </span>
+                            </button>
+                        </form>
+                        <div class="text-sm">{{ $video->videoVotes()->where('vote', 'heart')->count() }}</div>
+                    </div>
+                    <div class="flex flex-row justify-center items-center">
+                        <form action="{{route('voteVideo', $video->id)}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="vote" value="celebration" required>
+                            <button type="submit">
+                                <span class="material-symbols-outlined">
+                                    celebration
+                                </span>
+                            </button>
+                        </form>
+                        <div class="text-sm">{{ $video->videoVotes()->where('vote', 'celebration')->count() }}</div>
+                    </div>
                 </div>
                 @if($video->user_id == Auth::user()->id)
-                    <a href="{{route('deleteVideo', $video->id)}}">delete</a>
+                    <a href="{{route('deleteVideo', $video->id)}}">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </a>
                 @endif
             </div>
         </div>
