@@ -34,11 +34,14 @@ class AuthRepositories implements InterfaceAuth{
     public function storeRegister(Request $request){
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'avatar' => ['required'],
-            'password' => ['required'],
-            'about' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'avatar' => ['required', 'image', 'max:2048'],
+            'password' => ['required', 'string', 'min:8'],
+            'about' => ['required', 'string'],
+            'country' => ['nullable', 'string', 'max:100'],
+            'city' => ['nullable', 'string', 'max:100'],
         ]);
+        
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $file_extension = $file->getClientOriginalExtension();
@@ -62,6 +65,8 @@ class AuthRepositories implements InterfaceAuth{
             'user_name' => $user_name,
             'avatar' => $validated['avatar'],
             'about' => $request->about,
+            'contry' => $request->contry,
+            'city' => $request->city,
             'password' => Hash::make($request->password),
         ]);
         return redirect()->route('login');

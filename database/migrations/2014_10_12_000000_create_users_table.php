@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->text('about')->nullable();
+            $table->string('contry')->nullable();
+            $table->string('city')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('ban')->default(false);
             $table->enum('status', ['active', 'inactive', 'invisible', 'disabled'])->default('active');

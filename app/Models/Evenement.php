@@ -21,4 +21,7 @@ class Evenement extends Model
     public function voteEvent(){
         return $this->hasMany(VoteEvent::class, 'evenement_id');
     }
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

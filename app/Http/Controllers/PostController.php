@@ -8,6 +8,7 @@ use App\Http\Requests\SearchPost;
 use App\Models\ChatRoom;
 use App\Models\Comment;
 use App\Models\CommentVote;
+use App\Models\Evenement;
 use App\Models\favorite;
 use App\Models\FriendsList;
 use App\Models\Message;
@@ -28,7 +29,6 @@ class PostController extends Controller
 {
     public function home(){
         $followings = FriendsList::where('user_id', auth()->user()->id)->with('users')->get();
-        // $followingsButton = FriendsList::where('status', 'valid')->get();
         $follow = FriendsList::where('user_id', auth()->user()->id)->first();
         $isFollowed = FriendsList::where('user_id', Auth::id())->first();
         $setStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))->exists();
@@ -36,25 +36,62 @@ class PostController extends Controller
                             ->with(['users', 'votesStories'])->latest()->limit(4)->get();
         $conversations = ChatRoom::where('user_id', Auth::user()->id)->orWhere('friend_id', Auth::user()->id)
                                     ->with('friends', 'users', 'messages')->orderBy('created_at', 'desc')->get();
-        $post = [];
+        $birthdays = [];
+        $posts = [];
         $videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'wmv'];
         if(isset($follow->id)){
             foreach ($followings as $following){
                 if($following->status == 'valid' && $following->blocked == 0 && $following->users->ban == 0){
-                    $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
+                    $birthdays = Evenement::where('user_id', $following->friend_id)->with('users')->take(3)->orderBy('updated_at', 'desc')->get();
+                    $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('updated_at', 'desc')->take(6)->get();
                 } else{
-                    $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->get();
+                    $birthdays = Evenement::where('user_id', auth()->user()->id)->with('users')->take(3)->orderBy('updated_at', 'desc')->get();
+                    $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('updated_at', 'desc')->take(6)->get();
                 }
             }
         } else{
-            $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->get();
+            $birthdays = Evenement::where('user_id', auth()->user()->id)->with('users')->take(3)->orderBy('updated_at', 'desc')->get();
+            $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('updated_at', 'desc')->take(6)->get();
         }
+        // dd($birthdays);
         // foreach($posts as $post){
         //     foreach($post->comments as $comment){
         //         dd($comment->user_id == Auth::user()->id);
         //     }
         // }
-        return view('home', compact('posts', 'follow', 'followings', 'isFollowed', 'setStories', 'myStories', 'videoExtensions', 'conversations'));
+        return view('home', compact('posts', 'follow', 'followings', 'isFollowed', 'setStories', 'myStories', 'videoExtensions', 'conversations', 'birthdays'));
+    }
+
+    public function displayMorePosts(Request $request) {
+        $offset = $request->input('offset', 0);
+        $limit = $request->input('limit', 6);
+    
+        $followings = FriendsList::where('user_id', auth()->user()->id)->with('users')->get();
+        $follow = FriendsList::where('user_id', auth()->user()->id)->first();
+        $isFollowed = FriendsList::where('user_id', Auth::id())->first();
+        $setStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))->exists();
+        $myStories = Story::where('user_id', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subHours(24))
+                            ->with(['users', 'votesStories'])->latest()->limit(6)->get();
+        $conversations = ChatRoom::where('user_id', Auth::user()->id)->orWhere('friend_id', Auth::user()->id)
+                                    ->with('friends', 'users', 'messages')->orderBy('created_at', 'desc')->get();
+        $post = [];
+        $videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'wmv'];
+
+        if(isset($follow->id)){
+            foreach ($followings as $following){
+                if($following->status == 'valid' && $following->blocked == 0 && $following->users->ban == 0){
+                    $posts = Post::with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->skip($offset)->take($limit)->get();
+                } else{
+                    $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos')->orderBy('created_at', 'desc')->skip($offset)->take($limit)->get();
+                }
+            }
+        } else{
+            $posts = Post::where('user_id', auth()->user()->id)->with('comments', 'users', 'postVotes', 'photos', 'favorites')->orderBy('created_at', 'desc')->skip($offset)->take($limit)->get();
+        }
+    
+        $html = view('posts.posts_partial', compact('posts', 'follow', 'followings', 'isFollowed', 'setStories', 'myStories', 'videoExtensions', 'conversations'))->render();
+    
+        return response()->json(['html' => $html, 'posts' => $posts]);
     }
 
     public function addPostsForm(){
@@ -97,7 +134,7 @@ class PostController extends Controller
                 $file_name = time() . '_' . $file->getClientOriginalName();
                 $path = 'imgs/';
                 $file->move(public_path($path), $file_name);
-                dd($file_name);
+                // dd($file_name);
                 $photo = photo::create([
                     'photo' => $path . $file_name,
                 ]);

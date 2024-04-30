@@ -19,9 +19,14 @@ class EventController extends Controller
     }
     public function createEvent(EventRequest $request){
         $validated = $request->validated();
-        $imagePath = $request->file('image')->store('images', 'public');
-        $imageUrl = asset('storage/' . $imagePath);
-        $validated['image'] = $imageUrl;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $file_extension = $file->getClientOriginalExtension();
+            $file_name = time() . '.' . $file_extension;
+            $path = 'images/';
+            $file->move($path, $file_name);
+            $validated['image'] = $path . '/' . $file_name;
+        }
         Evenement::create($validated);
         return redirect()->back()->with('msg', 'event created successfully');
     }
@@ -45,5 +50,10 @@ class EventController extends Controller
         $event = Evenement::find($id);
         $event->update($validated);
         return redirect()->back();
+    }
+    public function readEvent($id){
+        $categories = category::all();
+        $events = Evenement::where('id', $id)->with('voteEvent')->get();
+        return view('events/readEvent', compact('events', 'categories'));
     }
 }

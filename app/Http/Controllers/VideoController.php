@@ -42,4 +42,15 @@ class VideoController extends Controller
         $videos = video::with('videoVotes')->get();
         return view('video.videos', compact('videos'));
     }
+    public function displayMoreVideos(Request $request) {
+        $offset = $request->input('offset', 0);
+        $limit = $request->input('limit', 4);
+    
+        $videos = Video::with('videoVotes')->skip($offset)->take($limit)->get();
+    
+        $html = view('video.video_partial', compact('videos'))->render();
+    
+        return response()->json(['html' => $html, 'videos' => $videos]);
+    }
+    
 }

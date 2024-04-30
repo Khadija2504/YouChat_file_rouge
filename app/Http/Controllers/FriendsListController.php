@@ -80,8 +80,35 @@ class FriendsListController extends Controller
         return view('users/list_followers', compact('followers'));
     }
 
+    public function EditProfile(){
+        $users = User::where('id', Auth::user()->id)->get();
+        $followers = FriendsList::where('friend_id', Auth::user()->id)->get()->count();
+        return view('users.updateProfile', compact('users', 'followers'));
+    }
+    public function updateProfile(Request $request){
+        $validated = $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'avatar' => ['required'],
+            'about' => ['required'],
+            'contry' => ['nullable'],
+            'city' => ['nullable'],
+        ]);
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $file_extension = $file->getClientOriginalExtension();
+            $file_name = time() . '.' . $file_extension;
+            $path = 'avatars';
+            $file->move($path, $file_name);
+            $validated['avatar'] = $path . '/' . $file_name;
+        }
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $user->update($validated);
+        return redirect()->back();
+    }
+
     public function acceptation(Request $request, $id){
-        // dd($request);
         $validated = $request->validate([
             'status' => 'required',
         ]);
@@ -137,6 +164,18 @@ class FriendsListController extends Controller
             'msg' => 'user share successful',
             'success' => true,
             'sendMessage' => $sendMessage,
+        ]);
+    }
+    public function status($statusData){
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        // dd($statusData);
+        $user->update([
+            'status' => $statusData,
+        ]);
+        return response()->json([
+            'msg' => 'status updated successfully',
+            'user' => $user,
         ]);
     }
 }

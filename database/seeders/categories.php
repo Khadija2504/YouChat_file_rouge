@@ -26,7 +26,8 @@ class categories extends Seeder
             'Histoire',
             'Relaxation',
             'Sport',
-            'Spiritualité'
+            'Spiritualité',
+            'Birthday'
         ];
 
         foreach ($categories as $category) {

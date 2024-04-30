@@ -37,7 +37,7 @@
                         data-original="#000000" />
                 </svg>
                     Add more photos
-                <input type="file" name="photo[]" multiple id="uploadFile1" accept=".png, .jpg, .jpeg, .svg" class="hidden" />
+                <input type="file" name="photo[]" multiple id="uploadFile1" accept=".png, .jpg, .jpeg, .svg" class="" />
             </label>
             <input type="hidden" name="user_id" value="{{$post->user_id}}" required>
             <div class="my-4">
@@ -51,9 +51,7 @@
             </div>
         </form>    
     </div>
-    
 </div>
-
 <script>
     $(document).ready(function(){
         $("#photo_id").on("click", function(){

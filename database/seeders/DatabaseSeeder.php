@@ -22,6 +22,5 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(adminSeder::class);
         $this->call(categories::class);
-        $this->call(cities::class);
     }
 }

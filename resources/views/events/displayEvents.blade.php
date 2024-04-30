@@ -4,7 +4,7 @@
     <div class="flex flex-wrap justify-center items-center">
         @foreach($events as $index => $event)
         <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl m-10 mt-10">
-                <img src="{{$event->image}}" alt="event_image" class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
+                <img src="{{asset('' . $event->image)}}" alt="event_image" class="object-cover bg-yellow-500 rounded-full w-16 h-16 mx-auto absolute bottom-[270px] left-4">
             <div class="mt-8">
                 
                 <p class="text-xl font-semibold my-2">{{$event->title}}</p>

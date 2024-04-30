@@ -1,24 +1,23 @@
 @extends('layouts.app')
 @section('main')
 <style>
-    /* Style for the pages */
     .page {
-        display: none; /* Hide pages by default */
+        display: none;
     }
     .active {
-        display: block; /* Show active page */
+        display: block;
     }
 </style>
 @foreach($users as $user)
     <div class="h-full p-8">
-        <div class="bg-white rounded-lg shadow-xl pb-8">
-            <div x-data="{ openSettings: false }" class="absolute right-12 mt-4 rounded">
+        <div class="bg-white rounded-lg shadow-xl pb-8 relative">
+            <div x-data="{ openSettings: false }" class="absolute">
                 <button @click="openSettings = !openSettings" class="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20" title="Settings">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
                     </svg>
                 </button>
-                <div x-show="openSettings" @click.away="openSettings = false" class="bg-white absolute right-0 w-40 py-2 mt-1 border border-gray-200 shadow-2xl" style="display: none;">
+                <div x-show="openSettings" @click.away="openSettings = false" class="bg-white absolute left-50 w-40 py-2 mt-1 border border-gray-200 shadow-2xl" style="display: none;">
                     <div class="py-2 border-b">
                         <p class="text-gray-400 text-xs px-6 uppercase mb-1">Settings</p>
                         <button class="w-full flex items-center px-6 py-1.5 space-x-2 hover:bg-gray-200">
@@ -33,12 +32,16 @@
                             </svg>
                             <span class="text-sm text-gray-700">Block User</span>
                         </button>
-                        <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="text-sm text-gray-700">More Info</span>
-                        </button>
+                        @if($user->id == Auth::user()->id)
+                        <a href="{{route('EditProfile')}}">
+                            <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-sm text-gray-700">Modify your personal infos</span>
+                            </button>
+                        </a>
+                        @endif
                     </div>
                     <div class="py-2">
                         <p class="text-gray-400 text-xs px-6 uppercase mb-1">Feedback</p>

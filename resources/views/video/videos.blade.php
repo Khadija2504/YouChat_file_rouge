@@ -2,7 +2,7 @@
 @section('main')
 <main class="h-full w[50%] bg-gray-50 flex flex-wrap items-center justify-center overflow-x-hidden transition-transform duration-300 ease-in-out">
         <h1 class="text-3xl font-bold mb-4">Videos</h1>
-    @foreach($videos as $video)
+    @foreach($videos->take(4) as $video)
 
     <div class="container mx-auto px-4 py-8">
         <div class="bg-white w-full h-full rounded-lg overflow-hidden shadow-md">
@@ -74,5 +74,43 @@
         </div>
     </div>
   @endforeach
+  <div id="videosContainer"></div>
+  @if($videos->count() > 5)
+    <div class="text-center">
+        <button id="showMoreBtn" class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4">Show More</button>
+    </div>
+  @endif
 </main>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    var offset = 5;
+    var limit = 5;
+
+    function loadMoreVideos() {
+        $.ajax({
+            url: '{{ route("displayMoreVideos") }}',
+            type: 'GET',
+            data: { offset: offset, limit: limit },
+            success: function(response) {
+                console.log(response.videos);
+                $('#videosContainer').append(response.html);
+                offset += limit;
+                if (response.html.trim() == '') {
+                    $('#showMoreBtn').hide();
+                }
+            },
+
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#showMoreBtn').on('click', function() {
+            loadMoreVideos();
+        });
+    });
+</script>

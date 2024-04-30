@@ -24,6 +24,7 @@ class MessageController extends Controller
         $messages = Message::where('chat_id', $id)->with('from_user', 'to_user')->get();
         $unread = Message::where('chat_id', $id)->where('is_read', 0)->first();
         $unreadMessages = Message::where('chat_id', $id)->where('is_read', 0)->whereNot('from_id', Auth::user()->id);
+        $conversation = ChatRoom::with('users', 'friends')->find($id);
         if(isset($unread)){
             $unreadMessages->update([
                 'is_read' => 1,
@@ -32,6 +33,7 @@ class MessageController extends Controller
         return response()->json([
             'seccess' => true,
             'messages' => $messages,
+            'conversation' => $conversation,
         ]);
     }
     public function deleteMessage($id){

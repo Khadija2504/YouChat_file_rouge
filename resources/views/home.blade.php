@@ -1,106 +1,14 @@
 @extends('layouts.app')
 @section('main')
 <main class="h-full w[50%] bg-gray-50 flex flex-wrap items-center justify-center overflow-x-hidden transition-transform duration-300 ease-in-out">
-  <nav class=" bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20">
-      {{-- <div class="inline-flex">
-          <a class="_o6689fn" href="/"
-              ><div class="hidden md:block">
-                  <svg width="102" height="32" fill="currentcolor" style="display: block">
-                      <path d="M29.24 22.68c-.16-.39-.31-.8-.47-1.15l-.74-1.67-.03-.03c-2.2-4.8-4.55-9.68-7.04-14.48l-.1-.2c-.25-.47-.5-.99-.76-1.47-.32-.57-.63-1.18-1.14-1.76a5.3 5.3 0 00-8.2 0c-.47.58-.82 1.19-1.14 1.76-.25.52-.5 1.03-.76 1.5l-.1.2c-2.45 4.8-4.84 9.68-7.04 14.48l-.06.06c-.22.52-.48 1.06-.73 1.64-.16.35-.32.73-.48 1.15a6.8 6.8 0 007.2 9.23 8.38 8.38 0 003.18-1.1c1.3-.73 2.55-1.79 3.95-3.32 1.4 1.53 2.68 2.59 3.95 3.33A8.38 8.38 0 0022.75 32a6.79 6.79 0 006.75-5.83 5.94 5.94 0 00-.26-3.5zm-14.36 1.66c-1.72-2.2-2.84-4.22-3.22-5.95a5.2 5.2 0 01-.1-1.96c.07-.51.26-.96.52-1.34.6-.87 1.65-1.41 2.8-1.41a3.3 3.3 0 012.8 1.4c.26.4.45.84.51 1.35.1.58.06 1.25-.1 1.96-.38 1.7-1.5 3.74-3.21 5.95zm12.74 1.48a4.76 4.76 0 01-2.9 3.75c-.76.32-1.6.41-2.42.32-.8-.1-1.6-.36-2.42-.84a15.64 15.64 0 01-3.63-3.1c2.1-2.6 3.37-4.97 3.85-7.08.23-1 .26-1.9.16-2.73a5.53 5.53 0 00-.86-2.2 5.36 5.36 0 00-4.49-2.28c-1.85 0-3.5.86-4.5 2.27a5.18 5.18 0 00-.85 2.21c-.13.84-.1 1.77.16 2.73.48 2.11 1.78 4.51 3.85 7.1a14.33 14.33 0 01-3.63 3.12c-.83.48-1.62.73-2.42.83a4.76 4.76 0 01-5.32-4.07c-.1-.8-.03-1.6.29-2.5.1-.32.25-.64.41-1.02.22-.52.48-1.06.73-1.6l.04-.07c2.16-4.77 4.52-9.64 6.97-14.41l.1-.2c.25-.48.5-.99.76-1.47.26-.51.54-1 .9-1.4a3.32 3.32 0 015.09 0c.35.4.64.89.9 1.4.25.48.5 1 .76 1.47l.1.2c2.44 4.77 4.8 9.64 7 14.41l.03.03c.26.52.48 1.1.73 1.6.16.39.32.7.42 1.03.19.9.29 1.7.19 2.5zM41.54 24.12a5.02 5.02 0 01-3.95-1.83 6.55 6.55 0 01-1.6-4.48 6.96 6.96 0 011.66-4.58 5.3 5.3 0 014.08-1.86 4.3 4.3 0 013.7 1.92l.1-1.57h2.92V23.8h-2.93l-.1-1.76a4.52 4.52 0 01-3.88 2.08zm.76-2.88c.58 0 1.09-.16 1.57-.45.44-.32.8-.74 1.08-1.25.25-.51.38-1.12.38-1.8a3.42 3.42 0 00-1.47-3.04 2.95 2.95 0 00-3.12 0c-.44.32-.8.74-1.08 1.25a4.01 4.01 0 00-.38 1.8 3.42 3.42 0 001.47 3.04c.47.29.98.45 1.55.45zM53.45 8.46c0 .35-.06.67-.22.93-.16.25-.38.48-.67.64-.29.16-.6.22-.92.22-.32 0-.64-.06-.93-.22a1.84 1.84 0 01-.67-.64 1.82 1.82 0 01-.22-.93c0-.36.07-.68.22-.93.16-.3.39-.48.67-.64.29-.16.6-.23.93-.23a1.84 1.84 0 011.6.86 2 2 0 01.21.94zm-3.4 15.3V11.7h3.18v12.08h-3.19zm11.68-8.9v.04c-.15-.07-.35-.1-.5-.13-.2-.04-.36-.04-.55-.04-.89 0-1.56.26-2 .8-.48.55-.7 1.32-.7 2.31v5.93h-3.19V11.69h2.93l.1 1.83c.32-.64.7-1.12 1.24-1.48a3.1 3.1 0 011.81-.5c.23 0 .45.02.64.06.1.03.16.03.22.06v3.2zm1.28 8.9V6.74h3.18v6.5c.45-.58.96-1.03 1.6-1.38a5.02 5.02 0 016.08 1.31 6.55 6.55 0 011.6 4.49 6.96 6.96 0 01-1.66 4.58 5.3 5.3 0 01-4.08 1.86 4.3 4.3 0 01-3.7-1.92l-.1 1.57-2.92.03zm6.15-2.52c.57 0 1.08-.16 1.56-.45.44-.32.8-.74 1.08-1.25.26-.51.38-1.12.38-1.8 0-.67-.12-1.28-.38-1.79a3.75 3.75 0 00-1.08-1.25 2.95 2.95 0 00-3.12 0c-.45.32-.8.74-1.09 1.25a4.01 4.01 0 00-.38 1.8 3.42 3.42 0 001.47 3.04c.47.29.98.45 1.56.45zm7.51 2.53V11.69h2.93l.1 1.57a3.96 3.96 0 013.54-1.89 4.1 4.1 0 013.82 2.44c.35.76.54 1.7.54 2.75v7.24h-3.19v-6.82c0-.84-.19-1.5-.57-1.99-.38-.48-.9-.74-1.56-.74-.48 0-.9.1-1.27.32-.35.23-.64.52-.86.93a2.7 2.7 0 00-.32 1.35v6.92h-3.16zm12.52 0V6.73h3.19v6.5a4.67 4.67 0 013.73-1.89 5.02 5.02 0 013.95 1.83 6.57 6.57 0 011.59 4.48 6.95 6.95 0 01-1.66 4.58 5.3 5.3 0 01-4.08 1.86 4.3 4.3 0 01-3.7-1.92l-.09 1.57-2.93.03zm6.18-2.53c.58 0 1.09-.16 1.56-.45.45-.32.8-.74 1.09-1.25.25-.51.38-1.12.38-1.8a3.42 3.42 0 00-1.47-3.04 2.95 2.95 0 00-3.12 0c-.44.32-.8.74-1.08 1.25a3.63 3.63 0 00-.38 1.8 3.42 3.42 0 001.47 3.04c.47.29.95.45 1.55.45z" ></path>
-                  </svg>
-              </div>
-              <div class="block md:hidden">
-                  <svg width="30" height="32" fill="currentcolor" style="display: block">
-                      <path d="M29.24 22.68c-.16-.39-.31-.8-.47-1.15l-.74-1.67-.03-.03c-2.2-4.8-4.55-9.68-7.04-14.48l-.1-.2c-.25-.47-.5-.99-.76-1.47-.32-.57-.63-1.18-1.14-1.76a5.3 5.3 0 00-8.2 0c-.47.58-.82 1.19-1.14 1.76-.25.52-.5 1.03-.76 1.5l-.1.2c-2.45 4.8-4.84 9.68-7.04 14.48l-.06.06c-.22.52-.48 1.06-.73 1.64-.16.35-.32.73-.48 1.15a6.8 6.8 0 007.2 9.23 8.38 8.38 0 003.18-1.1c1.3-.73 2.55-1.79 3.95-3.32 1.4 1.53 2.68 2.59 3.95 3.33A8.38 8.38 0 0022.75 32a6.79 6.79 0 006.75-5.83 5.94 5.94 0 00-.26-3.5zm-14.36 1.66c-1.72-2.2-2.84-4.22-3.22-5.95a5.2 5.2 0 01-.1-1.96c.07-.51.26-.96.52-1.34.6-.87 1.65-1.41 2.8-1.41a3.3 3.3 0 012.8 1.4c.26.4.45.84.51 1.35.1.58.06 1.25-.1 1.96-.38 1.7-1.5 3.74-3.21 5.95zm12.74 1.48a4.76 4.76 0 01-2.9 3.75c-.76.32-1.6.41-2.42.32-.8-.1-1.6-.36-2.42-.84a15.64 15.64 0 01-3.63-3.1c2.1-2.6 3.37-4.97 3.85-7.08.23-1 .26-1.9.16-2.73a5.53 5.53 0 00-.86-2.2 5.36 5.36 0 00-4.49-2.28c-1.85 0-3.5.86-4.5 2.27a5.18 5.18 0 00-.85 2.21c-.13.84-.1 1.77.16 2.73.48 2.11 1.78 4.51 3.85 7.1a14.33 14.33 0 01-3.63 3.12c-.83.48-1.62.73-2.42.83a4.76 4.76 0 01-5.32-4.07c-.1-.8-.03-1.6.29-2.5.1-.32.25-.64.41-1.02.22-.52.48-1.06.73-1.6l.04-.07c2.16-4.77 4.52-9.64 6.97-14.41l.1-.2c.25-.48.5-.99.76-1.47.26-.51.54-1 .9-1.4a3.32 3.32 0 015.09 0c.35.4.64.89.9 1.4.25.48.5 1 .76 1.47l.1.2c2.44 4.77 4.8 9.64 7 14.41l.03.03c.26.52.48 1.1.73 1.6.16.39.32.7.42 1.03.19.9.29 1.7.19 2.5z"></path>
-                  </svg>
-              </div>
-          </a>
-      </div> --}}
-
-      <button @click="sidenav = !sidenav" class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
-        <svg class="w-5 h-5 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-        </svg>
-    </button>
-      <form id="searchForm">
-        <div x-data="{ search: '' }"
-          class="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-teal-500"
-        >
-          <input
-          name="search"
-          x-model="search"
-          id="searchInput"
-            type="search"
-            class="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
-            placeholder="Search" required
-          />
-          <div
-            class="rounded-tr-md rounded-br-md px-2 py-3 hidden md:block"
-          >
-            <svg
-              class="w-4 h-4 fill-current"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </div>
-        </div>
-      </form>
-
-      <div class="flex-initial">
-        <div class="flex justify-end items-center relative">
-        
-          <div class="flex mr-4 items-center">
-
-            <div class="block relative m-5" id="notification">
-              <a href="{{route('chatRoom')}}">
-                <svg width="28px" height="28px" id="no_messages" style="display: block" viewBox="0 0 24 24" id="_24x24_On_Light_Messages" data-name="24x24/On Light/Messages" xmlns="http://www.w3.org/2000/svg">
-                  <rect id="view-box" width="24" height="24" fill="none"/>
-                  <path id="Shape" d="M6.485,18.519a9.891,9.891,0,0,1-4.876.981c-.285,0-.584-.006-.887-.018a.739.739,0,0,1-.65-.432.738.738,0,0,1,.085-.775,11.192,11.192,0,0,0,2.072-3.787A9.751,9.751,0,1,1,10.751,19.5,9.661,9.661,0,0,1,6.485,18.519ZM6.808,17a8.247,8.247,0,1,0-3.139-3.015.75.75,0,0,1,.092.535A10.189,10.189,0,0,1,2.2,17.99a7.2,7.2,0,0,0,3.816-.947.745.745,0,0,1,.431-.136A.756.756,0,0,1,6.808,17Zm-.057-4.5a.75.75,0,0,1,0-1.5h7a.75.75,0,0,1,0,1.5Zm0-4a.75.75,0,0,1,0-1.5h5a.75.75,0,1,1,0,1.5Z" transform="translate(1.249 2.25)" fill="#141124"/>
-                </svg>
-
-                <svg width="28px" id="unread_messages" style="display: none" height="28px" viewBox="0 0 24 24" id="_24x24_On_Light_Messages-Alert" data-name="24x24/On Light/Messages-Alert" xmlns="http://www.w3.org/2000/svg">
-                  <rect id="view-box" width="24" height="24" fill="none"/>
-                  <path id="Shape" d="M10.751,19.5a9.66,9.66,0,0,1-4.266-.981,9.889,9.889,0,0,1-4.876.981c-.279,0-.578-.006-.887-.018a.74.74,0,0,1-.65-.432.738.738,0,0,1,.085-.775,11.191,11.191,0,0,0,2.072-3.787A9.754,9.754,0,0,1,12.682.192a5.478,5.478,0,0,0-.676,1.4A8.252,8.252,0,0,0,3.668,13.983a.75.75,0,0,1,.092.535A10.189,10.189,0,0,1,2.2,17.99a7.2,7.2,0,0,0,3.816-.947.746.746,0,0,1,.431-.136A.755.755,0,0,1,6.808,17a8.254,8.254,0,0,0,12.1-8.5,5.477,5.477,0,0,0,1.4-.676A9.755,9.755,0,0,1,10.751,19.5Zm3-7h-7a.75.75,0,0,1,0-1.5h7a.75.75,0,0,1,0,1.5Zm-2-4h-5a.75.75,0,1,1,0-1.5h5a.75.75,0,0,1,0,1.5Zm6.612-1.931h0a8.34,8.34,0,0,0-4.43-4.43,3.527,3.527,0,0,1,.781-1.3,9.773,9.773,0,0,1,4.946,4.946,3.527,3.527,0,0,1-1.3.781Z" transform="translate(1.249 2.25)" fill="#141124"/>
-                  <path id="Shape-2" data-name="Shape" d="M3.5,7A3.5,3.5,0,1,1,7,3.5,3.5,3.5,0,0,1,3.5,7Z" transform="translate(15 2)" fill="#ff6359"/>
-                </svg>
-              </a>
-            </div>
-            
-            <div class="block relative m-5" id="notification">
-              <a
-                href="{{route('notifications')}}"
-              >
-              <svg fill="#000000" width="28px" id="no_notifications" style="display: block" height="28px" viewBox="0 0 24 24" id="notification-bell" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path></svg>
-              <svg fill="#000000" width="28px" style="display: none" id="unread_notifications"  height="28px" viewBox="0 0 24 24" id="notification-circle" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path><circle id="secondary-2" data-name="secondary" cx="17" cy="6" r="4" style="fill: rgb(44, 169, 188);"></circle></svg>
-              </a>
-            </div>
-          
-            <div class="block relative m-5" id="notification">
-              <a href="{{ url('/logout') }}">
-                <span class="material-symbols-outlined" style="font-size: 28px">
-                  logout
-                </span>
-                </a>
-            </div>
-          </div>
-        </div>
-      </div>
-  </nav>
 
   <div id="search-result-posts"></div>
   <div id="search-result-users"></div>
   <div id="search-result-reels"></div>
-  <div id="search-result-videos"></div>
+  <div id="search-result-videos" class="flex flex-row overflow-x-auto"></div>
 
   <div id="old_data" style="display: block" class="w-full flex justify-center items-center relative mt-10">
-    <div class="flex flex-wrap flex py-2 justify-between px-4">
+    <div class="flex flex-wrap flex py-2 justify-start px-4">
       @if($setStories)
         <div class="text-center py-2 px-4" x-data="{ open : false }">
           <a href="#" @click="open = true" class="">
@@ -108,7 +16,7 @@
               <div class="h-14 w-14 rounded-full bg-white relative wrapper overflow-hidden border-2 border-black">
                 <button type="submit" class="absolute" style="top: -5%; right: 0%">
                   <span class="material-symbols-outlined border-solid" style="font-size: 45px">
-                    edit
+                    Edit
                   </span>
                 </button>
               </div>
@@ -177,8 +85,8 @@
                 <a href="{{route('profile', $post->users->id)}}">
                   <b class="mb-2 capitalize">{{$post->users->user_name}}</b>
                 </a>
-                  <time datetime="06-08-21" class="text-gray-400 text-xs">{{$post->created_at}}
-                  </time>
+                <time datetime="06-08-21" class="text-gray-400 text-xs">{{$post->created_at}}
+                </time>
               </div>
           </div>
           <div x-data="{ openSettings{{$index}}: false }">
@@ -224,17 +132,17 @@
                     @endif
                   </div>
                   @if($post->user_id == Auth::user()->id)
-                  <div class="py-2">
+                    <div class="py-2">
                       <form action="{{route('deletePost', $post->id)}}">
                         @csrf
-                      <button type="submit" class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
-                        <span class="material-symbols-outlined  h-3 w-3 text-gray-400 flex justify-center items-center">
-                          delete
-                        </span>
+                        <button type="submit" class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+                          <span class="material-symbols-outlined  h-3 w-3 text-gray-400 flex justify-center items-center">
+                            delete
+                          </span>
                           <span class="text-sm text-gray-700">Delete</span>
                         </button>
                       </form>
-                  </div>
+                    </div>
                   @endif
               </div>
           </div>
@@ -399,7 +307,6 @@
                           <path d="M16 8.98987V20.3499C16 21.7999 14.96 22.4099 13.69 21.7099L9.76001 19.5199C9.34001 19.2899 8.65999 19.2899 8.23999 19.5199L4.31 21.7099C3.04 22.4099 2 21.7999 2 20.3499V8.98987C2 7.27987 3.39999 5.87988 5.10999 5.87988H12.89C14.6 5.87988 16 7.27987 16 8.98987Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M22 5.10999V16.47C22 17.92 20.96 18.53 19.69 17.83L16 15.77V8.98999C16 7.27999 14.6 5.88 12.89 5.88H8V5.10999C8 3.39999 9.39999 2 11.11 2H18.89C20.6 2 22 3.39999 22 5.10999Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-
                         <svg id="saved_icon{{$post->id}}" style="display: none;"
                           width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12.89 5.87891H5.11C3.4 5.87891 2 7.27891 2 8.98891V20.3489C2 21.7989 3.04 22.4189 4.31 21.7089L8.24 19.5189C8.66 19.2889 9.34 19.2889 9.75 19.5189L13.68 21.7089C14.96 22.4089 16 21.7989 16 20.3489V8.98891C16 7.27891 14.6 5.87891 12.89 5.87891Z" fill="#FFA500"/>
@@ -411,7 +318,6 @@
                           <path d="M12.89 5.87891H5.11C3.4 5.87891 2 7.27891 2 8.98891V20.3489C2 21.7989 3.04 22.4189 4.31 21.7089L8.24 19.5189C8.66 19.2889 9.34 19.2889 9.75 19.5189L13.68 21.7089C14.96 22.4089 16 21.7989 16 20.3489V8.98891C16 7.27891 14.6 5.87891 12.89 5.87891Z" fill="#FFA500"/>
                           <path d="M21.9998 5.11V16.47C21.9998 17.92 20.9598 18.53 19.6898 17.83L17.7598 16.75C17.5998 16.66 17.4998 16.49 17.4998 16.31V8.99C17.4998 6.45 15.4298 4.38 12.8898 4.38H8.81984C8.44984 4.38 8.18984 3.99 8.35984 3.67C8.87984 2.68 9.91984 2 11.1098 2H18.8898C20.5998 2 21.9998 3.4 21.9998 5.11Z" fill="#FFA500"/>
                         </svg>
-
                         <svg id="save_icon{{$post->id}}" style="display: none;"
                           width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12.89 5.87988H5.10999C3.39999 5.87988 2 7.27987 2 8.98987V20.3499C2 21.7999 3.04 22.4199 4.31 21.7099L8.23999 19.5199C8.65999 19.2899 9.34 19.2899 9.75 19.5199L13.68 21.7099C14.95 22.4199 15.99 21.7999 15.99 20.3499V8.98987C16 7.27987 14.6 5.87988 12.89 5.87988Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -441,173 +347,160 @@
               @foreach ($post->comments as $comment)
               <div id="commentDeleted-{{$comment->id}}" style="display: block" class="flex items-center justify-center space-x-2 mt-5">
                   <div x-data="{ open1: false, open2: false }">
-                          
-                          <div class="flex items-center space-x-2">
-                            <div class="group relative flex flex-shrink-0 self-start cursor-pointer">
-                              <img
-                                x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false"
-                              src="{{asset('' . $comment->users->avatar)}}" alt="" class="h-8 w-8 object-fill rounded-full">
-                              <div x-cloak x-show.transition.origin.bottom="open1" x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false" class="absolute mt-8 bg-white px-4 py-4 w-72 shadow rounded cursor-default z-10">
-                                <div class="flex space-x-3">
-                                  <div class="flex flex-shrink-0">
-                                    <img src="{{asset('' . $comment->users->avatar)}}" alt="" class="h-16 w-16 object-fill rounded-full">
-                                  </div>
-                                  <div class="flex flex-col space-y-2">
-                                    <div class="font-semibold">
-                                      <a href="{{route('profile', $comment->users->id)}}" class="hover:underline">
-                                        {{$comment->users->name}}
-                                      </a>
-                                    </div>
-                                    <div class="flex justify-start items-center space-x-2">
-                                      <div>
-                                        <svg class="w-4 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
-                                      </div>
-                                      <div class="w-auto text-sm leading-none">
-                                        <small>
-                                          1 mutual friends including: <a href="#" class="font-semibold hover:underline">Mulyadi</a>
-                                        </small>
-                                      </div>
-                                    </div>
-                                    <div class="flex justify-start items-center space-x-2">
-                                      <div>
-                                        <svg class="w-4 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                                      </div>
-                                      <div class="w-auto text-sm leading-none">
-                                        <small>
-                                          From <a href="#" class="font-semibold">Bandung</a>
-                                        </small>
-                                      </div>
-                                    </div>
-                                  </div>
+                    <div class="flex items-center space-x-2">
+                      <div class="group relative flex flex-shrink-0 self-start cursor-pointer">
+                        <img
+                          x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false"
+                        src="{{asset('' . $comment->users->avatar)}}" alt="" class="h-8 w-8 object-fill rounded-full">
+                        <div x-cloak x-show.transition.origin.bottom="open1" x-on:mouseover="open1 = true" x-on:mouseleave="open1 = false" class="absolute mt-8 bg-white px-4 py-4 w-72 shadow rounded cursor-default z-10">
+                          <div class="flex space-x-3">
+                            <div class="flex flex-shrink-0">
+                              <img src="{{asset('' . $comment->users->avatar)}}" alt="" class="h-16 w-16 object-fill rounded-full">
+                            </div>
+                            <div class="flex flex-col space-y-2">
+                              <div class="font-semibold">
+                                <a href="{{route('profile', $comment->users->id)}}" class="hover:underline">
+                                  {{$comment->users->name}}
+                                </a>
+                              </div>
+                              <div class="flex justify-start items-center space-x-2">
+                                <div>
+                                  <svg class="w-4 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
                                 </div>
-                                <div class="flex space-x-1 mt-2">
-                                  <div class="w-1/2">
-                                    
-                                  @if($comment->user_id !== Auth::user()->id)
-                                    @php
-                                    if($isFollowed !== null){
-                                        $isFollowed = $isFollowed->where('friend_id', $comment->user_id)->first();
-                                    }
-                                    @endphp
-                                      @if($isFollowed)
-                                          <form action="{{ route('unfollow', $comment->user_id) }}" method="GET">
-                                            @csrf
-                                            <button type="submit">
-                                              <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
-                                                <div class="mr-1">
-                                                  <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="12" cy="6" r="4" fill="#1C274C"/>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 15.75C16.7574 15.75 15.75 16.7574 15.75 18C15.75 18.3473 15.8287 18.6763 15.9693 18.97L18.9701 15.9693C18.6763 15.8287 18.3474 15.75 18 15.75ZM20.0307 17.0299L17.0299 20.0307C17.3236 20.1713 17.6526 20.25 18 20.25C19.2426 20.25 20.25 19.2426 20.25 18C20.25 17.6526 20.1713 17.3237 20.0307 17.0299ZM14.25 18C14.25 15.9289 15.9289 14.25 18 14.25C20.0711 14.25 21.75 15.9289 21.75 18C21.75 20.0711 20.0711 21.75 18 21.75C15.9289 21.75 14.25 20.0711 14.25 18Z" fill="#1C274C"/>
-                                                    <path opacity="0.5" d="M17.2157 14.3321C15.5211 14.6927 14.25 16.1979 14.25 18C14.25 18.9823 14.6277 19.8764 15.2457 20.5449C14.2756 20.8356 13.1714 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C14.0722 13 15.934 13.5145 17.2157 14.3321Z" fill="#1C274C"/>
-                                                  </svg>
-                                                </div>
-                                                unfollow
-                                              </div>
-                                            </button>
-                                          </form>
-                                      @else
-                                        <button id="follower_user" data-follow-user="{{ $comment->user_id }}">
-                                            <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
-                                                <div class="mr-1">
-                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
-                                                </div>
-                                                follow
-                                            </div>
-                                        </button>
-                                      @endif
-                                    @endif
-
-                                  </div>
-                                  <div class="w-auto">
-                                    <button data-friend-id="{{$comment->user_id}}" id="friend_id" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
-                                      <div class="mr-1">
-                                        <svg viewBox="0 0 28 28" alt="" class="h-4 w-4" height="20" width="20"><path d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z"></path></svg>
-                                      </div>
-                                    </button>
-                                  </div>
-                                  <div class="w-auto">
-                                    <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
-                                      <div class="mr-1">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path></svg>
-                                      </div>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="w-auto">
-                                    <a href="#" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
-                                      <div class="mr-1">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-                                      </div>
-                                    </a>
-                                  </div>
+                                <div class="w-auto text-sm leading-none">
+                                  <small>
+                                    1 mutual friends including: <a href="#" class="font-semibold hover:underline">Mulyadi</a>
+                                  </small>
                                 </div>
                               </div>
-                            </div>
-                      
-                            <div class="flex items-center justify-center space-x-2">
-                              <div class="block commentContainer">
-                                  <div class="flex justify-center items-center space-x-2">
-                                    <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
-                                    <div class="font-medium">
-                                        <a href="{{route('profile', $comment->users->id)}}" class="hover:underline text-sm">
-                                        <small>{{$comment->users->name}}</small>
-                                        </a>
-                                    </div>
-                                    <div class="text-xs">
-                                        {{$comment->description}}
-                                    </div>
-                                    </div>
-                                      @if($comment->user_id == Auth::user()->id)
-                                        <button id="deleteCommentButtonId" data-delete-comment-id="{{$comment->id}}">
-                                          <span class="material-symbols-outlined deleteCommentButton">
-                                            delete
-                                          </span>
-                                        </button>
-                                      @endif
-                                  </div>
-                                <div class="flex justify-start items-center text-xs w-full">
-                                  <div class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
-                                      <div class="flex items-center gap-3">
-                                          <form action="{{route('commentVote', $comment->id)}}" method="GET">
-                                              @csrf
-                                              <input type="hidden" name="vote" value="dislike" required>
-                                              <button type="submit">
-                                                  <span class="material-symbols-outlined" style="font-size: 20px">
-                                                      thumb_down
-                                                  </span>
-                                              </button>
-                                              <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'dislike')->count() }}</div>
-                                          </form>
-                                      </div>
-                                      <div class="flex items-center gap-3">
-                                          <form action="{{route('commentVote', $comment->id)}}" method="GET">
-                                              @csrf
-                                              <input type="hidden" name="vote" value="like" required>
-                                              <button type="submit">
-                                                  <span class="material-symbols-outlined" style="font-size: 20px">
-                                                      thumb_up
-                                                  </span>
-                                              </button>
-                                              <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'like')->count() }}</div>
-                                          </form>
-                                      </div>
-                                  <small class="self-center">.</small>
-                                    <a href="#" class="hover:underline">
-                                      <small>{{$comment->created_at}}</small>
-                                    </a>
-                                  </div>
+                              <div class="flex justify-start items-center space-x-2">
+                                <div>
+                                  <svg class="w-4 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <div class="w-auto text-sm leading-none">
+                                  <small>
+                                    From <a href="#" class="font-semibold">{{$comment->users->contry}}, {{$comment->users->city}}</a>
+                                  </small>
                                 </div>
                               </div>
                             </div>
                           </div>
+                          <div class="flex space-x-1 mt-2">
+                            @if($comment->user_id !== Auth::user()->id)
+                            <div class="w-1/2">
+                              @php
+                              if($isFollowed !== null){
+                                  $isFollowed = $isFollowed->where('friend_id', $comment->user_id)->first();
+                              }
+                              @endphp
+                                @if($isFollowed)
+                                    <form action="{{ route('unfollow', $comment->user_id) }}" method="GET">
+                                      @csrf
+                                      <button type="submit">
+                                        <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                          <div class="mr-1">
+                                            <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              <circle cx="12" cy="6" r="4" fill="#1C274C"/>
+                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M18 15.75C16.7574 15.75 15.75 16.7574 15.75 18C15.75 18.3473 15.8287 18.6763 15.9693 18.97L18.9701 15.9693C18.6763 15.8287 18.3474 15.75 18 15.75ZM20.0307 17.0299L17.0299 20.0307C17.3236 20.1713 17.6526 20.25 18 20.25C19.2426 20.25 20.25 19.2426 20.25 18C20.25 17.6526 20.1713 17.3237 20.0307 17.0299ZM14.25 18C14.25 15.9289 15.9289 14.25 18 14.25C20.0711 14.25 21.75 15.9289 21.75 18C21.75 20.0711 20.0711 21.75 18 21.75C15.9289 21.75 14.25 20.0711 14.25 18Z" fill="#1C274C"/>
+                                              <path opacity="0.5" d="M17.2157 14.3321C15.5211 14.6927 14.25 16.1979 14.25 18C14.25 18.9823 14.6277 19.8764 15.2457 20.5449C14.2756 20.8356 13.1714 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C14.0722 13 15.934 13.5145 17.2157 14.3321Z" fill="#1C274C"/>
+                                            </svg>
+                                          </div>
+                                          unfollow
+                                        </div>
+                                      </button>
+                                    </form>
+                                @else
+                                  <button id="follower_user" data-follow-user="{{ $comment->user_id }}">
+                                      <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                          <div class="mr-1">
+                                              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
+                                          </div>
+                                          follow
+                                      </div>
+                                  </button>
+                                @endif
+                            </div>
+                            <div class="w-auto">
+                              <button data-friend-id="{{$comment->user_id}}" id="friend_id" class="text-xs text-gray-800 hover:bg-gray-300 font-semibold flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg">
+                                <div class="mr-1">
+                                  <svg viewBox="0 0 28 28" alt="" class="h-4 w-4" height="20" width="20"><path d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z"></path></svg>
+                                </div>
+                              </button>
+                            </div>
+                            @endif
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-center space-x-2">
+                        <div class="block commentContainer">
+                            <div class="flex justify-center items-center space-x-2">
+                              <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
+                              <div class="font-medium">
+                                  <a href="{{route('profile', $comment->users->id)}}" class="hover:underline text-sm">
+                                  <small>{{$comment->users->name}}</small>
+                                  </a>
+                              </div>
+                              <div class="text-xs">
+                                  {{$comment->description}}
+                              </div>
+                              </div>
+                                @if($comment->user_id == Auth::user()->id)
+                                  <button id="deleteCommentButtonId" data-delete-comment-id="{{$comment->id}}">
+                                    <span class="material-symbols-outlined deleteCommentButton">
+                                      delete
+                                    </span>
+                                  </button>
+                                @endif
+                            </div>
+                          <div class="flex justify-start items-center text-xs w-full">
+                            <div class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
+                                <div class="flex items-center gap-3">
+                                    <form action="{{route('commentVote', $comment->id)}}" method="GET">
+                                        @csrf
+                                        <input type="hidden" name="vote" value="dislike" required>
+                                        <button type="submit">
+                                            <span class="material-symbols-outlined" style="font-size: 20px">
+                                                thumb_down
+                                            </span>
+                                        </button>
+                                        <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'dislike')->count() }}</div>
+                                    </form>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <form action="{{route('commentVote', $comment->id)}}" method="GET">
+                                        @csrf
+                                        <input type="hidden" name="vote" value="like" required>
+                                        <button type="submit">
+                                            <span class="material-symbols-outlined" style="font-size: 20px">
+                                                thumb_up
+                                            </span>
+                                        </button>
+                                        <div class="text-sm">{{ $comment->commentVotes()->where('vote', 'like')->count() }}</div>
+                                    </form>
+                                </div>
+                            <small class="self-center">.</small>
+                              <a href="#" class="hover:underline">
+                                <small>{{$comment->created_at}}</small>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               @endforeach
-              
           </div>
   </div>
   @endforeach
+  <div id="PostsContainer" class="w-full flex flex-col justify-center items-center"></div>
+  @if($posts->count() > 6)
+  <div class="text-center">
+    <button id="showMorePostsBtn" class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4">Show More</button>
+  </div>
+  @endif
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script>
       @foreach($posts as $index => $post)
@@ -736,178 +629,6 @@
         });
       });
 
-      $(document).ready(function(){
-        $('#searchInput').on('keyup', function(event){
-            event.preventDefault();
-            searchValue = $(this).val();
-            var searchResultPosts = $('#search-result-posts');
-            var searchResultUsers = $('#search-result-users');
-            var searchResultReels = $('#search-result-reels');
-            var searchResultVideos = $('#search-result-videos');
-            var old_data = document.getElementById('old_data');
-            if(searchValue.trim() === '') {
-            searchResult.empty();
-            old_data.style.display = 'block';
-        } else {
-
-            var formData = new FormData($('#searchForm')[0]);
-            formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-
-            $.ajax({
-                url: "http://127.0.0.1:8000/search",
-                method: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data){
-                    console.log(data);
-                    old_data.style.display = 'none';
-                    searchResultPosts.empty();
-                    data.post.forEach(function(item) {
-                        var result = `
-                            <div class="max-w-3xl w-full mx-auto z-10">
-                                <div class="flex flex-col">
-                                    <div class="bg-white border border-white shadow-lg rounded-3xl p-4 m-4">
-                                        <div class="flex-none sm:flex">
-                                            <div class=" relative h-32 w-32">
-                                                <img src="${item.users.avatar_url}" class=" w-32 h-32 object-cover rounded-2xl">
-                                            </div>
-                                            <div class="flex-auto sm:ml-5 justify-evenly">
-                                                <div class="flex items-center justify-between sm:mt-2">
-                                                    <div class="flex items-center">
-                                                        <div class="flex flex-col">
-                                                            <div class="w-full flex-none text-lg text-gray-800 font-bold leading-none">${item.users.name}</div>
-                                                            <div class="flex-auto text-gray-500 my-1">
-                                                                <span class="mr-3 ">${item.description}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex pt-2 text-sm text-gray-500">
-                                                    <div class="flex-1 inline-flex items-center">
-                                                        <a href="${item.post_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the post </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        `;
-                        searchResultPosts.append(result);
-                    });
-                    searchResultUsers.empty();
-                    data.users.forEach(function(item) {
-                      var user = `
-                      <div class="max-w-3xl w-full mx-auto z-10">
-                          <div class="flex flex-col">
-                              <div class="bg-white border border-white shadow-lg rounded-3xl p-4 m-4">
-                                  <div class="flex-none sm:flex">
-                                      <div class=" relative h-32 w-32">
-                                          <img src="${item.avatar_url}" class=" w-32 h-32 object-cover rounded-2xl">
-                                      </div>
-                                      <div class="flex-auto sm:ml-5 justify-evenly">
-                                          <div class="flex items-center justify-between sm:mt-2">
-                                              <div class="flex items-center">
-                                                  <div class="flex flex-col">
-                                                      <div class="w-full flex-none text-lg text-gray-800 font-bold leading-none">${item.name}</div>
-                                                      <div class="flex-auto text-gray-500 my-1">
-                                                          <span class="mr-3 ">${item.about}</span>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="flex pt-2 text-sm text-gray-500">
-                                              <div class="flex-1 inline-flex items-center">
-                                                  <a href="${item.user_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the profile </a>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                    </div> `;
-                    searchResultUsers.append(user);
-                    });
-                    searchResultVideos.empty();
-                    data.videos.forEach(function(item){
-                      var video = `
-                        <div class="max-w-3xl w-full mx-auto z-10">
-                          <div class="flex flex-col">
-                            <div class="bg-white border border-white shadow-lg  rounded-3xl p-4 m-4">
-                              <div class="flex-none sm:flex">
-                                <div class=" relative h-32 w-32">
-                                  <video class="slide absolute inset-0 w-full h-full object-cover" autoplay loop muted>
-                                    <source src="${item.video_path}" type="video/${item.video_type}">
-                                  </video>
-                                </div>
-                                <div class="flex-auto sm:ml-5 justify-evenly">
-                                  <div class="flex items-center justify-between sm:mt-2">
-                                    <div class="flex items-center">
-                                      <div class="flex flex-col">
-                                        <div class="flex-auto text-gray-500 my-1">
-                                          <span class="mr-3 ">${item.titre}</span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="flex pt-2 text-sm text-gray-500">
-                                    <div class="flex-1 inline-flex items-center">
-                                      <a href="${item.video_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the video </a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      `;
-                    searchResultVideos.append(video);
-                    });
-
-                    searchResultReels.empty();
-                    data.reels.forEach(function(item){
-                      var reel = `
-                        <div class="max-w-3xl w-full mx-auto z-10">
-                          <div class="flex flex-col">
-                            <div class="bg-white border border-white shadow-lg  rounded-3xl p-4 m-4">
-                              <div class="flex-none sm:flex">
-                                <div class=" relative h-32 w-32">
-                                  <video class="slide absolute inset-0 w-full h-full object-cover" autoplay loop muted>
-                                    <source src="${item.reel_path}" type="video/${item.reel_type}">
-                                  </video>
-                                </div>
-                                <div class="flex-auto sm:ml-5 justify-evenly">
-                                  <div class="flex items-center justify-between sm:mt-2">
-                                    <div class="flex items-center">
-                                      <div class="flex flex-col">
-                                        <div class="flex-auto text-gray-500 my-1">
-                                          <span class="mr-3 ">${item.description}</span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="flex pt-2 text-sm text-gray-500">
-                                    <div class="flex-1 inline-flex items-center">
-                                      <a href="${item.reel_url}" class="font-medium text-blue-600 hover:text-blue-500"> Display the reel </a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      `;
-                    searchResultReels.append(reel);
-                    });
-                },
-            });
-          }
-        });
-    });
-
     $(document).ready(function () {
       const noNotifications = $('#no_notifications');
       const unreadNotifications = $('#unread_notifications');
@@ -1007,10 +728,58 @@
       });
     });
 
+    var offset = 6;
+    var limit = 6;
+
+    function loadMorePosts() {
+        $.ajax({
+            url: '{{ route("displayMorePosts") }}',
+            type: 'GET',
+            data: { offset: offset, limit: limit },
+            success: function(response) {
+                console.log(response.posts);
+                $('#PostsContainer').append(response.html);
+                offset += limit;
+                if (response.html.trim() == '') {
+                    $('#showMorePostsBtn').hide();
+                }
+            },
+
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#showMorePostsBtn').on('click', function() {
+            loadMorePosts();
+        });
+    });
+
   </script>
-      <script src="{{asset('js/dashboard.js')}}"></script>
+  <script src="{{asset('js/dashboard.js')}}"></script>
 
   @endsection
   @section('rightSidebar')
-  <div>hello world</div>
+  <div>
+    @foreach($birthdays as $birthday)
+    <a href="{{route('readEvent', $birthday->id)}}" class="w-full border-gray-200 rounded-xl hover:bg-gray-50 ml-3">
+
+      <div class="flexx flex-col justify-center items-center">
+  
+        <div class="flex flex-row">
+          <img src="{{$birthday->image}}" class="w-10 h-10 rounded-full" />
+          <div class="flex flex-col justify-center items-center ml-5">
+            <p class="text-gray-400">{{$birthday->date}} . {{$birthday->users->name}}</p>
+            <p class="text-gray-600 font-bold">{{$birthday->title}} </p>
+          </div>
+        </div>
+      </div>
+    </a>
+    @endforeach
+    @if($birthdays->count() > 3)
+      <a href="{{route('displayEvents')}}">Display all available events</a>
+    @endif
+  </div>
   @endsection
