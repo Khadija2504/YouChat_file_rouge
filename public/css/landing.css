@@ -258,6 +258,8 @@ header {
 
 .destination__card img {
   border-radius: 1rem;
+  width: 15rem;
+  height: 18rem;
 }
 
 .destination__details {
@@ -265,7 +267,7 @@ header {
   width: calc(100% - 2rem);
   padding: 1rem;
   bottom: -6rem;
-  left: 50%;
+  left: 45%;
   transform: translateX(-50%);
   text-align: center;
   color: var(--extra-light);
@@ -288,6 +290,7 @@ header {
 .destination__subtitle {
   font-size: 1rem;
   font-weight: 600;
+  color: black;
 }
 
 .trip {

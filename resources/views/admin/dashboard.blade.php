@@ -5,45 +5,97 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="numbers">{{$usersCount}}</div>
+                        <div class="cardName">users count</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
+                        <svg fill="#000000" width="40px" height="40px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <title>users</title>
+                            <path d="M16 21.416c-5.035 0.022-9.243 3.537-10.326 8.247l-0.014 0.072c-0.018 0.080-0.029 0.172-0.029 0.266 0 0.69 0.56 1.25 1.25 1.25 0.596 0 1.095-0.418 1.22-0.976l0.002-0.008c0.825-3.658 4.047-6.35 7.897-6.35s7.073 2.692 7.887 6.297l0.010 0.054c0.127 0.566 0.625 0.982 1.221 0.982 0.69 0 1.25-0.559 1.25-1.25 0-0.095-0.011-0.187-0.031-0.276l0.002 0.008c-1.098-4.78-5.305-8.295-10.337-8.316h-0.002zM9.164 11.102c0 0 0 0 0 0 2.858 0 5.176-2.317 5.176-5.176s-2.317-5.176-5.176-5.176c-2.858 0-5.176 2.317-5.176 5.176v0c0.004 2.857 2.319 5.172 5.175 5.176h0zM9.164 3.25c0 0 0 0 0 0 1.478 0 2.676 1.198 2.676 2.676s-1.198 2.676-2.676 2.676c-1.478 0-2.676-1.198-2.676-2.676v0c0.002-1.477 1.199-2.674 2.676-2.676h0zM22.926 11.102c2.858 0 5.176-2.317 5.176-5.176s-2.317-5.176-5.176-5.176c-2.858 0-5.176 2.317-5.176 5.176v0c0.004 2.857 2.319 5.172 5.175 5.176h0zM22.926 3.25c1.478 0 2.676 1.198 2.676 2.676s-1.198 2.676-2.676 2.676c-1.478 0-2.676-1.198-2.676-2.676v0c0.002-1.477 1.199-2.674 2.676-2.676h0zM31.311 19.734c-0.864-4.111-4.46-7.154-8.767-7.154-0.395 0-0.784 0.026-1.165 0.075l0.045-0.005c-0.93-2.116-3.007-3.568-5.424-3.568-2.414 0-4.49 1.448-5.407 3.524l-0.015 0.038c-0.266-0.034-0.58-0.057-0.898-0.063l-0.009-0c-4.33 0.019-7.948 3.041-8.881 7.090l-0.012 0.062c-0.018 0.080-0.029 0.173-0.029 0.268 0 0.691 0.56 1.251 1.251 1.251 0.596 0 1.094-0.417 1.22-0.975l0.002-0.008c0.684-2.981 3.309-5.174 6.448-5.186h0.001c0.144 0 0.282 0.020 0.423 0.029 0.056 3.218 2.679 5.805 5.905 5.805 3.224 0 5.845-2.584 5.905-5.794l0-0.006c0.171-0.013 0.339-0.035 0.514-0.035 3.14 0.012 5.765 2.204 6.442 5.14l0.009 0.045c0.126 0.567 0.625 0.984 1.221 0.984 0.69 0 1.249-0.559 1.249-1.249 0-0.094-0.010-0.186-0.030-0.274l0.002 0.008zM16 18.416c-0 0-0 0-0.001 0-1.887 0-3.417-1.53-3.417-3.417s1.53-3.417 3.417-3.417c1.887 0 3.417 1.53 3.417 3.417 0 0 0 0 0 0.001v-0c-0.003 1.886-1.53 3.413-3.416 3.416h-0z"></path>
+                        </svg>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="numbers">{{$banUsers}}</div>
+                        <div class="cardName">ban users</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <svg fill="#000000" width="40px" height="40px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <title>users-slash</title>
+                            <path d="M14.733 20.779c0.084 0.020 0.179 0.031 0.278 0.031 0.69 0 1.249-0.559 1.249-1.249 0-0.6-0.423-1.101-0.986-1.222l-0.008-0.001c-1.303-0.294-2.311-1.302-2.6-2.582l-0.004-0.023c-0.131-0.561-0.627-0.973-1.219-0.973-0.69 0-1.25 0.56-1.25 1.25 0 0.091 0.010 0.179 0.028 0.264l-0.001-0.008c0.509 2.258 2.256 4.004 4.474 4.505l0.040 0.008zM25.912 28.281c-0.182-0.48-0.638-0.815-1.172-0.815-0.69 0-1.25 0.56-1.25 1.25 0 0.156 0.029 0.306 0.081 0.444l-0.003-0.009c0.119 0.305 0.233 0.679 0.319 1.064l0.011 0.055c0.129 0.563 0.625 0.977 1.219 0.979h0c0.097-0 0.191-0.011 0.282-0.031l-0.009 0.002c0.564-0.13 0.979-0.627 0.979-1.222 0-0.096-0.011-0.189-0.031-0.279l0.002 0.008c-0.129-0.572-0.276-1.056-0.454-1.525l0.026 0.078zM18.467 21.705c-0.738-0.184-1.586-0.289-2.458-0.289-5.045 0-9.266 3.526-10.335 8.247l-0.013 0.071c-0.018 0.080-0.029 0.172-0.029 0.266 0 0.69 0.56 1.25 1.25 1.25 0.596 0 1.095-0.418 1.22-0.976l0.002-0.008c0.826-3.658 4.049-6.35 7.9-6.35 0.669 0 1.319 0.081 1.94 0.234l-0.056-0.012c0.084 0.020 0.18 0.031 0.278 0.031 0.59 0 1.086-0.404 1.226-0.95l0.002-0.009c0.021-0.087 0.034-0.186 0.034-0.288 0-0.588-0.406-1.082-0.953-1.216l-0.009-0.002zM10.331 13.761c-0.048-0.65-0.588-1.159-1.246-1.159-0.033 0-0.065 0.001-0.098 0.004l0.004-0c-4.044 0.327-7.324 3.239-8.202 7.067l-0.012 0.061c-0.018 0.080-0.029 0.172-0.029 0.266 0 0.69 0.56 1.25 1.25 1.25 0.596 0 1.095-0.418 1.22-0.976l0.002-0.008c0.645-2.82 3.023-4.93 5.931-5.164l0.023-0.002c0.65-0.050 1.159-0.589 1.159-1.248 0-0.032-0.001-0.064-0.004-0.095l0 0.004zM22.926 11.102c2.858 0 5.176-2.317 5.176-5.176s-2.317-5.176-5.176-5.176c-2.858 0-5.176 2.317-5.176 5.176v0c0.004 2.857 2.319 5.172 5.175 5.176h0zM22.926 3.25c1.478 0 2.676 1.198 2.676 2.676s-1.198 2.676-2.676 2.676c-1.478 0-2.676-1.198-2.676-2.676v0c0.002-1.477 1.199-2.674 2.676-2.676h0zM20.545 18.776c0.821-0.988 1.329-2.262 1.357-3.653l0-0.006c0.172-0.013 0.341-0.036 0.516-0.036 3.14 0.012 5.765 2.204 6.442 5.14l0.009 0.045c0.126 0.567 0.625 0.984 1.221 0.984 0.69 0 1.249-0.559 1.249-1.249 0-0.094-0.010-0.186-0.030-0.274l0.002 0.008c-0.864-4.111-4.46-7.154-8.767-7.154-0.395 0-0.784 0.026-1.165 0.075l0.045-0.005c-0.927-2.116-3.003-3.568-5.419-3.568-1.444 0-2.766 0.519-3.791 1.38l0.009-0.007-0.218-0.218c1.414-0.937 2.334-2.521 2.334-4.321 0-2.853-2.313-5.167-5.167-5.167-1.799 0-3.384 0.92-4.309 2.315l-0.012 0.019-1.968-1.968c-0.226-0.225-0.537-0.363-0.881-0.363-0.69 0-1.25 0.56-1.25 1.25 0 0.344 0.139 0.655 0.363 0.881l27.999 28.001c0.226 0.226 0.539 0.366 0.884 0.366 0.691 0 1.251-0.56 1.251-1.251 0-0.345-0.14-0.658-0.366-0.884l0 0zM16 11.583c1.886 0.003 3.414 1.531 3.416 3.417v0c-0.003 0.749-0.25 1.439-0.666 1.997l0.006-0.009-4.745-4.745c0.549-0.409 1.239-0.657 1.988-0.66h0.001zM9.164 3.25c1.477 0.002 2.674 1.199 2.676 2.676v0c-0.005 1.113-0.7 2.062-1.679 2.443l-0.018 0.006-3.429-3.429c0.387-0.997 1.337-1.691 2.449-1.697h0.001z"></path>
+                        </svg>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers">{{$postWithALotOfComments->comments_count}}</div>
+                        <div class="cardName">Post with a lot of Comments</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <svg width="40px" height="40px" viewBox="-0.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+
+                            <title>comments</title>
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs>
+                        
+                        </defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-257.000000, -255.000000)" fill="#000000">
+                                    <path d="M259,266.5 C259,261.254 263.753,257 270,257 C274.973,257 280,261.254 280,266.5 C280,271.747 276.075,276 270,276 C269.107,276 267.244,275.898 266.413,275.725 L263,278 L263,274.456 C260.561,272.477 259,269.834 259,266.5 L259,266.5 Z M266.637,277.736 C267.414,277.863 269.181,278 270,278 C277.18,278 282,272.657 282,266.375 C282,260.093 275.977,255 270,255 C262.811,255 257,260.093 257,266.375 C257,270.015 258.387,273.104 261,275.329 L261,281 L266.637,277.736 L266.637,277.736 Z M283.949,264.139 C283.968,264.425 284,264.709 284,265 C284,265.636 283.938,266.259 283.849,266.874 C285.195,268.45 286,270.392 286,272.5 C286,275.834 284.008,278.761 281,280.456 L281,284 L277.587,281.725 C276.756,281.898 275.893,282 275,282 C272.41,282 271.034,281.222 269.154,279.929 C268.609,279.973 268.059,280 267.5,280 C267.102,280 266.712,279.972 266.32,279.949 C268.701,282.276 271.149,283.75 275,283.75 C275.819,283.75 276.618,283.676 277.395,283.549 L283,287 L283,281.329 C286.04,279.246 288,276.015 288,272.375 C288,269.131 286.439,266.211 283.949,264.139 L283.949,264.139 Z M275.5,268 C276.329,268 277,267.329 277,266.5 C277,265.672 276.329,265 275.5,265 C274.671,265 274,265.672 274,266.5 C274,267.329 274.671,268 275.5,268 L275.5,268 Z M263.5,268 C264.329,268 265,267.329 265,266.5 C265,265.672 264.329,265 263.5,265 C262.671,265 262,265.672 262,266.5 C262,267.329 262.671,268 263.5,268 L263.5,268 Z M269.5,268 C270.329,268 271,267.329 271,266.5 C271,265.672 270.329,265 269.5,265 C268.671,265 268,265.672 268,266.5 C268,267.329 268.671,268 269.5,268 L269.5,268 Z" id="comments" sketch:type="MSShapeGroup">
+                        
+                        </path>
+                                </g>
+                            </g>
+                        </svg>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">{{$videosCount}}</div>
+                        <div class="cardName">Videos count</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="m11 14 7-4-7-4z"/><path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8z"/><path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 12V6l7 4-7 4z"/></svg>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{$reelsCount}}</div>
+                        <div class="cardName">Reels count</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2.52002 7.11011H21.48" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.52002 2.11011V6.97011" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.48 2.11011V6.52011" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9.75 14.4501V13.2501C9.75 11.7101 10.84 11.0801 12.17 11.8501L13.21 12.4501L14.25 13.0501C15.58 13.8201 15.58 15.0801 14.25 15.8501L13.21 16.4501L12.17 17.0501C10.84 17.8201 9.75 17.1901 9.75 15.6501V14.4501V14.4501Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{$postsCount}}</div>
+                        <div class="cardName">Posts count</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 11.5C5 9.61438 5 8.67157 5.58579 8.08579C6.17157 7.5 7.11438 7.5 9 7.5H15C16.8856 7.5 17.8284 7.5 18.4142 8.08579C19 8.67157 19 9.61438 19 11.5V12.5C19 14.3856 19 15.3284 18.4142 15.9142C17.8284 16.5 16.8856 16.5 15 16.5H9C7.11438 16.5 6.17157 16.5 5.58579 15.9142C5 15.3284 5 14.3856 5 12.5V11.5Z" stroke="#1C274C" stroke-width="1.5"/>
+                            <path opacity="0.5" d="M19 2V2.5C19 3.88071 17.8807 5 16.5 5H7.5C6.11929 5 5 3.88071 5 2.5V2" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                            <path opacity="0.5" d="M19 22V21.5C19 20.1193 17.8807 19 16.5 19H7.5C6.11929 19 5 20.1193 5 21.5V22" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -52,76 +104,30 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
+                        <h2>The most following users</h2>
                     </div>
 
                     <table>
                         <thead>
                             <tr>
                                 <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
+                                <td>Email</td>
+                                <td>Jound at</td>
                                 <td>Status</td>
+                                <td>Followers count</td>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
+                            @foreach($userWithALotOfFollowers as $user)
+                                <tr>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td>{{$user->created_at}}</td>
+                                    <td><span >{{$user->status}}</span></td>
+                                    <td>{{$user->followers_count}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -129,81 +135,20 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Avatar</h2>
                     </div>
 
                     <table>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
+                        @foreach($userWithALotOfFollowers as $user)
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="{{asset('' . $user->avatar)}}" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>David <br> <span>Italy</span></h4>
+                                </td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>

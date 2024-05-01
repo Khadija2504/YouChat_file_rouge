@@ -76,8 +76,12 @@ class FriendsListController extends Controller
     }
 
     public function listFollowers(){
-        $followers = FriendsList::where('user_id', Auth::user()->id)->get();
+        $followers = FriendsList::where('friend_id', Auth::user()->id)->get();
         return view('users/list_followers', compact('followers'));
+    }
+    public function listFollowings(){
+        $followings = FriendsList::where('user_id', Auth::user()->id)->get();
+        return view('users/list_followings', compact('followings'));
     }
 
     public function EditProfile(){
@@ -108,15 +112,16 @@ class FriendsListController extends Controller
         return redirect()->back();
     }
 
-    public function acceptation(Request $request, $id){
-        $validated = $request->validate([
-            'status' => 'required',
-        ]);
+    public function acceptation($id){
         $friendsList = FriendsList::where('id', $id);
-        $friendsList->update($validated);
+        $friends = FriendsList::find($id);
+        $validation = 'valid';
+        $friendsList->update([
+            'status' => $validation,
+        ]);
         $message = auth()->user()->name . 'is accepted you as a foller';
         Notification::create([
-            'user_id' => $friendsList->friend_id,
+            'user_id' => $friends->friend_id,
             'message' => $message,
             'sender_id' => auth()->user()->id,
             'type' => 'follower',
@@ -127,8 +132,14 @@ class FriendsListController extends Controller
     public function block($id){
         $friendsList = FriendsList::where('user_id', Auth::user()->id)->where('friend_id', $id)->first();
         if(isset($friendsList)){
-        $friendsList->blocked = "1";
-        $friendsList->save();
+            if($friendsList->blocked == '0'){
+                $friendsList->blocked = "1";
+                $friendsList->save();
+            } else{
+                $friendsList->blocked = "0";
+                $friendsList->save();
+            }
+            
         }
         return redirect()->back()->with('message', 'The user has been blocked successfully');
     }
@@ -142,8 +153,10 @@ class FriendsListController extends Controller
         $isFollowed = FriendsList::where('user_id', Auth::id())
             ->where('friend_id', $id)
             ->exists();
+        $isBlocked = FriendsList::where('user_id', Auth::id())
+            ->where('blocked', '1')->exists();
         $followers = FriendsList::where('friend_id', Auth::user()->id)->get()->count();
-        return view('users.profile', compact('users', 'id','user','isFollowed', 'followers'));
+        return view('users.profile', compact('users', 'id','user','isFollowed', 'followers', 'isBlocked'));
     }
     public function unfollow($id){
         $friendList = FriendsList::where('user_id', Auth::user()->id)->where('friend_id', $id)->first();
@@ -175,6 +188,17 @@ class FriendsListController extends Controller
         ]);
         return response()->json([
             'msg' => 'status updated successfully',
+            'user' => $user,
+        ]);
+    }
+    public function acceptationChoose($acceptation){
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $user->update([
+            'acceptation' => $acceptation,
+        ]);
+        return response()->json([
+            'msg' => 'updating acceptation successfully',
             'user' => $user,
         ]);
     }

@@ -60,7 +60,7 @@
     >
     <button
       @click="sidenav = !sidenav"
-      class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
+      class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-orange-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
     >
       <svg
         class="w-5 h-5 fill-current"
@@ -83,10 +83,10 @@
       >
         <div class="space-y-6 md:space-y-10 mt-10">
           <h1 class="font-bold text-4xl text-center md:hidden">
-            D<span class="text-teal-600">.</span>
+            D<span class="text-orange-500">.</span>
           </h1>
           <h1 class="hidden md:block font-bold text-sm md:text-xl text-center">
-            YouChat<span class="text-teal-600">.</span>
+            YouChat<span class="text-orange-500">.</span>
           </h1>
           <div id="profile" class="space-y-3">
             <a href="{{route('EditProfile')}}" class="relative">
@@ -116,11 +116,11 @@
             <a href="{{route('EditProfile')}}">
             <div>
               <h2
-                class="font-medium text-xs md:text-sm text-center text-teal-500"
+                class="font-medium text-xs md:text-sm text-center text-orange-500"
               >
                 {{Auth::user()->name}}
               </h2>
-              <p class="text-xs text-gray-500 text-center">{{Auth::user()->email}}</p>
+              <p class="text-xs text-gray-500 text-center">{{Auth::user()->user_name}}</p>
             </div>
           </a>
           </div>
@@ -128,7 +128,7 @@
           <div id="menu" class="flex flex-col space-y-2">
             <a
               href="{{route('home')}}"
-              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
+              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
             >
               <svg
                 class="w-6 h-6 fill-current inline-block"
@@ -144,7 +144,7 @@
             </a>
             <a
               href="{{route('savedPosts')}}"
-              class="text-sm font-medium text-gray-700 flex justify-start py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+              class="text-sm font-medium text-gray-700 flex justify-start py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <span class="material-symbols-outlined">
                 bookmarks
@@ -153,7 +153,7 @@
             </a>
             <a
               href="{{route('displayReels')}}"
-              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
             <svg width="22px" height="22px" class="w-6 h-6 inline-block"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -166,7 +166,7 @@
             </a>
             <a
               href="{{route('chatRoom')}}"
-              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
                 class="w-6 h-6 fill-current inline-block"
@@ -185,7 +185,7 @@
             </a>
             <a
               href="{{route('displayEvents')}}"
-              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
                 class="w-6 h-6 fill-current inline-block"
@@ -203,16 +203,16 @@
             </a>
             <a
               href="{{route('displayVideos')}}"
-              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
             <svg width="22px"  class="w-6 h-6 fill-current inline-block" height="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="m11 14 7-4-7-4z"/><path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8z"/><path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 12V6l7 4-7 4z"/></svg>
               <span class="">videos</span>
             </a>
-            <a
-              href="{{route('listFollowers')}}"
-              class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-            >
-              <svg
+            <div class=" relative inline-block text-left dropdown">
+              <span class="rounded-md shadow-sm">
+              <button class="inline-flex w-full text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out" 
+                type="button" aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
+                <svg
                 class="w-6 h-6 fill-current inline-block"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -222,8 +222,30 @@
                   d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
                 ></path>
               </svg>
-              <span class="">followers</span>
-            </a>
+              <span class="ml-3">My Connections</span>
+                  <svg class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+              </button
+              ></span>
+              <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
+              <div class="absolute right-0 w-48 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
+                    <a
+                      href="{{route('listFollowers')}}"
+                      class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105"
+                    >Followers</a>
+                    <a
+                      href="{{route('listFollowings')}}"
+                      class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105"
+                    >Followings</a>
+              </div>
+              </div>
+          </div>
+            <style>
+              .dropdown:focus-within .dropdown-menu {
+                opacity:1;
+                transform: translate(0) scale(1);
+                visibility: visible;
+              }
+            </style>
           </div>
         </div>
       </div>
@@ -244,7 +266,7 @@
               </a>
           </div> --}}
     
-          <button @click="sidenav = !sidenav" class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
+          <button @click="sidenav = !sidenav" class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-orange-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
             <svg class="w-5 h-5 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
             </svg>
@@ -304,8 +326,8 @@
                   <a
                     href="{{route('notifications')}}"
                   >
-                  <svg fill="#000000" width="28px" id="no_notifications" style="display: block" height="28px" viewBox="0 0 24 24" id="notification-bell" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path></svg>
-                  <svg fill="#000000" width="28px" style="display: none" id="unread_notifications"  height="28px" viewBox="0 0 24 24" id="notification-circle" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path><circle id="secondary-2" data-name="secondary" cx="17" cy="6" r="4" style="fill: rgb(44, 169, 188);"></circle></svg>
+                  <svg fill="#000000" width="28px" id="no_notifications" style="display: block" height="28px" viewBox="0 0 24 24" id="notification-bell" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(97 97 97);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path></svg>
+                  <svg fill="#000000" width="28px" style="display: none" id="unread_notifications"  height="28px" viewBox="0 0 24 24" id="notification-circle" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M15,17H9a1,1,0,0,0-1,1,4,4,0,0,0,8,0A1,1,0,0,0,15,17Z" style="fill: rgb(97 97 97);"></path><path id="primary" d="M20.09,13.67,19,12.59V9A7,7,0,0,0,5,9v3.59L3.91,13.67A3.13,3.13,0,0,0,6.12,19H17.88a3.13,3.13,0,0,0,2.21-5.33Z" style="fill: rgb(0, 0, 0);"></path><circle id="secondary-2" data-name="secondary" cx="17" cy="6" r="4" style="fill: rgb(249 115 22);"></circle></svg>
                   </a>
                 </div>
               
@@ -346,7 +368,7 @@
         <div id="menu" class="flex flex-col space-y-2">
           <a
             href="{{route('home')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
           >
             <svg
               class="w-6 h-6 fill-current inline-block"
@@ -362,7 +384,7 @@
           </a>
           <a
             href="{{route('savedPosts')}}"
-            class="text-sm font-medium text-gray-700 flex justify-start py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 flex justify-start py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
           >
             <span class="material-symbols-outlined">
               bookmarks
@@ -371,7 +393,7 @@
           </a>
           <a
             href="{{route('addFormReel')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
           >
           <svg width="22px" height="22px" class="w-6 h-6 inline-block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M14.7295 5.86V2.5C14.7295 2.22 14.5095 2 14.2295 2H9.76953C9.48953 2 9.26953 2.22 9.26953 2.5V5.86C9.26953 6.14 9.48953 6.36 9.76953 6.36H14.2295C14.5095 6.36 14.7295 6.14 14.7295 5.86Z" fill="#292D32"/>
@@ -384,7 +406,7 @@
           </a>
           <a
             href="{{route('chatRoom')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
           >
             <svg
               class="w-6 h-6 fill-current inline-block"
@@ -403,7 +425,7 @@
           </a>
           <a
             href="{{route('createFormEvent')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
           >
           <svg class="w-6 h-6 fill-current inline-block" fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
           viewBox="0 0 24 24" xml:space="preserve">
@@ -420,7 +442,7 @@
           </a>
           <a
             href="{{route('addVideoForm')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
           >
           <svg fill="#000000" width="22px"  class="w-6 h-6 fill-current inline-block" height="22px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
             <path d="M960 293.333v160H186.667C171.939 453.333 160 465.272 160 480v1253.33c0 14.73 11.939 26.67 26.667 26.67H1440c14.73 0 26.67-11.94 26.67-26.67V960h160v773.33c0 103.1-83.58 186.67-186.67 186.67H186.667C83.573 1920 0 1836.43 0 1733.33V480c0-103.093 83.573-186.667 186.667-186.667H960ZM586.667 800 1120 1120l-533.333 320V800ZM1626.67 0v293.333H1920v160h-293.33v293.334h-160V453.333h-293.34v-160h293.34V0h160Z" fill-rule="evenodd"/>
@@ -429,7 +451,7 @@
           </a>
           <a
             href="{{route('listFollowers')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
           >
             <svg
               class="w-6 h-6 fill-current inline-block"
@@ -536,7 +558,7 @@
                                                   <div class="flex flex-col">
                                                       <div class="w-full flex-none text-lg text-gray-800 font-bold leading-none">${item.name}</div>
                                                       <div class="flex-auto text-gray-500 my-1">
-                                                          <span class="mr-3 ">${item.about}</span>
+                                                          <span class="mr-3 ">${item.followers_count} follower</span>
                                                       </div>
                                                   </div>
                                               </div>

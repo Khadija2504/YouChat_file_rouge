@@ -25,6 +25,7 @@ class User extends Authenticatable
         'contry',
         'city',
         'status',
+        'acceptation',
         'about',
         'password',
     ];

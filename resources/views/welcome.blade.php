@@ -36,28 +36,37 @@
     <header>
       <div class="section__container header__container">
         <div class="header__image">
-          <img src="assets/header-1.jpg" alt="header" />
-          <img src="assets/header-2.jpg" alt="header" />
+          <img src="https://i.pinimg.com/564x/c7/04/5b/c7045be4bcbb0297f99054ede078370d.jpg" alt="header" />
+          <img src="https://i.pinimg.com/564x/e2/1c/6c/e21c6cf04d76dc29076b8416db22abde.jpg" alt="header" />
         </div>
         <div class="header__content">
           <div>
-            <p class="sub__header">Book Now</p>
-            <h1>The Smiling 😊<br />agent for travel</h1>
+            <p class="sub__header">YouChat</p>
+            <h1>The Happy 😊<br />connection for sharing</h1>
             <p class="section__subtitle">
-              Make your travel more enjoyable with us. We are the best travel
-              agency and we are providing the best travel services for our
-              clients.
+              Experience the joy of staying connected. Join our vibrant community and share your world with friends
             </p>
+            @auth
+            @if(Auth::user()->role == 'user')
             <div class="action__btns">
-              <button class="btn">Plan a Trip</button>
-              <div class="story">
-                <div class="video__image">
-                  <img src="assets/story.jpg" alt="story" />
-                  <span><i class="ri-play-fill"></i></span>
-                </div>
-                <span>Watch our story</span>
-              </div>
+              <a href="{{route('home')}}">
+                <button class="btn">Go home</button>
+              </a>
             </div>
+              @else
+              <div class="action__btns">
+                <a href="{{route('dashboard')}}">
+                  <button class="btn">Go home</button>
+                </a>
+              </div>
+              @endif
+            @else
+            <div class="action__btns">
+              <a href="{{route('register')}}">
+                <button class="btn">Try it!</button>
+              </a>
+            </div>
+            @endauth
           </div>
         </div>
       </div>
@@ -66,141 +75,43 @@
     <section class="section__container destination__container">
       <div class="section__header">
         <div>
-          <h2 class="section__title">Explore top destinations</h2>
+          <h2 class="section__title">For Engaging Posts & More ✨</h2>
           <p class="section__subtitle">
-            Explore your suitable and dream places around the world. Here you
-            can find your right destination.
+            Dive into captivating content, exciting videos, immersive reels, thrilling events, and lively chats. Only on YouChat.
           </p>
-        </div>
-        <div class="destination__nav">
-          <span><i class="ri-arrow-left-s-line"></i></span>
-          <span><i class="ri-arrow-right-s-line"></i></span>
         </div>
       </div>
       <div class="destination__grid">
         <div class="destination__card">
-          <img src="assets/destination-1.jpg" alt="destination" />
+          <img src="https://i.pinimg.com/564x/46/c6/e4/46c6e4c345e97ebb3b46a69f9760f1a8.jpg" alt="destination" />
           <div class="destination__details">
-            <p class="destination__title">Banff</p>
-            <p class="destination__subtitle">Canada</p>
+            <p class="destination__title">Posts</p>
+            <p class="destination__subtitle">Tell your connections about your ideas</p>
           </div>
         </div>
         <div class="destination__card">
-          <img src="assets/destination-2.jpg" alt="destination" />
+          <img src="https://i.pinimg.com/564x/9f/a9/61/9fa9613d0873ae4060af2a04233cec7c.jpg" alt="destination" />
           <div class="destination__details">
-            <p class="destination__title">Machu Picchu</p>
-            <p class="destination__subtitle">Peru</p>
+            <p class="destination__title">Reels</p>
+            <p class="destination__subtitle">Share short videos with your friends</p>
           </div>
         </div>
         <div class="destination__card">
-          <img src="assets/destination-3.jpg" alt="destination" />
+          <img src="https://i.pinimg.com/564x/70/19/ca/7019ca21c52ba39228fda3e71daa69bb.jpg" alt="destination" />
           <div class="destination__details">
-            <p class="destination__title">Lauterbrunnen</p>
-            <p class="destination__subtitle">Switzerland</p>
+            <p class="destination__title">Videos</p>
+            <p class="destination__subtitle">Share a special moments with the peaple you know</p>
           </div>
         </div>
         <div class="destination__card">
-          <img src="assets/destination-4.jpg" alt="destination" />
+          <img src="https://i.pinimg.com/564x/da/fb/98/dafb989ff4af09e4719a7767e20d7aad.jpg" alt="destination" />
           <div class="destination__details">
-            <p class="destination__title">Zhangjiajie</p>
-            <p class="destination__subtitle">China</p>
+            <p class="destination__title">Events</p>
+            <p class="destination__subtitle">Let your followers congrate you about your birthday</p>
           </div>
         </div>
       </div>
     </section>
-
-    <section class="trip">
-      <div class="section__container trip__container">
-        <h2 class="section__title">Best trip package</h2>
-        <p class="section__subtitle">
-          Explore your suitable and dream places around the world. Here you can
-          find your right destination.
-        </p>
-        <div class="trip__grid">
-          <div class="trip__card">
-            <img src="assets/trip-1.jpg" alt="trip" />
-            <div class="trip__details">
-              <p>Wasserwerk Frelberg, Germany</p>
-              <div class="rating"><i class="ri-star-fill"></i> 4.2</div>
-              <div class="booking__price">
-                <div class="price"><span>From</span> $300</div>
-                <button class="book__now">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="trip__card">
-            <img src="assets/trip-2.jpg" alt="trip" />
-            <div class="trip__details">
-              <p>Patagonia, Argentina and Chile</p>
-              <div class="rating"><i class="ri-star-fill"></i> 4.5</div>
-              <div class="booking__price">
-                <div class="price"><span>From</span> $450</div>
-                <button class="book__now">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="trip__card">
-            <img src="assets/trip-3.jpg" alt="trip" />
-            <div class="trip__details">
-              <p>The Dolomites, Italy</p>
-              <div class="rating"><i class="ri-star-fill"></i> 4.7</div>
-              <div class="booking__price">
-                <div class="price"><span>From</span> $400</div>
-                <button class="book__now">Book Now</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="view__all">
-          <button class="btn">View All</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="gallary">
-      <div class="section__container gallary__container">
-        <div class="image__gallary">
-          <div class="gallary__col">
-            <img src="assets/gallery-1.jpg" alt="gallary" />
-          </div>
-          <div class="gallary__col">
-            <img src="assets/gallery-2.jpg" alt="gallary" />
-            <img src="assets/gallery-3.jpg" alt="gallary" />
-          </div>
-        </div>
-        <div class="gallary__content">
-          <div>
-            <h2 class="section__title">
-              Our trip gallary that will inspire you
-            </h2>
-            <p class="section__subtitle">
-              Explore your suitable and dream places around the world. Here you
-              can find your right destination.
-            </p>
-            <button class="btn">View All</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="subscribe">
-      <div class="section__container subscribe__container">
-        <div class="subscribe__content">
-          <h2 class="section__title">Subscribe to get special prize</h2>
-          <p class="section__subtitle">
-            Explore your suitable and dream places around the world. Here you
-            can find your right destination.
-          </p>
-        </div>
-        <div class="subscribe__form">
-          <form>
-            <input type="email" placeholder="Your email here" />
-            <button class="btn" type="submit">Send</button>
-          </form>
-        </div>
-      </div>
-    </section>
-
     <footer class="footer">
       <div class="section__container footer__container">
         <div class="footer__col">

@@ -68,10 +68,24 @@
                     </span>
                 </div>
                 <p class="text-gray-700">{{$user->email}}</p>
-                <div class="flex flex-row justify-between">
-                    <p class="text-sm mr-5 text-gray-500">{{$user->followers->count()}} following</p>
-                    <p class="text-sm ml-5 text-gray-500">{{$followers}} followers</p>
-                </div>
+                @if($isFollowed)
+                 @if(!$isBlocked)
+                    <div class="flex flex-row justify-between">
+                        <a href="{{route('listFollowings')}}" class="text-sm mr-5 text-gray-500">{{$user->followers->count()}} following</a>
+                        <a href="{{route('listFollowers')}}" class="text-sm ml-5 text-gray-500">{{$followers}} followers</a>
+                    </div>
+                 @else
+                    <div class="flex flex-row justify-between">
+                        <a class="text-sm mr-5 text-gray-500">0 following</a>
+                        <a class="text-sm ml-5 text-gray-500">0 followers</a>
+                    </div>
+                 @endif
+                @else
+                    <div class="flex flex-row justify-between">
+                        <a href="{{route('listFollowings')}}" class="text-sm mr-5 text-gray-500">{{$user->followers->count()}} following</a>
+                        <a href="{{route('listFollowers')}}" class="text-sm ml-5 text-gray-500">{{$followers}} followers</a>
+                    </div>
+                @endif
                 <div id="description_{{ $user->id }}" class="whitespace-pre-wrap mt-7" style="display: block;">{{ Illuminate\Support\Str::limit($user->about, 20) }}</div>
                 <div id="fullDescription_{{ $user->id }}" class="whitespace-pre-wrap mt-7" style="display: none;">{{ $user->about }}</div>
                 <button onclick="toggleDescription({{ $user->id }})" id="showMore_{{ $user->id }}" style="display: block">
@@ -100,6 +114,22 @@
                             </div>
                     </button>
                     @else
+                        @if(!$isBlocked)
+                            <a href="{{ route('block', $user->id) }}">
+                                <button type="submit">
+                                    <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
+                                        <div class="mr-1">
+                                            <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="12" cy="6" r="4" fill="#1C274C"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18 15.75C16.7574 15.75 15.75 16.7574 15.75 18C15.75 18.3473 15.8287 18.6763 15.9693 18.97L18.9701 15.9693C18.6763 15.8287 18.3474 15.75 18 15.75ZM20.0307 17.0299L17.0299 20.0307C17.3236 20.1713 17.6526 20.25 18 20.25C19.2426 20.25 20.25 19.2426 20.25 18C20.25 17.6526 20.1713 17.3237 20.0307 17.0299ZM14.25 18C14.25 15.9289 15.9289 14.25 18 14.25C20.0711 14.25 21.75 15.9289 21.75 18C21.75 20.0711 20.0711 21.75 18 21.75C15.9289 21.75 14.25 20.0711 14.25 18Z" fill="#1C274C"/>
+                                                <path opacity="0.5" d="M17.2157 14.3321C15.5211 14.6927 14.25 16.1979 14.25 18C14.25 18.9823 14.6277 19.8764 15.2457 20.5449C14.2756 20.8356 13.1714 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C14.0722 13 15.934 13.5145 17.2157 14.3321Z" fill="#1C274C"/>
+                                            </svg>
+                                        </div>
+                                        Block
+                                    </div>
+                                </button>
+                            </a>
+                        @else
                         <a href="{{ route('block', $user->id) }}">
                             <button type="submit">
                                 <div class="text-xs text-blue-600 hover:bg-opacity-60 font-semibold flex items-center justify-center px-3 py-2 bg-blue-300 bg-opacity-50 rounded-lg">
@@ -110,10 +140,11 @@
                                             <path opacity="0.5" d="M17.2157 14.3321C15.5211 14.6927 14.25 16.1979 14.25 18C14.25 18.9823 14.6277 19.8764 15.2457 20.5449C14.2756 20.8356 13.1714 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C14.0722 13 15.934 13.5145 17.2157 14.3321Z" fill="#1C274C"/>
                                         </svg>
                                     </div>
-                                    Block
+                                    Unblock
                                 </div>
                             </button>
                         </a>
+                        @endif
                     @endif
                     <a href="{{route('createconversation', $user->id)}}">
                         <button class="flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
@@ -151,258 +182,172 @@
                 </button>
             </div>
         </div>
-        <div class="bg-white rounded-lg shadow-xl pb-8" id="reelsPage">
-
-            <div id="usersPage" class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                @foreach($user->reels as $reel)
-                    <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat"  id="reelsPage" style="background-image: url('https://sf-tk-sg.ibytedtos.com/obj/tiktok-web-sg/tt-sg-article-cover-351970d5103b996fbe9ddc67f6d668cc.gif');">
-                        <a href="{{ route('readReel', $reel->id) }}" class="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{$reel->description}}</span>
-                        </a>
+        @if(!$isFollowed)
+                <div class="bg-white rounded-lg shadow-xl pb-8" id="reelsPage">
+                    <div id="usersPage" class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                        @foreach($user->reels as $reel)
+                            <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat"  id="reelsPage" style="background-image: url('https://sf-tk-sg.ibytedtos.com/obj/tiktok-web-sg/tt-sg-article-cover-351970d5103b996fbe9ddc67f6d668cc.gif');">
+                                <a href="{{ route('readReel', $reel->id) }}" class="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{{$reel->description}}</span>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="bg-white rounded-lg shadow-xl pb-8">
-            <div class="grid grid-cols-4 gap-0.5 mt-2">
-                @foreach($user->posts as $post)
-                    <div class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
-                        
-                        <a href="" class="z-20 absolute h-full w-full top-0 left-0 ">&nbsp;</a>
-                        
-                        <div class="bg-white py-4 px-3">
-                          <h3 class="text-xs mb-2 font-medium">{{$post->description}}</h3>
-                          <div class="flex justify-between items-center">
-                            <p class="text-xs text-gray-400">
-                            {{$post->comments->count()}} comments
-                          </p>
-                          <div class="relative z-40 flex items-center gap-2">
-                            <a class="text-orange-600 hover:text-blue-500" href="{{ route('readPost', $post->id) }}">
-                                Read more
+                </div>
+                <div class="bg-white rounded-lg shadow-xl pb-8">
+                    <div class="grid grid-cols-4 gap-0.5 mt-2">
+                        @foreach($user->posts as $post)
+                            <div class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                
+                                <a href="" class="z-20 absolute h-full w-full top-0 left-0 ">&nbsp;</a>
+                                
+                                <div class="bg-white py-4 px-3">
+                                <h3 class="text-xs mb-2 font-medium">{{$post->description}}</h3>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-xs text-gray-400">
+                                    {{$post->comments->count()}} comments
+                                </p>
+                                <div class="relative z-40 flex items-center gap-2">
+                                    <a class="text-orange-600 hover:text-blue-500" href="{{ route('readPost', $post->id) }}">
+                                        Read more
+                                    </a>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-xl pb-8">
+                    <div class="grid grid-cols-4 gap-0.5 mt-2">
+                        @foreach($user->events as $event)
+                            <div class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                                        
+                                <div class="bg-white py-4 px-3">
+                                <h3>{{$event->title}}</h3>
+                                <h2 class="text-xs mb-2 font-medium">{{$event->description}}</h2>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-xs text-gray-400">
+                                    {{$event->voteEvent->count()}} reactions
+                                    </p>
+                                <div class="relative z-40 flex items-center gap-2">
+                                    <div class="text-orange-600 hover:text-blue-500">
+                                        {{$event->date}}
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-xl pb-8">
+                    <div class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                        @foreach($user->videos as $video)
+                            <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat"  id="videosPage" style="background-image: url('https://sf-tk-sg.ibytedtos.com/obj/tiktok-web-sg/tt-sg-article-cover-351970d5103b996fbe9ddc67f6d668cc.gif');">
+                                <a href="{{ route('readVideo', $video->id) }}" class="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>{{$video->description}}</span>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+        @else
+            @if(!$isBlocked)
+            <div class="bg-white rounded-lg shadow-xl pb-8" id="reelsPage">
+                <div id="usersPage" class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                    @foreach($user->reels as $reel)
+                        <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat"  id="reelsPage" style="background-image: url('https://sf-tk-sg.ibytedtos.com/obj/tiktok-web-sg/tt-sg-article-cover-351970d5103b996fbe9ddc67f6d668cc.gif');">
+                            <a href="{{ route('readReel', $reel->id) }}" class="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>{{$reel->description}}</span>
                             </a>
-                          </div>
-                          </div>
                         </div>
-                      </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-xl pb-8">
-            <div class="grid grid-cols-4 gap-0.5 mt-2">
-                @foreach($user->events as $event)
-                    <div class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
-                                                
-                        <div class="bg-white py-4 px-3">
-                          <h3>{{$event->title}}</h3>
-                          <h2 class="text-xs mb-2 font-medium">{{$event->description}}</h2>
-                          <div class="flex justify-between items-center">
-                            <p class="text-xs text-gray-400">
-                               {{$event->voteEvent->count()}} reactions
+            <div class="bg-white rounded-lg shadow-xl pb-8">
+                <div class="grid grid-cols-4 gap-0.5 mt-2">
+                    @foreach($user->posts as $post)
+                        <div class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                            
+                            <a href="" class="z-20 absolute h-full w-full top-0 left-0 ">&nbsp;</a>
+                            
+                            <div class="bg-white py-4 px-3">
+                            <h3 class="text-xs mb-2 font-medium">{{$post->description}}</h3>
+                            <div class="flex justify-between items-center">
+                                <p class="text-xs text-gray-400">
+                                {{$post->comments->count()}} comments
                             </p>
-                          <div class="relative z-40 flex items-center gap-2">
-                            <div class="text-orange-600 hover:text-blue-500">
-                                {{$event->date}}
+                            <div class="relative z-40 flex items-center gap-2">
+                                <a class="text-orange-600 hover:text-blue-500" href="{{ route('readPost', $post->id) }}">
+                                    Read more
+                                </a>
                             </div>
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-                @endforeach
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-xl pb-8">
-            <div class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                @foreach($user->videos as $video)
-                    <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat"  id="videosPage" style="background-image: url('https://sf-tk-sg.ibytedtos.com/obj/tiktok-web-sg/tt-sg-article-cover-351970d5103b996fbe9ddc67f6d668cc.gif');">
-                        <a href="{{ route('readVideo', $video->id) }}" class="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{$video->description}}</span>
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
-        <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-            <div class="w-full flex flex-col 2xl:w-1/3">
-
-            </div>
-            <div class="flex flex-col w-full 2xl:w-2/3">
-                <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
-                    <h4 class="text-xl text-gray-900 font-bold">About</h4>
-                    <p class="mt-2 text-gray-700">{{$user->about}}</p>
-                </div>
-                <div class="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
-                    <h4 class="text-xl text-gray-900 font-bold">Statistics</h4>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
-                        <div class="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-sm text-indigo-600">Total Revenue</span>
-                                <span class="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
                             </div>
-                            <div class="flex items-center justify-between mt-6">
-                                <div>
-                                    <svg class="w-12 h-12 p-2.5 bg-indigo-400 bg-opacity-20 rounded-full text-indigo-600 border border-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-end">
-                                        <span class="text-2xl 2xl:text-3xl font-bold">$8,141</span>
-                                        <div class="flex items-center ml-2 mb-1">
-                                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                            <span class="font-bold text-sm text-gray-500 ml-0.5">3%</span>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-sm text-green-600">New Orders</span>
-                                <span class="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-6">
-                                <div>
-                                    <svg class="w-12 h-12 p-2.5 bg-green-400 bg-opacity-20 rounded-full text-green-600 border border-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                                </div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-end">
-                                        <span class="text-2xl 2xl:text-3xl font-bold">217</span>
-                                        <div class="flex items-center ml-2 mb-1">
-                                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                            <span class="font-bold text-sm text-gray-500 ml-0.5">5%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-sm text-blue-600">New Connections</span>
-                                <span class="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-6">
-                                <div>
-                                    <svg class="w-12 h-12 p-2.5 bg-blue-400 bg-opacity-20 rounded-full text-blue-600 border border-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                </div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-end">
-                                        <span class="text-2xl 2xl:text-3xl font-bold">54</span>
-                                        <div class="flex items-center ml-2 mb-1">
-                                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                            <span class="font-bold text-sm text-gray-500 ml-0.5">7%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
+                    @endforeach
                 </div>
             </div>
-        </div>
-        <div class="bg-white rounded-lg shadow-xl p-8">
-            <div class="flex items-center justify-between">
-                <h4 class="text-xl text-gray-900 font-bold">Connections (532)</h4>
-                <a href="#" title="View All">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-                    </svg>
-                </a>
+
+            <div class="bg-white rounded-lg shadow-xl pb-8">
+                <div class="grid grid-cols-4 gap-0.5 mt-2">
+                    @foreach($user->events as $event)
+                        <div class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                                    
+                            <div class="bg-white py-4 px-3">
+                            <h3>{{$event->title}}</h3>
+                            <h2 class="text-xs mb-2 font-medium">{{$event->description}}</h2>
+                            <div class="flex justify-between items-center">
+                                <p class="text-xs text-gray-400">
+                                {{$event->voteEvent->count()}} reactions
+                                </p>
+                            <div class="relative z-40 flex items-center gap-2">
+                                <div class="text-orange-600 hover:text-blue-500">
+                                    {{$event->date}}
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-8 mt-8">
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection1.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Diane Aguilar</p>
-                    <p class="text-xs text-gray-500 text-center">UI/UX Design at Upwork</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection2.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Frances Mather</p>
-                    <p class="text-xs text-gray-500 text-center">Software Engineer at Facebook</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection3.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Carlos Friedrich</p>
-                    <p class="text-xs text-gray-500 text-center">Front-End Developer at Tailwind CSS</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection4.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Donna Serrano</p>
-                    <p class="text-xs text-gray-500 text-center">System Engineer at Tesla</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection5.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Randall Tabron</p>
-                    <p class="text-xs text-gray-500 text-center">Software Developer at Upwork</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection6.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">John McCleary</p>
-                    <p class="text-xs text-gray-500 text-center">Software Engineer at Laravel</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection7.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Amanda Noble</p>
-                    <p class="text-xs text-gray-500 text-center">Graphic Designer at Tailwind CSS</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection8.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Christine Drew</p>
-                    <p class="text-xs text-gray-500 text-center">Senior Android Developer at Google</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection9.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Lucas Bell</p>
-                    <p class="text-xs text-gray-500 text-center">Creative Writer at Upwork</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection10.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Debra Herring</p>
-                    <p class="text-xs text-gray-500 text-center">Co-Founder at Alpine.js</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection11.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Benjamin Farrior</p>
-                    <p class="text-xs text-gray-500 text-center">Software Engineer Lead at Microsoft</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection12.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Maria Heal</p>
-                    <p class="text-xs text-gray-500 text-center">Linux System Administrator at Twitter</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection13.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Edward Ice</p>
-                    <p class="text-xs text-gray-500 text-center">Customer Support at Instagram</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection14.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Jeffery Silver</p>
-                    <p class="text-xs text-gray-500 text-center">Software Engineer at Twitter</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection15.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Jennifer Schultz</p>
-                    <p class="text-xs text-gray-500 text-center">Project Manager at Google</p>
-                </a>
-                <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                    <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection16.jpg" class="w-16 rounded-full">
-                    <p class="text-center font-bold text-sm mt-1">Joseph Marlatt</p>
-                    <p class="text-xs text-gray-500 text-center">Team Lead at Facebook</p>
-                </a>
+
+            <div class="bg-white rounded-lg shadow-xl pb-8">
+                <div class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                    @foreach($user->videos as $video)
+                        <div class="relative w-full h-60 bg-cover bg-center bg-no-repeat"  id="videosPage" style="background-image: url('https://sf-tk-sg.ibytedtos.com/obj/tiktok-web-sg/tt-sg-article-cover-351970d5103b996fbe9ddc67f6d668cc.gif');">
+                            <a href="{{ route('readVideo', $video->id) }}" class="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>{{$video->description}}</span>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
+            @else
+                <div>No data</div>
+            @endif
+        @endif
+
     </div>
     @endforeach
 

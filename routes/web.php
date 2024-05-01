@@ -87,7 +87,8 @@ Route::middleware('auth', 'user')->group(function () {
 
     Route::get('/follow/{id}', [FriendsListController::class, 'follow'])->name('follow');
     Route::get('/followers/listFollowers', [FriendsListController::class, 'listFollowers'])->name('listFollowers');
-    Route::post('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
+    Route::get('/listFollowings', [FriendsListController::class, 'listFollowings'])->name('listFollowings');
+    Route::get('/followers/acceptation{id}', [FriendsListController::class, 'acceptation'])->name('acceptation');
 
     Route::get('/unfollow/{id}', [FriendsListController::class, 'unfollow'])->name('unfollow');
     Route::get('/followers/block/{id}', [FriendsListController::class, 'block'])->name('block');
@@ -95,6 +96,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/profile/{id}', [FriendsListController::class, 'profile'])->name('profile');
     Route::get('/EditProfile', [FriendsListController::class, 'EditProfile'])->name('EditProfile');
     Route::put('/profile/updateInfos', [FriendsListController::class, 'updateProfile'])->name('updateProfile');
+    Route::get('/acceptationChoose/{acceptation}', [FriendsListController::class, 'acceptationChoose'])->name('acceptationChoose');
     Route::get('/profile/share/{userId}/{conversationId}', [FriendsListController::class, 'shareProfile'])->name('share.profile');
     Route::get('/profile/status/{statusData}', [FriendsListController::class, 'status'])->name('status');
 

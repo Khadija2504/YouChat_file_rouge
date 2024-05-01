@@ -3,14 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchPost;
+use App\Models\Comment;
+use App\Models\Post;
+use App\Models\Reel;
 use App\Models\User;
+use App\Models\video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class adminBoard extends Controller
 {
     public function dashboard(){
-        return view('admin.dashboard');
+        $usersCount = User::count();
+        $banUsers = User::where('ban', true)->count();
+        $posts = Post::withCount('comments');
+        $postsCount = Post::count();
+        $videosCount = video::count();
+        $reelsCount = Reel::count();
+
+        $postWithALotOfComments = $posts->first();
+        $userWithALotOfFollowers = User::withCount('followers')->get()->sortByDesc('followers_count')->take(5);
+
+        return view('admin.dashboard', compact('postWithALotOfComments', 'banUsers', 'usersCount', 'postsCount', 'videosCount', 'reelsCount', 'userWithALotOfFollowers'));
     }
     public function usersList(){
         $users = User::with('comments', 'posts')->paginate(6);
@@ -18,7 +32,6 @@ class adminBoard extends Controller
     }
     public function profileUser($id){
         $users = User::with('comments', 'followers', 'posts', 'videos', 'reels', 'events')->find($id);
-        // dd($users);
         return view('admin.profileUser', compact('users'));
     }
     public function banner($id){

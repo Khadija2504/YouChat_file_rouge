@@ -182,7 +182,7 @@ class PostController extends Controller
             $posts = Post::where('description', 'like', "%$search%")
                         ->with('comments', 'users', 'postVotes', 'photos', 'favorites')
                         ->orderBy('created_at', 'desc')->limit(4)->get();
-            $users = User::where('name', 'like', "%$search%")->orderBy('created_at', 'desc')->limit(4)->get();
+            $users = User::where('name', 'like', "%$search%")->withCount('followers')->orderBy('created_at', 'desc')->limit(4)->get();
             $videos = video::where('titre', 'like', "%$search%")->orWhere('description', 'like', "%$search%")->orderBy('created_at', 'desc')->limit(4)->get();
             $reels = Reel::where('description', 'like', "%$search%")->orderBy('created_at', 'desc')->limit(4)->get();
             $posts->transform(function($post){

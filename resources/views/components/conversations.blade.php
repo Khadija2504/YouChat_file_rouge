@@ -43,6 +43,7 @@
                 </div>
               </form>
        </div>
+       <div id="searchResultUsers"></div>
        <ul role="list" id="search-result_users" class="divide-y divide-gray-200 dark:divide-gray-700">
        </ul>
             <ul role="list" id="old_list" style="display: block" class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -86,7 +87,6 @@
                 @endforeach
             </ul>
        </div>
-
     </div>
     </div>
 </div>
@@ -102,7 +102,6 @@
 
         if(searchValue === '') {
             searchResultUsers.empty();
-            old_list.style.display = 'block';
         } else {
             var formData = new FormData($('#searchFormUsers')[0]);
             formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
