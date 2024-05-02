@@ -31,7 +31,7 @@ class EventController extends Controller
         return redirect()->back()->with('msg', 'event created successfully');
     }
     public function displayEvents(){
-        $events = Evenement::with('voteEvent')->get();
+        $events = Evenement::with('voteEvent', 'users')->get();
         $categories = category::all();
         return view('events.displayEvents', compact('events', 'categories'));
     }

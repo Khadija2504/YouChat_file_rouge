@@ -15,23 +15,27 @@
     <nav>
       <div class="nav__logo">YouChat<span>.</span></div>
       @auth
+      @if(Auth::user()->role == 'user')
       <ul class="nav__links">
-        <li class="link"><a href="#">Home</a></li>
-        <li class="link"><a href="#">Destinations</a></li>
-        <li class="link"><a href="#">Pricing</a></li>
-        <a href="{{ url('/logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Logout</a>
-
-        <li class="link"><a href="#">Reviews</a></li>
+        <li class="link"><a href="{{route('welcome')}}">Welcome</a></li>
+        <li class="link"><a href="{{route('home')}}">Home</a></li>
       </ul>
+      <a href="{{ url('/logout') }}"><button class="btn">Logout</button></a>
       @else
       <ul class="nav__links">
-        <li class="link"><a href="#">Home</a></li>
-        <li class="link"><a href="#">logout</a></li>
-        <li class="link"><a href="#">register</a></li>
-        <li class="link"><a href="#">Reviews</a></li>
+        <li class="link"><a href="{{route('welcome')}}">Welcome</a></li>
+        <li class="link"><a href="{{route('dashboard')}}">Dashboard</a></li>
       </ul>
+      <a href="{{ url('/logout') }}"><button class="btn">Logout</button></a>
+      @endif
+
+      @else
+      <ul class="nav__links">
+        <li class="link"><a href="{{route('welcome')}}">Welcome</a></li>
+        <li class="link"><a href="{{route('register')}}">register</a></li>
+      </ul>
+      <a href="{{route('login')}}"><button class="btn">Login</button></a>
       @endauth
-      <button class="btn">Login</button>
     </nav>
     <header>
       <div class="section__container header__container">

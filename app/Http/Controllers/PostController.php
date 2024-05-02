@@ -233,10 +233,11 @@ class PostController extends Controller
             'to_id' => Auth::user()->id,
             'message' => $message,
         ]);
+        $var = Message::where('id', $sendMessage->id)->first();
         return response()->json([
             'msg' => 'post share successful',
             'success' => true,
-            'sendMessage' => $sendMessage,
+            'sendMessage' => $var,
         ]);
     }
 

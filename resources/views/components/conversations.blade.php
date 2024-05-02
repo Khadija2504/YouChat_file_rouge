@@ -50,7 +50,7 @@
                 @foreach($conversations as $conversation)
                 <li class="py-3 sm:py-4">
                     <div class="flex items-center space-x-4">
-                        <input type="hidden" id="post_id" data-post-id="{{$post->id}}">
+                        {{-- <input type="hidden" id="post_id" data-post-id="{{$post->id}}"> --}}
                         <div class="flex-shrink-0">
                             @if($conversation->users->id == Auth::user()->id)
                             <img class="w-8 h-8 rounded-full" src="{{asset('' . $conversation->friends->avatar)}}" alt="Neil image">
@@ -119,7 +119,7 @@
                     data.conversations.forEach(function(chat) {
                         var conversationId = chat.chat_room_id;
                         var user = chat.user;
-                        var result = `
+                        var resultSearch = `
                         <li class="py-3 sm:py-4">
                             <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
@@ -144,7 +144,7 @@
                             </div>
                         </li>
                         `;
-                        searchResultUsers.append(result);
+                        searchResultUsers.append(resultSearch);
                     });
                 },
                 error: function(xhr, status, error) {
@@ -155,9 +155,8 @@
     });
 });
 
-
     $(document).ready(function(){
-        $(document).on('click', '#share_button', function(){
+        $(document).off("click").on('click', '#share_button', function(){
           var postId = $(this).data('post-id');
           var conversationId = $(this).data('conversation_id');
           var share_button = document.getElementById('share_button');

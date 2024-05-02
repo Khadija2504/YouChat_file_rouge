@@ -1,13 +1,14 @@
 @extends('layouts.app')
 @section('main')
-<div class="flex items-center justify-center">
-    <div class="flex flex-wrap justify-center items-center">
+<main class="h-full w[50%] bg-gray-50 flex flex-wrap items-center justify-center overflow-x-hidden transition-transform duration-300 ease-in-out">
         @foreach($events as $index => $event)
         <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl m-10 mt-10">
                 <img src="{{asset('' . $event->image)}}" alt="event_image" class="object-cover bg-yellow-500 rounded-full w-16 h-16 mx-auto absolute bottom-[270px] left-4">
             <div class="mt-8">
                 
                 <p class="text-xl font-semibold my-2">{{$event->title}}</p>
+                <a href="{{route('profile', $event->users->id)}}">{{$event->users->name}}</a>
+                @if(Auth::user()->id == $event->user_id)
                 <div x-data="{ openSettings{{$index}}: false }">
                     <button @click="openSettings{{$index}} = !openSettings{{$index}}" class="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20" title="Settings">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,6 +57,7 @@
                     </div>
                 </div>
                 </div>
+                @endif
             </div>
                 <div class="flex space-x-2 text-gray-400 text-sm">
                     
@@ -123,10 +125,8 @@
                         </div>
                     </div>
             </div>
-        </div>
         @endforeach
-    </div>
-</div>
+</main>
 @endsection
 
 <script>

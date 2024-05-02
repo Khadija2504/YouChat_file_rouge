@@ -367,7 +367,7 @@
           </div>
         <div id="menu" class="flex flex-col space-y-2">
           <a
-            href="{{route('home')}}"
+            href="{{route('welcome')}}"
             class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
           >
             <svg
@@ -380,16 +380,7 @@
                 d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
               ></path>
             </svg>
-            <span class="">Home</span>
-          </a>
-          <a
-            href="{{route('savedPosts')}}"
-            class="text-sm font-medium text-gray-700 flex justify-start py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <span class="material-symbols-outlined">
-              bookmarks
-              </span>
-            <span class="ml-1">Favorites</span>
+            <span class="">welcome</span>
           </a>
           <a
             href="{{route('addFormReel')}}"
@@ -403,25 +394,6 @@
             <path d="M22 8.35937V12.7394C22 13.1094 21.61 13.3494 21.28 13.1794C20.44 12.7394 19.48 12.4994 18.5 12.4994C16.89 12.4994 15.32 13.1594 14.2 14.3094C13.1 15.4294 12.5 16.9194 12.5 18.4994C12.5 19.3094 12.82 20.3494 13.22 21.2194C13.38 21.5694 13.14 21.9994 12.75 21.9994H7.81C4.6 21.9994 2 19.3994 2 16.1894V8.35937C2 8.07937 2.22 7.85938 2.5 7.85938H21.5C21.78 7.85938 22 8.07937 22 8.35937Z" fill="#292D32"/>
           </svg>
             <span class="">Add reel</span>
-          </a>
-          <a
-            href="{{route('chatRoom')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <svg
-              class="w-6 h-6 fill-current inline-block"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"
-              ></path>
-              <path
-                d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"
-              ></path>
-            </svg>
-            <span class="">Chat</span>
           </a>
           <a
             href="{{route('createFormEvent')}}"
@@ -447,23 +419,7 @@
           <svg fill="#000000" width="22px"  class="w-6 h-6 fill-current inline-block" height="22px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
             <path d="M960 293.333v160H186.667C171.939 453.333 160 465.272 160 480v1253.33c0 14.73 11.939 26.67 26.667 26.67H1440c14.73 0 26.67-11.94 26.67-26.67V960h160v773.33c0 103.1-83.58 186.67-186.67 186.67H186.667C83.573 1920 0 1836.43 0 1733.33V480c0-103.093 83.573-186.667 186.667-186.667H960ZM586.667 800 1120 1120l-533.333 320V800ZM1626.67 0v293.333H1920v160h-293.33v293.334h-160V453.333h-293.34v-160h293.34V0h160Z" fill-rule="evenodd"/>
           </svg>
-            <span class="">videos</span>
-          </a>
-          <a
-            href="{{route('listFollowers')}}"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-orange-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <svg
-              class="w-6 h-6 fill-current inline-block"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-              ></path>
-            </svg>
-            <span class="">followers</span>
+            <span class="">Add videos</span>
           </a>
         </div>
         </div>
