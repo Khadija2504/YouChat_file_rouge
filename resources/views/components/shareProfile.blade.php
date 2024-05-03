@@ -157,7 +157,7 @@
 });
 
     $(document).ready(function(){
-        $(document).off("click").on('click', '#share_button_profile', function(){
+        $(document).on('click', '#share_button_profile', function(){
           var profileId = $(this).data('profile-id');
           var conversationId = $(this).data('conversation_id');
           var share_button_profile = document.getElementById('share_button_profile');
@@ -169,7 +169,7 @@
                     console.log(data);
                     if(data.success == true) {
                         share_button_profile.style.display = "none";
-                        shared_button_profile.style.display = "block";
+                            .style.display = "block";
                     }
                 }
             });

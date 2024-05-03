@@ -50,7 +50,7 @@
                 @foreach($conversations as $conversation)
                 <li class="py-3 sm:py-4">
                     <div class="flex items-center space-x-4">
-                        {{-- <input type="hidden" id="post_id" data-post-id="{{$post->id}}"> --}}
+                        <input type="hidden" id="post_id" value="{{$post->id}}" >
                         <div class="flex-shrink-0">
                             @if($conversation->users->id == Auth::user()->id)
                             <img class="w-8 h-8 rounded-full" src="{{asset('' . $conversation->friends->avatar)}}" alt="Neil image">
@@ -74,12 +74,12 @@
                                 @endif
                             </p>
                         </div>
-                        <button id="share_button" style="display: block" data-post-id="{{$post->id}}" data-conversation_id="{{$conversation->id}}">
+                        <button id="share_button_{{$post->id}}" style="display: block" data-post-id="{{$post->id}}" data-conversation_id="{{$conversation->id}}">
                             <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.61109 12.4L10.8183 18.5355C11.0462 19.6939 12.6026 19.9244 13.1565 18.8818L19.0211 7.84263C19.248 7.41555 19.2006 6.94354 18.9737 6.58417M9.61109 12.4L5.22642 8.15534C4.41653 7.37131 4.97155 6 6.09877 6H17.9135C18.3758 6 18.7568 6.24061 18.9737 6.58417M9.61109 12.4L18.9737 6.58417M19.0555 6.53333L18.9737 6.58417" stroke="#0089ee" stroke-width="2"/>
                             </svg>
                         </button>
-                        <svg id="shared_button" style="display: none" width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg id="shared_button_{{$post->id}}" style="display: none" width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.61109 12.4L10.8183 18.5355C11.0462 19.6939 12.6026 19.9244 13.1565 18.8818L19.0211 7.84263C19.248 7.41555 19.2006 6.94354 18.9737 6.58417M9.61109 12.4L5.22642 8.15534C4.41653 7.37131 4.97155 6 6.09877 6H17.9135C18.3758 6 18.7568 6.24061 18.9737 6.58417M9.61109 12.4L18.9737 6.58417M19.0555 6.53333L18.9737 6.58417" stroke="#000000" stroke-width="2"/>
                         </svg>
                     </div>
@@ -90,18 +90,23 @@
     </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script>
-    $(document).ready(function(){
-    $('#searchInputUsers').on('keyup', function(event){
+  $(document).ready(function(){
+    $('#searchInputUsers').on('input', function(event){
         event.preventDefault();
         var searchValue = $(this).val().trim();
+        console.log(searchValue);
         var searchResultUsers = $('#search-result_users');
         var post_id = document.getElementById('post_id');
-        var postId = post_id.getAttribute('data-post-id');
+        var postId = post_id.val;
         var old_list = document.getElementById('old_list');
+        console.log(searchResultUsers);
 
         if(searchValue === '') {
             searchResultUsers.empty();
+            old_list.style.display = 'block';
         } else {
             var formData = new FormData($('#searchFormUsers')[0]);
             formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
@@ -119,7 +124,7 @@
                     data.conversations.forEach(function(chat) {
                         var conversationId = chat.chat_room_id;
                         var user = chat.user;
-                        var resultSearch = `
+                        var result = `
                         <li class="py-3 sm:py-4">
                             <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
@@ -133,18 +138,18 @@
                                         ${user.email}
                                     </p>
                                 </div>
-                                <button id="share_button" style="display: block" data-post-id="${postId}" data-conversation_id="${conversationId}">
+                                <button id="share_button_profile" style="display: block" data-profile-id="${postId}" data-conversation_id="${conversationId}">
                                     <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.61109 12.4L10.8183 18.5355C11.0462 19.6939 12.6026 19.9244 13.1565 18.8818L19.0211 7.84263C19.248 7.41555 19.2006 6.94354 18.9737 6.58417M9.61109 12.4L5.22642 8.15534C4.41653 7.37131 4.97155 6 6.09877 6H17.9135C18.3758 6 18.7568 6.24061 18.9737 6.58417M9.61109 12.4L18.9737 6.58417M19.0555 6.53333L18.9737 6.58417" stroke="#0089ee" stroke-width="2"/>
                                     </svg>
                                 </button>
-                                <svg id="shared_button" style="display: none" width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg id="shared_button_profile" style="display: none" width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.61109 12.4L10.8183 18.5355C11.0462 19.6939 12.6026 19.9244 13.1565 18.8818L19.0211 7.84263C19.248 7.41555 19.2006 6.94354 18.9737 6.58417M9.61109 12.4L5.22642 8.15534C4.41653 7.37131 4.97155 6 6.09877 6H17.9135C18.3758 6 18.7568 6.24061 18.9737 6.58417M9.61109 12.4L18.9737 6.58417M19.0555 6.53333L18.9737 6.58417" stroke="#000000" stroke-width="2"/>
                                 </svg>
                             </div>
                         </li>
                         `;
-                        searchResultUsers.append(resultSearch);
+                        searchResultUsers.append(result);
                     });
                 },
                 error: function(xhr, status, error) {
@@ -155,12 +160,14 @@
     });
 });
 
+
     $(document).ready(function(){
-        $(document).off("click").on('click', '#share_button', function(){
+        var post_id = {{$post->id}};
+        $(document).on('click', '#share_button_' + post_id, function(){
           var postId = $(this).data('post-id');
           var conversationId = $(this).data('conversation_id');
-          var share_button = document.getElementById('share_button');
-          var shared_button = document.getElementById('shared_button');
+          var share_button = document.getElementById('share_button_'+ post_id);
+          var shared_button = document.getElementById('shared_button_'+ post_id);
           $.ajax({
               url: `http://127.0.0.1:8000/share/post/${postId}/${conversationId}`,
               type: "GET",
